@@ -96,6 +96,8 @@ const App = () => {
         console.error('Error adding a person:', error);
       });
 
+      
+
     // Päivitetään Persons lisäämällä uusi henkilö ja tyjennetään kentät
     setPersons([...persons, newPerson]);
     setNewName('');
