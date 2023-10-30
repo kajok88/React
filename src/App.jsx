@@ -18,7 +18,7 @@ const PersonForm = ({ newName, newNumber, handleNameChange, handleNumberChange, 
       number: <input value={newNumber} onChange={handleNumberChange} />
     </div>
     <div>
-      <button type="submit">add</button>
+      <button type="submit">Add</button>
     </div>
   </form>
 );
@@ -65,9 +65,6 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
 
-
-    
-
     // Tarkistetaan, ettei nimi tai numero ole tyhjiä
     if (newName.trim() === '' || newNumber.trim() === '') {
       alert('Anna nimi ja numero.');
@@ -85,7 +82,7 @@ const App = () => {
       number: newNumber
     };
 
-    // Lähetetään POST-pyyntö palvelimelle uuden henkilön lisäämiseksi
+    // 2.12 -> Lähetetään POST-pyyntö palvelimelle uuden henkilön lisäämiseksi
     axios.post('http://localhost:3000/persons', newPerson)
       .then(response => {
         setPersons([...persons, response.data]); // Päivitetään myös paikallinen tila
@@ -95,8 +92,6 @@ const App = () => {
       .catch(error => {
         console.error('Error adding a person:', error);
       });
-
-      
 
     // Päivitetään Persons lisäämällä uusi henkilö ja tyjennetään kentät
     setPersons([...persons, newPerson]);
