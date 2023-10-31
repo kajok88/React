@@ -1,6 +1,6 @@
 # React
-Tehtävät ja harjotustyö
 
+Tehtävät ja harjotustyö
 
 run from terminal:
 npm install
@@ -10,6 +10,7 @@ npm install json-server
 Json serveri päälle:
 npx json-server --port=3000 --watch db.json
 
-
 Tehtävät:
 https://fullstackopen.com/osa2/
+
+...
