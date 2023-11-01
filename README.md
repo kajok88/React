@@ -1,16 +1,18 @@
-# React
+# React -Tehtävät ja harjotustyö
 
-Tehtävät ja harjotustyö
+**Terminaalista:**
 
-run from terminal:
-npm install
-npm install axios
-npm install json-server
+- npm install
+- npm install axios
+- npm install json-server
 
-Json serveri päälle:
-npx json-server --port=3000 --watch db.json
+---
+
+**Json serveri päälle:**
+
+- npx json-server --port=3000 --watch db.json
+
+---
 
 Tehtävät:
 https://fullstackopen.com/osa2/
-
-....
