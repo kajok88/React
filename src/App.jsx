@@ -1,102 +1,109 @@
 // import React, { useState } from 'react';
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const Filter = ({ filter, handleFilterChange }) => (
-  <div>
-    Filter shown with: <input value={filter} onChange={handleFilterChange} />
-  </div>
-);
-
-const PersonForm = ({ newName, newNumber, handleNameChange, handleNumberChange, addPerson }) => (
-  <form onSubmit={addPerson}>
-    <div>
-      name: <input value={newName} onChange={handleNameChange} />
-    </div>
-    <div>
-      number: <input value={newNumber} onChange={handleNumberChange} />
-    </div>
-    <div>
-      <button type="submit">Add</button>
-    </div>
-  </form>
-);
-
-const Persons = ({ persons }) => (
-  <ul>
-    {persons.map((person, index) => (
-      <li key={index}>
-        {person.name} {person.number}
-      </li>
-    ))}
-  </ul>
-);
+import personService from './services/persons'
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Person';
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
+  const [message, setMessage] = useState(null)
 
-// const App = () => {
-//   const [persons, setPersons] = useState([
-//     { name: 'Arto Hellas', number: '040-123456' },
-//     { name: 'Ada Lovelace', number: '39-44-5323523' },
-//     { name: 'Dan Abramov', number: '12-43-234345' },
-//     { name: 'Mary Poppendieck', number: '39-23-6423122' }
-//   ]);
-//   const [newName, setNewName] = useState('');
-//   const [newNumber, setNewNumber] = useState('');
-//   const [filter, setFilter] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3000/persons')
-      .then(response => {
-        setPersons(response.data);
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons);
         console.log('promise fulfilled')
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []); 
+  }, []);
 
 
   const addPerson = (event) => {
     event.preventDefault();
-
     // Tarkistetaan, ettei nimi tai numero ole tyhjiä
     if (newName.trim() === '' || newNumber.trim() === '') {
-      alert('Anna nimi ja numero.');
+      alert('Give a name and a number.');
       return;
     }
 
-    // Tarkistetaan, ettei nimi ole jo olemassa
-    if (persons.some(person => person.name === newName)) {
-      alert(`${newName} löytyy jo puhelinluettelosta.`);
-      return;
-    }
-
-    const newPerson = {
-      name: newName,
-      number: newNumber
+    const existingPerson = persons.find(person => person.name === newName);
+    if (existingPerson) {
+      if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)){
+        // handleUpdate(updatedPerson.id);
+        personService
+          .update(existingPerson.id, {...existingPerson, number: newNumber})
+          .then(response => {
+            setPersons(persons.map(person => (person.id === existingPerson.id ? response : person)));
+            setNewName('');
+            setNewNumber('');
+            setMessage(
+              `${existingPerson.name} was successfully updated`
+            )
+          })
+          .catch(error => {
+            console.error('Error updating person:', error);
+          });
+      }
+    } else {
+      const newPerson = {
+        name: newName,
+        number: newNumber,
+      };
+      // 2.12 -> Lähetetään POST-pyyntö palvelimelle uuden henkilön lisäämiseksi
+      personService
+        .create(newPerson)
+        .then(returnedPerson => {
+          setPersons([...persons, returnedPerson]); // Päivitetään myös paikallinen tila
+          setNewName('');
+          setNewNumber('');
+          setMessage(
+            `${newName} was successfully added`
+          )
+        })
+        .catch(error => {
+          console.error('Error adding a person:', error);
+        });
     };
+  };
 
-    // 2.12 -> Lähetetään POST-pyyntö palvelimelle uuden henkilön lisäämiseksi
-    axios.post('http://localhost:3000/persons', newPerson)
-      .then(response => {
-        setPersons([...persons, response.data]); // Päivitetään myös paikallinen tila
-        setNewName('');
-        setNewNumber('');
-      })
-      .catch(error => {
-        console.error('Error adding a person:', error);
-      });
+  const handleUpdate = (id) => {
+    const personToUpdate = persons.find(person => person.id === id);
+    const name = personToUpdate.name;
+    const number = window.prompt(`Update number for ${name}`, personToUpdate.number);
 
-    // Päivitetään Persons lisäämällä uusi henkilö ja tyjennetään kentät
-    setPersons([...persons, newPerson]);
-    setNewName('');
-    setNewNumber('');
+    if (number !== null) {
+      personService
+        .update(id, {...personToUpdate, number: number})
+        .then(response => {
+          setPersons(persons.map(person => (person.id === id ? response : person)));
+        })
+        .catch(error => {
+          console.error('Error updating person:', error);
+        });
+    }
+  };
+
+  const handleDelete = (id, name) => {
+    if (window.confirm(`Delete ${name}?`)) {
+      personService
+        .remove(id)
+        .then(() => {
+          setPersons(persons.filter(person => person.id !== id));
+        })
+        .catch(error => {
+          console.error('Error deleting a person:', error);
+        });
+    }
   };
 
   const handleNameChange = (event) => {
@@ -117,9 +124,11 @@ const App = () => {
 
   return (
     <div>
+      
       <h2>Phonebook</h2>
 
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
+      <Notification message={message} />
 
       <h3>Add a new</h3>
 
@@ -133,7 +142,11 @@ const App = () => {
 
       <h3>Numbers</h3>
 
-      <Persons persons={filteredPersons} />
+      <Persons
+        persons={filteredPersons}
+        handleDelete={handleDelete}
+        handleUpdate={handleUpdate}
+      />
     </div>
   );
 };
@@ -142,15 +155,4 @@ const App = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
 export default App
-  
