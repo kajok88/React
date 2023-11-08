@@ -9,7 +9,7 @@ const error = {
     padding: 10,
     margin_bottom: 10,
   }
-  const notification = {
+  const success = {
     color: 'green',
     background: 'lightgrey',
     font_size: 20,
@@ -33,7 +33,7 @@ const Notification = ({ message }) => {
     }
     else if (message.includes('added') || message.includes('updated')){
       return (
-        <div style={notification} className="error">
+        <div style={success} className="error">
           {message}
         </div>
       )
