@@ -12,7 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState(null);
 
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const App = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
+      
   }, []);
 
 
@@ -39,7 +40,7 @@ const App = () => {
     const existingPerson = persons.find(person => person.name === newName);
     if (existingPerson) {
       if (window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)){
-        // handleUpdate(updatedPerson.id);
+        // handleUpdate(existing.id);
         personService
           .update(existingPerson.id, {...existingPerson, number: newNumber})
           .then(response => {
@@ -48,7 +49,10 @@ const App = () => {
             setNewNumber('');
             setMessage(
               `${existingPerson.name} was successfully updated`
-            )
+            );
+            setTimeout(() => {
+              setMessage(null)
+            }, 2500);
           })
           .catch(error => {
             console.error('Error updating person:', error);
@@ -68,7 +72,10 @@ const App = () => {
           setNewNumber('');
           setMessage(
             `${newName} was successfully added`
-          )
+          );
+          setTimeout(() => {
+            setMessage(null)
+          }, 2500);
         })
         .catch(error => {
           console.error('Error adding a person:', error);
@@ -86,6 +93,12 @@ const App = () => {
         .update(id, {...personToUpdate, number: number})
         .then(response => {
           setPersons(persons.map(person => (person.id === id ? response : person)));
+          setMessage(
+            `${personToUpdate.name} was successfully updated`
+          );
+          setTimeout(() => {
+            setMessage(null)
+          }, 2500);
         })
         .catch(error => {
           console.error('Error updating person:', error);
@@ -99,6 +112,12 @@ const App = () => {
         .remove(id)
         .then(() => {
           setPersons(persons.filter(person => person.id !== id));
+          setMessage(
+            `${name} was successfully deleted`
+          );
+          setTimeout(() => {
+            setMessage(null)
+          }, 2500);
         })
         .catch(error => {
           console.error('Error deleting a person:', error);
@@ -121,6 +140,7 @@ const App = () => {
   const filteredPersons = persons.filter(person =>
     person.name.toLowerCase().includes(filter.toLowerCase())
   );
+  
 
   return (
     <div>
