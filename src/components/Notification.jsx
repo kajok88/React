@@ -18,6 +18,15 @@ const error = {
     padding: 10,
     margin_bottom: 10,
   }
+  const info = {
+    color: 'blue',
+    background: 'lightgrey',
+    font_size: 20,
+    border_style: 'solid',
+    border_radius: 5,
+    padding: 10,
+    margin_bottom: 10,
+  }
 
 
 const Notification = ({ message }) => {
@@ -34,6 +43,12 @@ const Notification = ({ message }) => {
     else if (message.includes('added') || message.includes('updated')){
       return (
         <div style={success} className="error">
+          {message}
+        </div>
+      )
+    } else {
+      return (
+        <div style={info} className="error">
           {message}
         </div>
       )
