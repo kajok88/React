@@ -21,9 +21,16 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons);
         console.log('promise fulfilled')
+        setMessage(null)
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setMessage(
+          `Json server could not be accessed.`
+        );
+        setTimeout(() => {
+          getAll();
+        }, 3000);
       });
       
   }, []);
@@ -62,9 +69,6 @@ const App = () => {
             setMessage(
               `${existingPerson.name} was already deleted from server`
             );
-            setTimeout(() => {
-              setMessage(null)
-            }, 2500);
           });
       }
     } else {
@@ -88,6 +92,15 @@ const App = () => {
         })
         .catch(error => {
           console.error('Error adding a person:', error);
+          setPersons(persons.filter(person => person.id !== returnedPerson));
+            setNewName('');
+            setNewNumber('');
+            setMessage(
+              `Json server could not be accessed.`
+            );
+            setTimeout(() => {
+              setMessage(null)
+            }, 2500);
         });
     };
   };
