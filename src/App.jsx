@@ -124,6 +124,15 @@ const App = () => {
         })
         .catch(error => {
           console.error('Error updating person:', error);
+          setPersons(persons.filter(person => person.id !== id));
+          setNewName('');
+          setNewNumber('');
+          setMessage(
+            `Information of ${personToUpdate.name} was already deleted from server`
+          );
+          setTimeout(() => {
+            setMessage(null)
+          }, 2500);
         });
     }
   };
