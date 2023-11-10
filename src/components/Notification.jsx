@@ -33,7 +33,7 @@ const Notification = ({ message }) => {
     if (message === null) {
       return null
     }
-    else if (message.includes('deleted')){
+    else if (message.includes('successfully deleted')){
       return (
         <div style={error} className="error">
           {message}
