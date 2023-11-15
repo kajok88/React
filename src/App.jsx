@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import CountryForm from './components/CountryForm'
+import Filter from './components/Filter';
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,11 +23,10 @@ const App = () => {
       setFilteredCountries([]);
       return;
     }
-
     const filtered = countries.filter(country =>
       country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
+    
     if (filtered.length > 10) {
       setFilteredCountries([]);
     } else {
@@ -40,15 +41,10 @@ const App = () => {
   return (
     <div>
       <h2>Country Information</h2>
-      <form>
-        <label htmlFor="search">Search countries:</label>
-        <input
-          type="text"
-          id="search"
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-      </form>
+      <CountryForm
+        searchTerm={searchTerm}
+        handleSearch={handleSearch}
+      />
       {filteredCountries.length === 0 && searchTerm.trim() !== '' && (
         <p>No matching countries found. Please refine your search.</p>
       )}
