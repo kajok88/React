@@ -4,7 +4,7 @@ import CountryForm from './components/CountryForm'
 import Filter from './components/Filter';
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('');
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
 
@@ -19,12 +19,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (searchTerm.trim() === '') {
+    if (filter.trim() === '') {
       setFilteredCountries([]);
       return;
     }
     const filtered = countries.filter(country =>
-      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+      country.name.common.toLowerCase().includes(filter.toLowerCase())
     );
     
     if (filtered.length > 10) {
@@ -32,20 +32,29 @@ const App = () => {
     } else {
       setFilteredCountries(filtered);
     }
-  }, [searchTerm, countries]);
+  }, [filter, countries]);
 
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
+  // const handleSearch = (event) => {
+  //   setFilter(event.target.value);
+  // };
+
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
   };
 
   return (
     <div>
       <h2>Country Information</h2>
-      <CountryForm
-        searchTerm={searchTerm}
+      {/* <CountryForm
+        filter={filter}
         handleSearch={handleSearch}
+      /> */}
+      <Filter
+        filter={filter}
+        handleFilterChange={handleFilterChange}
       />
-      {filteredCountries.length === 0 && searchTerm.trim() !== '' && (
+      
+      {filteredCountries.length === 0 && filter.trim() !== '' && (
         <p>No matching countries found. Please refine your search.</p>
       )}
       {filteredCountries.length > 10 && (
