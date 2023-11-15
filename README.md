@@ -20,3 +20,22 @@
 
 Tehtävät:
 https://fullstackopen.com/osa2/
+
+
+## Harjoitustyö
+
+**Idea:**
+
+    Karttasovellus, jolla voi etsiä kaupunkeja ja niistä paikallista- ja säätietoa.  
+
+**Näkymässä:**
+    
+    - Aloitussivu joka kysyy palveluiden API-keyt
+    - Hakukenttä
+    - Karttapohja
+    - Kohteen tiedot
+        - Lippu
+        - Väkiluku
+        - Sää ja kellonaika
+
+
