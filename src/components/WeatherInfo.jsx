@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const WeatherData = ({ city }) => {
+const WeatherInfo = ({ city }) => {
   const API_KEY = 'c1a22188c7df4ddaa42174210231411'
   const [weather, setWeather] = useState([]);
 
@@ -21,6 +21,7 @@ const WeatherData = ({ city }) => {
         <div>
           <h2>Weather in {city}</h2>
           <div>Temperature {weather.current.temp_c}°C</div>
+          <div>Feels like {weather.current.feelslike_c}°C</div>
           <img
             alt="weather icon"
             src={weather.current.condition.icon}
@@ -32,4 +33,4 @@ const WeatherData = ({ city }) => {
   );
 };
 
-export default WeatherData;
+export default WeatherInfo;

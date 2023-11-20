@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Countries from "./components/Countries";
-import CountryData from "./components/CountryData";
+import CountryForm from "./components/CountryForm";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -30,7 +30,7 @@ const App = () => {
         Find countries <input value={query} onChange={handleQueryChange} />
       </div>
       {countriesToShow.length === 1 ? (
-        <CountryData country={countriesToShow[0]} />
+        <CountryForm country={countriesToShow[0]} />
       ) : null}
       {countriesToShow.length > 10 ? (
         <div>Too many matches, specify another filter</div>

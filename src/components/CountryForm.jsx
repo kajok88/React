@@ -1,17 +1,21 @@
-import React from "react";
+import WeatherInfo from "./WeatherInfo";
 
-const CountryForm = ({filter, handleSearch}) => {
-    return (
-      <form>
-        <label htmlFor="search">Search countries:</label>
-        <input
-          type="text"
-          id="search"
-          value={filter}
-          onChange={handleSearch}
-        />
-      </form>
-    )
-}
+const CountryForm = ({ country }) => {
+  return (
+    <div>
+      <h1>{country.name.common}</h1>
+      <div>Capital: {country.capital}</div>
+      <div>Area: {country.area} km²</div>
+      <h3>Languages:</h3>
+      <ul>
+        {Object.values(country.languages).map((language) => (
+          <li key={language}>{language}</li>
+        ))}
+      </ul>
+      <img src={country.flags.png} alt={`${country.name.common} flag`} />
+      <WeatherInfo city={country.capital} />
+    </div>
+  );
+};
 
-export default CountryForm
+export default CountryForm;
