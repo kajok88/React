@@ -8,11 +8,13 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [countriesToShow, setCountriesToShow] = useState([]);
 
+
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((response) => {
       setCountries(response.data);
     });
   }, []);
+
 
   const handleQueryChange = (event) => {
     const search = event.target.value;
@@ -24,22 +26,23 @@ const App = () => {
     );
   };
 
+
   return (
     <div>
       <div>
         Find countries <input value={query} onChange={handleQueryChange} />
       </div>
-      {countriesToShow.length === 1 ? (
-        <CountryForm country={countriesToShow[0]} />
-      ) : null}
-      {countriesToShow.length > 10 ? (
-        <div>Too many matches, specify another filter</div>
-      ) : (
-        <Countries
-          countriesToShow={countriesToShow}
-          setCountriesToShow={setCountriesToShow}
-        />
-      )}
+        {countriesToShow.length === 1 ? (
+          <CountryForm country={countriesToShow[0]} />
+        ) : null}
+        {countriesToShow.length > 10 ? (
+      <div>Too many matches, specify another filter</div>
+        ) : (
+          <Countries
+            countriesToShow={countriesToShow}
+            setCountriesToShow={setCountriesToShow}
+          />
+        )}
     </div>
   );
 };
