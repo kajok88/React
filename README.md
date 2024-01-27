@@ -1,4 +1,4 @@
-# React -Tehtävät ja harjotustyö
+# React -Tehtävät
 
 **Setup terminaalista:**
 
