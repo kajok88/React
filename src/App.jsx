@@ -26,7 +26,7 @@ const App = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
         setMessage(
-          `Json server could not be accessed.`
+          `Server could not be accessed.`
         );
         setTimeout(() => {
           getAll();
@@ -96,7 +96,7 @@ const App = () => {
             setNewName('');
             setNewNumber('');
             setMessage(
-              `Json server could not be accessed.`
+              `Server could not be accessed.`
             );
             setTimeout(() => {
               setMessage(null)
