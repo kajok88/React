@@ -1,22 +1,9 @@
-# React -Tehtävät ja harjotustyö
+# FullStackOpen - Countries
 
-**Setup terminaalista:**
+**FulllStackOpen tehtävä 2.20.**
 
-- npm install
-- npm install axios
-- npm install json-server
-
-- npm install -g react-devtools
-
----
-
-**Json serveri päälle:**
-- npx json-server --port=3000 --watch db.json
-
-**Run:**
-- npm run dev
-
----
-
-Tehtävät:
-https://fullstackopen.com/osa2/
+> Säätietojen hakemiseen käytetään WeatherAPia.
+>
+>> Luo tunnus ja syötä API avain sovellukseen.
+>> https://www.weatherapi.com/
+>>

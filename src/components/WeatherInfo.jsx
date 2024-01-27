@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const WeatherInfo = ({ city }) => {
-  const API_KEY = 'c1a22188c7df4ddaa42174210231411'
+
+  const API_KEY = ''; // Inster your API key:
   const [weather, setWeather] = useState([]);
 
   useEffect(() => {
