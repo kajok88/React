@@ -23,7 +23,8 @@ const ApiSubmitPage = ({ onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    Cookies.set("weatherApiKey", weatherApiKey);
+    // Cookie expires in 14 days.
+    Cookies.set("weatherApiKey", weatherApiKey, { expires: 14 });
     setSaved(true);
     onSubmit(weatherApiKey);
     // Clears the input field after submitting
