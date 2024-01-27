@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const WeatherInfo = ({ city }) => {
-
-  const API_KEY = ''; // Inster your API key:
+  const API_KEY = Cookies.get('weatherApiKey');
   const [weather, setWeather] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios
@@ -13,8 +14,22 @@ const WeatherInfo = ({ city }) => {
       )
       .then((response) => {
         setWeather(response.data);
+      })
+      .catch((error) => {
+        setError(error.response ? error.response.data.error.message : "An error occurred");
       });
   }, []);
+
+  if (error) {
+    return (
+      <>
+      <div><br></br>
+        <strong>Weather API Error:</strong> {error} <br></br>Please check your API keys.
+      </div>
+      </>
+    )
+  }
+
 
   return (
     <>
