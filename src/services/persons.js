@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // NodeFSO = :3003/persons
 // Json server = :3000/persons
-const baseUrl = 'http://localhost:3003/persons';
+const baseUrl = 'http://localhost:3004/persons';
 
 const getAll = () => {
     const request = axios.get(baseUrl)
