@@ -20,6 +20,7 @@ const WeatherInfo = ({ city }) => {
       });
   }, []);
 
+
   if (error) {
     return (
       <>
