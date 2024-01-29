@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Icon } from 'leaflet';
@@ -36,6 +36,16 @@ const Map = () => {
     iconSize: [40,40]
   });
 
+  const MapEvents = () => {
+    useMapEvents({
+      click(e) {
+        console.log(e.latlng.lat);
+        console.log(e.latlng.lng);
+      },
+    });
+    return false;
+}
+
   
     return (
       <>
@@ -56,6 +66,7 @@ const Map = () => {
                   A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
             </Marker>
+            <MapEvents />
           </MapContainer>
         )}
       </div>
