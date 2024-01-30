@@ -36,3 +36,8 @@
     - Maatieto Api: https://restcountries.com/v3.1/all
     - Sää Api: https://www.weatherapi.com/
     - Kartta Api: https://developer.mapquest.com/user/login
+
+
+**Setup:**
+- npm intall:
+- > 
