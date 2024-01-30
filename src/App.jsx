@@ -5,6 +5,7 @@ import Countries from "./components/Countries";
 import CountryForm from "./components/CountryForm";
 import SubmitApiKeys from "./components/SubmitApiKeys";
 import Leaflet from "./components/Leaflet";
+import Map from "./components/Map";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -77,7 +78,8 @@ const App = () => {
               setCountriesToShow={setCountriesToShow}
             />
           )}
-          <Leaflet/>
+          {/* <Leaflet/> */}
+          <Map />
         </div>
       )}
     </div>
