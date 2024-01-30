@@ -1,31 +1,69 @@
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Icon } from 'leaflet';
+import { Icon, L } from 'leaflet';
+import "leaflet-easybutton/src/easy-button.js";
+import "leaflet-easybutton/src/easy-button.css";
+import "font-awesome/css/font-awesome.min.css";
+import "/src/App.css";
 
 const Map = () => {
-  const [coordinates, setCoordinates] = useState("");
-    
+  const [yourCoordinates, setYourCoordinates] = useState("");
+  const [clickedCoordinates, setClickedCoordinates] = useState("");
+
   useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setCoordinates({ latitude, longitude });
+          setYourCoordinates({ latitude, longitude });
 
         },
         (error) => {
           // If location permission denied, set coordinates to Helsinki
           console.error('Error getting location:', error.message);
-          setCoordinates({ latitude: 60.1695, longitude: 24.9354 });
+          setYourCoordinates({ latitude: 60.1695, longitude: 24.9354 });
         }
       );
     } else {
       // In case of some other error, also set coordinates to Helsinki
       console.error('Geolocation is not supported by your browser');
-      setCoordinates({ latitude: 60.1695, longitude: 24.9354 });
+      setYourCoordinates({ latitude: 60.1695, longitude: 24.9354 });
     }
   }, []);
+
+  // function LocationMarker() {
+  //   const [position, setPosition] = useState(null)
+  //   const map = useMapEvents({
+  //     click() {
+  //       map.locate()
+  //     },
+  //     locationfound(e) {
+  //       setPosition(e.latlng)
+  //       map.flyTo(e.latlng, map.getZoom())
+  //     },
+  //   })
+  
+  const LocationMarker = () => {
+    const [position, setPosition] = useState(null);
+    const map = useMapEvents({
+      locationfound(e) {
+        setPosition(e.latlng);
+        map.flyTo(e.latlng, map.getZoom());
+      },
+    });
+    const handleLocateClick = () => {
+      const map = document.querySelector('.leaflet-container').leafletElement;
+      map.locate();
+    };
+  
+    return position === null ? null : (
+      <>
+      <Marker position={position} icon={pointIcon}>
+        <Popup>You are here</Popup>
+      </Marker>
+      </>
+    )
+  }
 
   const pinIcon = new Icon({
     iconUrl: "pin.png",
@@ -37,38 +75,62 @@ const Map = () => {
   });
 
   const MapEvents = () => {
-    useMapEvents({
+    const map = useMapEvents({
       click(e) {
-        console.log(e.latlng.lat);
-        console.log(e.latlng.lng);
+        const latitude = e.latlng.lat;
+        const longitude = e.latlng.lng;
+        setClickedCoordinates({ latitude, longitude });
+
+        // Center and zoom in on the clicked area with animation
+        map.setView([latitude, longitude]);
       },
     });
-    return false;
-}
+
+    return null; // or false if you prefer
+  };
 
   
     return (
       <>
       <div>
-        {coordinates ? (
-          <p>Your coordinates: {coordinates.latitude}, {coordinates.longitude}</p>
+        <div>
+          {yourCoordinates ? (
+            <p>Your coordinates: {yourCoordinates.latitude}, {yourCoordinates.longitude}</p>
+          ) : (
+            <p>Loading coordinates...</p>
+          )}
+        </div>
+        <div>
+        {clickedCoordinates ? (
+          <p>Placed a pin on: {clickedCoordinates.latitude}, {clickedCoordinates.longitude}</p>
         ) : (
-          <p>Loading coordinates...</p>
+          <p>Place a pin with a click:</p>
         )}
-        {coordinates && (
-          <MapContainer center={[coordinates.latitude, coordinates.longitude]} zoom={5} style={{ height: '600px', width: '600px' }} scrollWheelZoom={true}>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[coordinates.latitude, coordinates.longitude]} icon={pointIcon}>
-              <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-            <MapEvents />
-          </MapContainer>
-        )}
+        </div>
+        <div>
+          {yourCoordinates && (
+            <MapContainer 
+              center={[yourCoordinates.latitude, yourCoordinates.longitude]} 
+              zoom={5} 
+              style={{ height: '600px', width: '600px' }} 
+              scrollWheelZoom={true}>
+
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[yourCoordinates.latitude, yourCoordinates.longitude]} icon={pointIcon}>
+                <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+              </Marker>
+
+              <MapEvents></MapEvents>
+              <LocationMarker />
+            </MapContainer>
+          )}
+        </div>
+        
       </div>
       </>
     );
