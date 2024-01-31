@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const WeatherInfo = ({ city }) => {
+const WeatherInfo = ({ city, lat, lng }) => {
   const API_KEY = Cookies.get('weatherApiKey');
   const [weather, setWeather] = useState([]);
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ const WeatherInfo = ({ city }) => {
   useEffect(() => {
     axios
       .get(
-        `https://api.weatherapi.com/v1/current.json?q=${city}&key=${API_KEY}`
+        `https://api.weatherapi.com/v1/current.json?q=${lat},${lng}&key=${API_KEY}`
       )
       .then((response) => {
         setWeather(response.data);
