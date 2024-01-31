@@ -18,7 +18,7 @@ const App = () => {
     axios.get("https://restcountries.com/v3.1/all").then((response) => {
       setCountries(response.data);
     });
-    checkCookie();
+    // checkCookie();
   //   const cookieExists = checkCookie();
   //    if (!cookieExists) {
   
@@ -62,8 +62,6 @@ const App = () => {
     );
   };
   
-
-
   return (
     <div>
       {showApiSubmitPage ? (
