@@ -39,16 +39,21 @@
     - Reverse Geocoding Api: https://www.bigdatacloud.com/free-api/free-reverse-geocode-to-city-api#endpoint
     - Toinen geocoding Api: https://openweathermap.org/api/geocoding-api#direct_name
 
-
-
 **Setup:**
+
 - npm intall
 
-
 **Muistiinpanot**
-> seuraavaksi sininen pinni raahattavaks.
+
 > molempien pinnien koordinaateista tehdään reverse geokoodaushaku joka palauttaa kaupungin ja maan
-> > kaupunki: 
-> > > menee säänhaku komponentille ja näyttää sään molemmille pinnille.
-> > maa:
-> > > menee countryforms komponentille ja näyttää maatiedon molemmista pinneistä.
+>
+>> kaupunki:
+>>
+>>> menee säänhaku komponentille ja näyttää sään molemmille pinnille.
+>>>
+>>
+>> maa:
+>>
+>>> menee countryforms komponentille ja näyttää maatiedon molemmista pinneistä.
+>>>
+>>
