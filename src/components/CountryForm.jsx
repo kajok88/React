@@ -13,7 +13,7 @@ const CountryForm = ({ country }) => {
         ))}
       </ul>
       <img src={country.flags.png} alt={`${country.name.common} flag`} />
-      <WeatherInfo city={country.capital} />
+      {/* <WeatherInfo city={country.capital} lat="61" lng="24" /> */}
     </div>
   );
 };

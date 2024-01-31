@@ -7,6 +7,8 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 
+import GetGeoData from "./GetGeoData";
+
 const { BaseLayer } = LayersControl;
 
 const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
@@ -45,7 +47,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
         const lng = e.latlng.lng;
         setPinPosition({ lat, lng });
         map.setView([lat, lng]);
-        
       },
     });
 
@@ -68,7 +69,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
 
   const MapContainerContents = () => (
     <>
-    <LayersControl>
+      <LayersControl>
         <BaseLayer checked name="OpenStreetMap">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -76,24 +77,30 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
           />
         </BaseLayer>
       </LayersControl>
-    {position === null ? null : (
-      <Marker position={position} icon={pointIcon}>
-        <Popup>You are here</Popup>
-      </Marker>
-    )}
-    {pinPosition === null ? null : (
-    <Marker position={pinPosition} icon={pinIcon}>
-      <Popup>Pinned!</Popup>
-    </Marker>
-    )}
-    {capitalCoordinates ? (
-        <Marker position={[capitalCoordinates.capLat, capitalCoordinates.capLng]} 
-          icon={pinBlueIcon}>
-          <Popup>Pinned!</Popup>
-        </Marker>
-      ) : (
-        null
-      )}
+      <div>
+        {position === null ? null : (
+          <Marker position={position} icon={pointIcon}>
+            <Popup>You are here</Popup>
+          </Marker>
+        )}
+      </div>
+      <div>
+        {pinPosition === null ? null : (
+          <Marker position={pinPosition} icon={pinIcon}>
+            <Popup>Pinned!</Popup>
+          </Marker>
+        )}
+      </div>
+      <div>
+        {capitalCoordinates ? (
+          <Marker position={[capitalCoordinates.capLat, capitalCoordinates.capLng]} 
+            icon={pinBlueIcon}>
+            <Popup>Pinned!</Popup>
+          </Marker>
+        ) : (
+          null
+        )}
+      </div>
     </>
   );
 
@@ -114,52 +121,56 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
         )}
       </div>
       <div>
-      {countryCoordinates ? (
-          <MapContainer 
-          center={[countryCoordinates?.lat, countryCoordinates?.lng]}
-          zoom={4.5}
-          style={{ height: '600px', width: '600px' }} 
-          ref={setMap}
-          // style={{ height: "100vh" }}
-          
-        >
-          <MapContainerContents/>
-
-          <PlacePin></PlacePin>
-          {/* <div>
-            {capitalCoordinates ? (
-              <PlacePin countryCoordinates={countryCoordinates}/>
-            ) : (
+        <div>
+          {countryCoordinates ? (
+            <MapContainer 
+              center={[countryCoordinates?.lat, countryCoordinates?.lng]}
+              zoom={4.5}
+              style={{ height: '600px', width: '600px' }} 
+              ref={setMap}
+              // style={{ height: "100vh" }}
+              >
+              <MapContainerContents/>
               <PlacePin/>
-            )}
-          </div> */}
-          
-        </MapContainer>
-        ) : (
-          null
-        )}
-        {defaultMode ? (
-          <MapContainer 
-          center={[59.225, 18.105]}
-          zoom={4.5}
-          style={{ height: '600px', width: '600px' }} 
-          ref={setMap}
-          // style={{ height: "100vh" }}
-          
-        >
-          <MapContainerContents/>
-          <PlacePin></PlacePin>
-          {/* <div>
-            {capitalCoordinates ? (
-              <PlacePin countryCoordinates={countryCoordinates}/>
-            ) : (
-              <PlacePin/>
-            )}
-          </div> */}
-        </MapContainer>
-        ) : (
-          null
-        )}
+            </MapContainer>
+          ) : (
+            null
+          )}
+        </div>
+        <div>
+          {defaultMode ? (
+            <MapContainer 
+            center={[59.225, 18.105]}
+            zoom={4.5}
+            style={{ height: '600px', width: '600px' }} 
+            ref={setMap}
+            // style={{ height: "100vh" }}
+            >
+            <MapContainerContents/>
+            <PlacePin></PlacePin>
+          </MapContainer>
+          ) : (
+            null
+          )}
+        </div>
+        <div>
+          {capitalCoordinates ? (
+            <>
+            <GetGeoData coordinates={capitalCoordinates} pin={"blue"}/>
+            </>
+          ) : (
+            null
+          )}
+        </div>
+        <div>
+          {pinPosition ? (
+            <>
+            <GetGeoData coordinates={pinPosition} pin={"red"}/>
+            </>
+          ) : (
+            null
+          )}
+        </div>
       </div>
     </>
   );
