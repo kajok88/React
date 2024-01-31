@@ -95,6 +95,7 @@ const Map = ({ coordinates, defaultMode }) => {
           center={[coordinates?.lat, coordinates?.lng]}
           zoom={4.5}
           style={{ height: '600px', width: '600px' }} 
+          ref={setMap}
           // style={{ height: "100vh" }}
           
         >
@@ -109,6 +110,7 @@ const Map = ({ coordinates, defaultMode }) => {
           center={[59.225, 18.105]}
           zoom={4.5}
           style={{ height: '600px', width: '600px' }} 
+          ref={setMap}
           // style={{ height: "100vh" }}
           
         >
