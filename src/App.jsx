@@ -6,6 +6,7 @@ import CountryForm from "./components/CountryForm";
 import SubmitApiKeys from "./components/SubmitApiKeys";
 import Leaflet from "./components/Leaflet";
 import Map from "./components/Map";
+import CountryCoodrinates from "./components/CountryCoordinates";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -54,6 +55,13 @@ const App = () => {
   // const handleSubmit = (weatherApiKey) => {
   //   Cookies.set("weatherApiKey", weatherApiKey);
   // };
+  const GetCountryCoodrinates = () => {
+    if (countriesToShow.length === 1 )
+    return (
+      <p>{countriesToShow[0].region}</p>
+    );
+  };
+  
 
 
   return (
@@ -64,22 +72,39 @@ const App = () => {
         <div>
           <button onClick={handleShowSubmitPage}>Modify API keys</button><br></br>
           <h1>Search for Country</h1>
+          
           <div>
             Find countries <input value={query} onChange={handleQueryChange} />
           </div>
-          {countriesToShow.length === 1 ? (
-            <CountryForm country={countriesToShow[0]} />
-          ) : null}
-          {countriesToShow.length > 10 ? (
-            <div>Too many matches, specify another filter</div>
-          ) : (
-            <Countries
-              countriesToShow={countriesToShow}
-              setCountriesToShow={setCountriesToShow}
-            />
-          )}
-          {/* <Leaflet/> */}
-          <Map />
+          <div>
+            {countriesToShow.length > 10 ? (
+              <div>Too many matches, be more specific.</div>
+            ) : (
+              <Countries
+                countriesToShow={countriesToShow}
+                setCountriesToShow={setCountriesToShow}
+              />
+            )}
+          </div>
+          <div>
+            {countriesToShow.length === 1 ? (
+              <CountryForm country={countriesToShow[0]} />
+            ) : null}
+          </div>
+          <div>
+            {/* <Leaflet/> */}
+            {countriesToShow.length === 1 ? (
+              <>
+                <CountryCoodrinates country={countriesToShow[0]}/>
+              </>
+            ) : (
+              <>
+                <CountryCoodrinates />
+              </>)}
+            {/* <GetCountryCoodrinates></GetCountryCoodrinates>
+            <Map /> */}
+            {/* <GetcountryCoodrinates ></GetcountryCoodrinates> */}
+          </div>
         </div>
       )}
     </div>

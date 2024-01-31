@@ -9,10 +9,12 @@ import "font-awesome/css/font-awesome.min.css";
 
 const { BaseLayer } = LayersControl;
 
-export default function Map() {
+const Map = ({ coordinates, defaultMode }) => {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   const [pinPosition, setPinPosition] = useState(null);
+  const [countryCoordinates, setCountryCoordinates] = useState(null);
+  
 
   useEffect(() => {
     if (!map) return;
@@ -48,30 +50,9 @@ export default function Map() {
     iconSize: [35,70]
   });
 
-  return (
+  const MapContainerContents = () => (
     <>
-    <div>
-      {position ? (
-        <p>Your coordinates: {position.lat}, {position.lng}</p>
-      ) : (
-        <p>Loading coordinates...</p>
-      )}
-    </div>
-    <div>
-      {pinPosition ? (
-        <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>
-      ) : (
-        <p>Place a pin with a click:</p>
-      )}
-    </div>
-    <MapContainer
-      center={[59.225, 18.105]}
-      zoom={4.5}
-      style={{ height: '600px', width: '600px' }} 
-      // style={{ height: "100vh" }}
-      ref={setMap}
-    >
-      <LayersControl>
+    <LayersControl>
         <BaseLayer checked name="OpenStreetMap">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -79,7 +60,7 @@ export default function Map() {
           />
         </BaseLayer>
       </LayersControl>
-      {position === null ? null : (
+    {position === null ? null : (
       <Marker position={position} icon={pointIcon}>
         <Popup>You are here</Popup>
       </Marker>
@@ -89,11 +70,56 @@ export default function Map() {
         <Popup>Pinned!</Popup>
       </Marker>
       )}
-      <PlacePin/>
-    </MapContainer>
-    
-    
-    
+    </>
+  );
+
+  return (
+    <>
+      <div>
+        {position ? (
+          <p>Your coordinates: {position.lat}, {position.lng}</p>
+        ) : (
+          <p>Loading coordinates...</p>
+        )}
+      </div>
+      <div>
+        {pinPosition ? (
+          <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>
+        ) : (
+          <p>Place a pin with a click:</p>
+        )}
+      </div>
+      <div>
+      {coordinates ? (
+          <MapContainer 
+          center={[coordinates?.lat, coordinates?.lng]}
+          zoom={4.5}
+          style={{ height: '600px', width: '600px' }} 
+          // style={{ height: "100vh" }}
+          
+        >
+          <MapContainerContents/>
+          <PlacePin/>
+        </MapContainer>
+        ) : (
+          null
+        )}
+        {defaultMode ? (
+          <MapContainer 
+          center={[59.225, 18.105]}
+          zoom={4.5}
+          style={{ height: '600px', width: '600px' }} 
+          // style={{ height: "100vh" }}
+          
+        >
+          <MapContainerContents/>
+          <PlacePin/>
+        </MapContainer>
+        ) : (
+          null
+        )}
+      </div>
     </>
   );
 }
+export default Map;
