@@ -9,11 +9,11 @@ import "font-awesome/css/font-awesome.min.css";
 
 const { BaseLayer } = LayersControl;
 
-const Map = ({ coordinates, defaultMode }) => {
+const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   const [pinPosition, setPinPosition] = useState(null);
-  const [countryCoordinates, setCountryCoordinates] = useState(null);
+  // const [countryCoordinates, setCountryCoordinates] = useState(null);
   
 
   useEffect(() => {
@@ -28,12 +28,24 @@ const Map = ({ coordinates, defaultMode }) => {
   }, [map]);
 
   const PlacePin = () => {
+    // if (capitalCoordinates){
+    //   const lat = capitalCoordinates?.capLat;
+    //   const lng = capitalCoordinates?.capLng;
+    //   // console.log(capitalCoordinates)
+    //   if (pinPosition !== ({lat, lng})){
+    //     setPinPosition({ lat, lng });
+    //   }
+      
+    // } else {
+    //   console.log("Ei saatu pääkaupungin koordinaatteja");
+    // }
     const map = useMapEvents({
       click(e) {
         const lat = e.latlng.lat;
         const lng = e.latlng.lng;
         setPinPosition({ lat, lng });
         map.setView([lat, lng]);
+        
       },
     });
 
@@ -46,7 +58,11 @@ const Map = ({ coordinates, defaultMode }) => {
   });
 
   const pinIcon = new Icon({
-    iconUrl: "pin.png",
+    iconUrl: "pin_red.png",
+    iconSize: [35,70]
+  });
+  const pinBlueIcon = new Icon({
+    iconUrl: "pin_blue.png",
     iconSize: [35,70]
   });
 
@@ -64,11 +80,19 @@ const Map = ({ coordinates, defaultMode }) => {
       <Marker position={position} icon={pointIcon}>
         <Popup>You are here</Popup>
       </Marker>
-      )}
-      {pinPosition === null ? null : (
-      <Marker position={pinPosition} icon={pinIcon}>
-        <Popup>Pinned!</Popup>
-      </Marker>
+    )}
+    {pinPosition === null ? null : (
+    <Marker position={pinPosition} icon={pinIcon}>
+      <Popup>Pinned!</Popup>
+    </Marker>
+    )}
+    {capitalCoordinates ? (
+        <Marker position={[capitalCoordinates.capLat, capitalCoordinates.capLng]} 
+          icon={pinBlueIcon}>
+          <Popup>Pinned!</Popup>
+        </Marker>
+      ) : (
+        null
       )}
     </>
   );
@@ -90,9 +114,9 @@ const Map = ({ coordinates, defaultMode }) => {
         )}
       </div>
       <div>
-      {coordinates ? (
+      {countryCoordinates ? (
           <MapContainer 
-          center={[coordinates?.lat, coordinates?.lng]}
+          center={[countryCoordinates?.lat, countryCoordinates?.lng]}
           zoom={4.5}
           style={{ height: '600px', width: '600px' }} 
           ref={setMap}
@@ -100,7 +124,16 @@ const Map = ({ coordinates, defaultMode }) => {
           
         >
           <MapContainerContents/>
-          <PlacePin/>
+
+          <PlacePin></PlacePin>
+          {/* <div>
+            {capitalCoordinates ? (
+              <PlacePin countryCoordinates={countryCoordinates}/>
+            ) : (
+              <PlacePin/>
+            )}
+          </div> */}
+          
         </MapContainer>
         ) : (
           null
@@ -115,7 +148,14 @@ const Map = ({ coordinates, defaultMode }) => {
           
         >
           <MapContainerContents/>
-          <PlacePin/>
+          <PlacePin></PlacePin>
+          {/* <div>
+            {capitalCoordinates ? (
+              <PlacePin countryCoordinates={countryCoordinates}/>
+            ) : (
+              <PlacePin/>
+            )}
+          </div> */}
         </MapContainer>
         ) : (
           null
