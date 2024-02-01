@@ -3,10 +3,10 @@ import Cookies from "js-cookie";
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-const ApiSubmitPage = ({ }) => {
+const ApiSubmitPage = ({ showPage }) => {
   const [weatherApiKey, setWeatherApiKey] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const [saved, setSaved] = useState(false);
+  // const [saved, setSaved] = useState(false);
 
   const [show, setShow] = useState(false);
 
@@ -15,9 +15,12 @@ const ApiSubmitPage = ({ }) => {
 
   useEffect(() => {
     // Check if the cookie exists when the component mounts
-    const weatherApiKeyCookie = Cookies.get('weatherApiKey');
-    if (weatherApiKeyCookie) {
-      setSaved(true);
+    // const weatherApiKeyCookie = Cookies.get('weatherApiKey');
+    // if (weatherApiKeyCookie) {
+    //   setSaved(true);
+    // }
+    if (showPage === true) {
+      setShow(true);
     }
   }, []); // Empty dependency array to run the effect only once on mount
 
@@ -32,7 +35,7 @@ const ApiSubmitPage = ({ }) => {
   const handleSubmit = () => {
     // Cookie expires in 14 days.
     Cookies.set("weatherApiKey", weatherApiKey, { expires: 14 });
-    setSaved(true);
+    // setSaved(true);
     // onSubmit(weatherApiKey);
     // Clears the input field after submitting
     setWeatherApiKey('');
@@ -45,7 +48,7 @@ const ApiSubmitPage = ({ }) => {
     <>
     <Button variant="primary" onClick={handleShow}>
     Modify API keys
-      </Button>
+    </Button>
     <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Modify API keys:</Offcanvas.Title>
@@ -61,7 +64,8 @@ const ApiSubmitPage = ({ }) => {
               <input type="text" value={weatherApiKey} onChange={handleApiKeyChange} />
             </label>
             <button onClick={handleSubmit}>
-              {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'}
+              {/* {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'} */}
+              SUBMIT
             </button>
             <br></br>
           </div> 

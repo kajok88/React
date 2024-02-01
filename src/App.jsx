@@ -78,7 +78,7 @@ const App = () => {
           {/* {showApiSubmitPage ? (
             <SubmitApiKeys setShowApiSubmitPage={setShowApiSubmitPage} onSubmit={handleHideSubmitPage}/>
           ) : null} */}
-          <ApiSubmitPage></ApiSubmitPage>
+          <ApiSubmitPage showPage={false}></ApiSubmitPage>
           <h1>Search for Country</h1>
           
           <div>
