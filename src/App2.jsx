@@ -7,12 +7,6 @@ import SubmitApiKeys from "./components/SubmitApiKeys";
 import Leaflet from "./components/Leaflet";
 import Map from "./components/Map";
 import CountryCoodrinates from "./components/CountryCoordinates";
-import Example from "./components/example";
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import ApiSubmitPage from "./components/SubmitApiKeys";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -20,13 +14,18 @@ const App = () => {
   const [countriesToShow, setCountriesToShow] = useState([]);
   const [showApiSubmitPage, setShowApiSubmitPage] = useState(false);
 
-
-
-
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((response) => {
       setCountries(response.data);
     });
+    // checkCookie();
+  //   const cookieExists = checkCookie();
+  //    if (!cookieExists) {
+  
+  //      alert('Api key not found! Redirecting to submit page.');
+  // //     // Uncomment the line below to redirect to the submit page
+  // //     // window.location.href = '/submit-page';
+  //    }
   }, []);
 
 
@@ -49,7 +48,6 @@ const App = () => {
 
   const handleShowSubmitPage = () => {
     setShowApiSubmitPage(true);
-
   };
   const handleHideSubmitPage = () => {
     setShowApiSubmitPage(false);
@@ -66,19 +64,11 @@ const App = () => {
   
   return (
     <div>
-      {/* {showApiSubmitPage ? (
-        <>
-
-            <SubmitApiKeys setShowApiSubmitPage={setShowApiSubmitPage} onSubmit={handleHideSubmitPage} />
-
-        </>
-      ) : ( */}
+      {showApiSubmitPage ? (
+        <SubmitApiKeys onSubmit={handleHideSubmitPage} />
+      ) : (
         <div>
-          {/* <button onClick={handleShowSubmitPage}>Modify API keys</button><br></br>
-          {/* {showApiSubmitPage ? (
-            <SubmitApiKeys setShowApiSubmitPage={setShowApiSubmitPage} onSubmit={handleHideSubmitPage}/>
-          ) : null} */}
-          <ApiSubmitPage></ApiSubmitPage>
+          <button onClick={handleShowSubmitPage}>Modify API keys</button><br></br>
           <h1>Search for Country</h1>
           
           <div>
@@ -114,7 +104,7 @@ const App = () => {
             {/* <GetcountryCoodrinates ></GetcountryCoodrinates> */}
           </div>
         </div>
-      {/* )} */}
+      )}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { Icon, L } from 'leaflet';
 import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
-import "/src/App.css";
+
 
 const Map = () => {
   const [yourCoordinates, setYourCoordinates] = useState("");

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
-const ApiSubmitPage = ({ onSubmit }) => {
+const ApiSubmitPage = ({ }) => {
   const [weatherApiKey, setWeatherApiKey] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [saved, setSaved] = useState(false);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     // Check if the cookie exists when the component mounts
@@ -26,31 +33,41 @@ const ApiSubmitPage = ({ onSubmit }) => {
     // Cookie expires in 14 days.
     Cookies.set("weatherApiKey", weatherApiKey, { expires: 14 });
     setSaved(true);
-    onSubmit(weatherApiKey);
+    // onSubmit(weatherApiKey);
     // Clears the input field after submitting
     setWeatherApiKey('');
     setInputValue('');
   };
 
+  
+
   return (
-    <div>
-      <h1>Modify API keys:</h1>
-      <div>
-        <h2>Weather API:</h2>
-        <div>
-          <strong>Current API Key:</strong> {Cookies.get('weatherApiKey') || 'Empty'}
-        </div>
-        <label>
-          Input API Key:
-          <input type="text" value={weatherApiKey} onChange={handleApiKeyChange} />
-        </label>
-        <button onClick={handleSubmit}>
-          {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'}
-        </button>
-        <br></br>
-      </div>
-      <button onClick={onSubmit}>BACK</button>
-    </div>
+    <>
+    <Button variant="primary" onClick={handleShow}>
+    Modify API keys
+      </Button>
+    <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Modify API keys:</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div>
+            <h2>Weather API:</h2>
+            <div>
+              <strong>Current API Key:</strong> {Cookies.get('weatherApiKey') || 'Empty'}
+            </div>
+            <label>
+              Input API Key:
+              <input type="text" value={weatherApiKey} onChange={handleApiKeyChange} />
+            </label>
+            <button onClick={handleSubmit}>
+              {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'}
+            </button>
+            <br></br>
+          </div> 
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 };
 
