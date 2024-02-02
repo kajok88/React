@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
+
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
 const ApiSubmitPage = ({ showPage }) => {
   const [weatherApiKey, setWeatherApiKey] = useState('');
@@ -49,20 +52,46 @@ const ApiSubmitPage = ({ showPage }) => {
     <Button variant="primary" onClick={handleShow}>
     Modify API keys
     </Button>
-    <Offcanvas show={show} onHide={handleClose}>
+    <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Modify API keys:</Offcanvas.Title>
+          <Offcanvas.Title>Modify API keys</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div>
             <h2>Weather API:</h2>
-            <div>
+            {Cookies.get('weatherApiKey') ? (
+              <div>
+                <FloatingLabel controlId="floatingInput" label={Cookies.get('weatherApiKey')}>
+                  <Form.Control type="text" placeholder="ApiKey" />
+                </FloatingLabel>
+              </div>
+            ) : ( 
+              <FloatingLabel controlId="floatingInput" label="Input API Key:">
+                <Form.Control type="text" placeholder="ApiKey" />
+              </FloatingLabel>
+            )}
+
+
+
+            {/* <div>
               <strong>Current API Key:</strong> {Cookies.get('weatherApiKey') || 'Empty'}
+            </div> */}
+            <div>
+            {/* <FloatingLabel
+              controlId="floatingInput"
+              label="Email address"
+              className="mb-3"
+            >
+              <Form.Control type="email" placeholder="name@example.com" />
+            </FloatingLabel> */}
+            {/* <FloatingLabel controlId="floatingInput" label="Input API Key:">
+              <Form.Control type="text" placeholder="ApiKey" />
+            </FloatingLabel> */}
             </div>
-            <label>
+            {/* <label>
               Input API Key:
               <input type="text" value={weatherApiKey} onChange={handleApiKeyChange} />
-            </label>
+            </label> */}
             <button onClick={handleSubmit}>
               {/* {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'} */}
               SUBMIT
