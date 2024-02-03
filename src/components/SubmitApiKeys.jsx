@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
 
 const ApiSubmitPage = ({ showPage }) => {
   const [weatherApiKey, setWeatherApiKey] = useState('');
@@ -23,8 +24,11 @@ const ApiSubmitPage = ({ showPage }) => {
     //   setSaved(true);
     // }
     if (showPage === true) {
-      setShow(true);
+      handleShow();
     }
+    // else {
+    //   setShow(false);
+    // }
   }, []); // Empty dependency array to run the effect only once on mount
 
   const handleApiKeyChange = (event) => {
@@ -49,9 +53,10 @@ const ApiSubmitPage = ({ showPage }) => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
       Modify API keys
-      </Button>
+      </Button> */}
+      <Nav.Link href="" onClick={handleShow}>Modify API keys</Nav.Link>
       <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Modify API keys</Offcanvas.Title>

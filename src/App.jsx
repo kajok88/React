@@ -12,6 +12,11 @@ import Example from "./components/example";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+
+
 import ApiSubmitPage from "./components/SubmitApiKeys";
 
 const App = () => {
@@ -49,7 +54,6 @@ const App = () => {
 
   const handleShowSubmitPage = () => {
     setShowApiSubmitPage(true);
-
   };
   const handleHideSubmitPage = () => {
     setShowApiSubmitPage(false);
@@ -65,6 +69,25 @@ const App = () => {
   };
   
   return (
+    <>
+    <Navbar bg="dark" data-bs-theme="dark">
+      <Container>
+        <Navbar.Brand href="#home">
+          <img
+            alt=""
+            // src="/img/logo.svg"
+            src="./map_point.png"
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />{' '}
+          Location Weather and Data
+        </Navbar.Brand>
+        <Nav className="me-auto">
+           <ApiSubmitPage showPage={ApiSubmitPage}></ApiSubmitPage>
+        </Nav>
+      </Container>
+    </Navbar>
     <div>
       {/* {showApiSubmitPage ? (
         <>
@@ -78,7 +101,7 @@ const App = () => {
           {/* {showApiSubmitPage ? (
             <SubmitApiKeys setShowApiSubmitPage={setShowApiSubmitPage} onSubmit={handleHideSubmitPage}/>
           ) : null} */}
-          <ApiSubmitPage showPage={false}></ApiSubmitPage>
+          {/* <ApiSubmitPage showPage={ApiSubmitPage}></ApiSubmitPage> */}
           <h1>Search for Country</h1>
           
           <div>
@@ -116,6 +139,8 @@ const App = () => {
         </div>
       {/* )} */}
     </div>
+    </>
+    
   );
 };
 
