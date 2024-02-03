@@ -27,6 +27,9 @@ const App = () => {
   const [countriesToShow, setCountriesToShow] = useState([]);
   const [showApiSubmitPage, setShowApiSubmitPage] = useState(false);
 
+  const [searchCountry, setSearchCountry] = useState("");
+  const [searchCity, setSearchCity] = useState("");
+
 
 
 
@@ -125,7 +128,7 @@ const App = () => {
             Find countries <input value={query} onChange={handleQueryChange} />
           </div>
           <div>
-            {countriesToShow.length > 10 ? (
+            {countriesToShow.length > 100 ? (
               <div>Too many matches, be more specific.</div>
             ) : (
               <Countries
