@@ -67,9 +67,9 @@ const ApiSubmitPage = ({ showPage }) => {
                   </FloatingLabel>
                 </div>
                 <div className="mt-2">
-                  <button onClick={handleSubmit}>
-                    SUBMIT
-                  </button>
+                  <Button variant="success" onClick={handleSubmit}>
+                    Submit
+                  </Button>{' '}
                 </div>
               </>
             ) : ( 
@@ -80,9 +80,9 @@ const ApiSubmitPage = ({ showPage }) => {
                   </FloatingLabel>
                 </div>
                 <div className="mt-2">
-                  <button onClick={handleSubmit}>
-                    SUBMIT
-                  </button>
+                  <Button variant="success" onClick={handleSubmit}>
+                    Submit
+                  </Button>{' '}
                 </div>
               </>
             )}
