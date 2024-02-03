@@ -56,7 +56,7 @@ const ApiSubmitPage = ({ showPage }) => {
       {/* <Button variant="primary" onClick={handleShow}>
       Modify API keys
       </Button> */}
-      <Nav.Link href="" onClick={handleShow}>Modify API keys</Nav.Link>
+      <Nav.Link href="" onClick={handleShow}>Modify API Keys</Nav.Link>
       <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Modify API keys</Offcanvas.Title>

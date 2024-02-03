@@ -15,6 +15,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
+
 
 
 import ApiSubmitPage from "./components/SubmitApiKeys";
@@ -70,9 +72,9 @@ const App = () => {
   
   return (
     <>
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar bg="dark" data-bs-theme="dark" sticky="top">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="#home" >
           <img
             alt=""
             // src="/img/logo.svg"
@@ -84,9 +86,24 @@ const App = () => {
           Location Weather and Data
         </Navbar.Brand>
         <Nav className="me-auto">
-           <ApiSubmitPage showPage={ApiSubmitPage}></ApiSubmitPage>
+          <ApiSubmitPage showPage={ApiSubmitPage}></ApiSubmitPage>
         </Nav>
       </Container>
+
+      <Container>
+        <Nav className="mx-auto">
+          <Form >
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="mr-2"
+              aria-label="Search"
+            />
+          </Form>
+        </Nav>
+      </Container>
+      
+      <Container></Container>
     </Navbar>
     <div>
       {/* {showApiSubmitPage ? (
