@@ -49,10 +49,10 @@ const ApiSubmitPage = ({ showPage }) => {
 
   return (
     <>
-    <Button variant="primary" onClick={handleShow}>
-    Modify API keys
-    </Button>
-    <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
+      <Button variant="primary" onClick={handleShow}>
+      Modify API keys
+      </Button>
+      <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Modify API keys</Offcanvas.Title>
         </Offcanvas.Header>
@@ -63,12 +63,11 @@ const ApiSubmitPage = ({ showPage }) => {
               <>
                 <div>
                   <FloatingLabel controlId="floatingInput" label={Cookies.get('weatherApiKey')}>
-                    <Form.Control type="text" placeholder="ApiKey" onChange={handleApiKeyChange} value={inputValue}/>
+                    <Form.Control type="text" placeholder="ApiKey" onChange={handleApiKeyChange} value={inputValue} />
                   </FloatingLabel>
                 </div>
                 <div className="mt-2">
                   <button onClick={handleSubmit}>
-                    {/* {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'} */}
                     SUBMIT
                   </button>
                 </div>
@@ -82,40 +81,11 @@ const ApiSubmitPage = ({ showPage }) => {
                 </div>
                 <div className="mt-2">
                   <button onClick={handleSubmit}>
-                    {/* {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'} */}
                     SUBMIT
                   </button>
                 </div>
-              
-
               </>
-              
             )}
-
-
-
-            {/* <div>
-              <strong>Current API Key:</strong> {Cookies.get('weatherApiKey') || 'Empty'}
-            </div> */}
-            <div>
-            {/* <FloatingLabel
-              controlId="floatingInput"
-              label="Email address"
-              className="mb-3"
-            >
-              <Form.Control type="email" placeholder="name@example.com" />
-            </FloatingLabel> */}
-            {/* <FloatingLabel controlId="floatingInput" label="Input API Key:">
-              <Form.Control type="text" placeholder="ApiKey" />
-            </FloatingLabel> */}
-            </div>
-            {/* <label> onChange={handleApiKeyChange}              
-            Input API Key:
-              <input type="text" value={weatherApiKey}  />
-            </label> */}
-
-            
-            
             <br></br>
           </div> 
         </Offcanvas.Body>
