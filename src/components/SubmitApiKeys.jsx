@@ -60,15 +60,36 @@ const ApiSubmitPage = ({ showPage }) => {
           <div>
             <h2>Weather API:</h2>
             {Cookies.get('weatherApiKey') ? (
-              <div>
-                <FloatingLabel controlId="floatingInput" label={Cookies.get('weatherApiKey')}>
-                  <Form.Control type="text" placeholder="ApiKey" />
-                </FloatingLabel>
-              </div>
+              <>
+                <div>
+                  <FloatingLabel controlId="floatingInput" label={Cookies.get('weatherApiKey')}>
+                    <Form.Control type="text" placeholder="ApiKey" onChange={handleApiKeyChange} value={inputValue}/>
+                  </FloatingLabel>
+                </div>
+                <div className="mt-2">
+                  <button onClick={handleSubmit}>
+                    {/* {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'} */}
+                    SUBMIT
+                  </button>
+                </div>
+              </>
             ) : ( 
-              <FloatingLabel controlId="floatingInput" label="Input API Key:">
-                <Form.Control type="text" placeholder="ApiKey" />
-              </FloatingLabel>
+              <>
+                <div>
+                  <FloatingLabel controlId="floatingInput" label="Input API Key:">
+                    <Form.Control type="text" placeholder="ApiKey"  onChange={handleApiKeyChange} value={inputValue}/>
+                  </FloatingLabel>
+                </div>
+                <div className="mt-2">
+                  <button onClick={handleSubmit}>
+                    {/* {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'} */}
+                    SUBMIT
+                  </button>
+                </div>
+              
+
+              </>
+              
             )}
 
 
@@ -88,14 +109,13 @@ const ApiSubmitPage = ({ showPage }) => {
               <Form.Control type="text" placeholder="ApiKey" />
             </FloatingLabel> */}
             </div>
-            {/* <label>
-              Input API Key:
-              <input type="text" value={weatherApiKey} onChange={handleApiKeyChange} />
+            {/* <label> onChange={handleApiKeyChange}              
+            Input API Key:
+              <input type="text" value={weatherApiKey}  />
             </label> */}
-            <button onClick={handleSubmit}>
-              {/* {saved ? (inputValue === '' ? 'SAVED' : 'EDIT') : 'SUBMIT'} */}
-              SUBMIT
-            </button>
+
+            
+            
             <br></br>
           </div> 
         </Offcanvas.Body>
