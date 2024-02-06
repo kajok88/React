@@ -7,6 +7,10 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 
+import Container from 'react-bootstrap/Container';
+import { Row, Col } from 'react-bootstrap';
+
+import '../App.css'
 
 import GetGeoData from "./GetGeoData";
 
@@ -109,18 +113,36 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
   return (
     <>
       <div>
-        {position ? (
-          <p>Your coordinates: {position.lat}, {position.lng}</p>
-        ) : (
-          <p>Loading coordinates...</p>
-        )}
+        <Container className="">
+          <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+            <Col xs={12} md={2}>
+              <div className="floating-popup-1-card">
+              {position ? (
+                <p>Your coordinates: {position.lat}, {position.lng}</p>
+              ) : (
+                <p>Loading coordinates...</p>
+              )}
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        
       </div>
       <div>
-        {pinPosition ? (
-          <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>
-        ) : (
-          <p>Place a pin with a click:</p>
-        )}
+      <Container className="">
+          <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+            <Col xs={12} md={2}>
+              <div className="floating-popup-2-card">
+              {pinPosition ? (
+                <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>
+              ) : (
+                <p>Place a pin with a click:</p>
+              )}
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        
       </div>
       <div>
         <div>
@@ -128,7 +150,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
             <MapContainer 
               center={[countryCoordinates?.lat, countryCoordinates?.lng]}
               zoom={4.5}
-              style={{ height: '100vh', width: '100%' }}
+              style={{ height: '94vh', width: '100%' }}
               zoomControl={false}
               ref={setMap}
               // style={{ height: "100vh" }}
@@ -146,7 +168,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
             <MapContainer 
             center={[59.225, 18.105]}
             zoom={4.5}
-            style={{ height: '100vh', width: '100%' }}
+            style={{ height: '94vh', width: '100%' }}
             zoomControl={false}
             ref={setMap}
             // style={{ height: "100vh" }}

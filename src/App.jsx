@@ -7,10 +7,11 @@ import SubmitApiKeys from "./components/SubmitApiKeys";
 import Leaflet from "./components/Leaflet";
 import Map from "./components/Map";
 import CountryCoodrinates from "./components/CountryCoordinates";
-import Example from "./components/example";
+
 import Search from "./components/Search";
 
 import "./Search.css";
+import "./App.css"
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -154,7 +155,7 @@ const App = () => {
             <Container className="">
               <Row className="justify-content-center">
                 <Col xs={12} md={5}>
-                  <div className="floating-card">
+                  <div className="floating-search-card">
                   {query ? (
                     <Countries
                     countriesToShow={countriesToShow}
@@ -167,16 +168,20 @@ const App = () => {
                   </div>
                 </Col>
               </Row>
-            </Container>
-                    
-
-
+            </Container>           
           </div>
-          
           
           <div>
             {countriesToShow.length === 1 ? (
-              <CountryForm country={countriesToShow[0]} />
+              <Container className="">
+                <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+                  <Col xs={12} md={2}>
+                    <div className="floating-info-card">
+                      <CountryForm country={countriesToShow[0]} />
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
             ) : null}
           </div>
           <div>
