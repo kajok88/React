@@ -146,53 +146,36 @@ const App = () => {
           </div> */}
           <div>
             
-
-            {/* <Container>
+            <Container className="">
               <Row className="justify-content-center">
-                <Col xs="auto">
-                  <Countries
-                    countriesToShow={countriesToShow}
-                    setCountriesToShow={setCountriesToShow}
-                  />
+                <Col xs={12} md={5}>
+                  <div className="floating-card">
+                    <Countries
+                      countriesToShow={countriesToShow}
+                      setCountriesToShow={setCountriesToShow}
+                      setSelectedCountry={setSelectedCountry}
+                      setQuery={setQuery}
+                    />
+                  </div>
                 </Col>
               </Row>
-            </Container> */}
-            
-            {/* <Container className="d-flex justify-content-center">
-              <Countries
-                    countriesToShow={countriesToShow}
-                    setCountriesToShow={setCountriesToShow}
-                  />
-            </Container> */}
-            <Container className="">
-        <Row className="justify-content-center">
-          <Col xs={12} md={5}>
-
-              <div className="floating-card">
-                <Countries
-                  countriesToShow={countriesToShow}
-                  setCountriesToShow={setCountriesToShow}
-                />
-              </div>
-          </Col>
-        </Row>
-      </Container>
-              
+            </Container>
+                    
 
 
           </div>
           
           
           <div>
-            {countriesToShow.length === 1 ? (
-              <CountryForm country={countriesToShow[0]} />
+            {selectedCountry.length === 1 ? (
+              <CountryForm country={selectedCountry[0]} />
             ) : null}
           </div>
           <div>
             {/* <Leaflet/> */}
-            {countriesToShow.length === 1 ? (
+            {selectedCountry.length === 1 ? (
               <>
-                <CountryCoodrinates country={countriesToShow[0]}/>
+                <CountryCoodrinates country={selectedCountry[0]}/>
               </>
             ) : (
               <>
