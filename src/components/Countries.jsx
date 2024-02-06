@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card } from "react-bootstrap";
 import "./Countries.css"
 
 const Countries = ({ countriesToShow, setCountriesToShow, setSelectedCountry, setQuery }) => {
 
-  const [visible, setVisible] = useState(true);
 
   const handleOnClick = (country) => {
     setCountriesToShow([country]);
     setSelectedCountry([country]);
-    setQuery("");
-    setVisible(false);
+    setQuery('');
   };
 
     return (
@@ -19,12 +17,12 @@ const Countries = ({ countriesToShow, setCountriesToShow, setSelectedCountry, se
           {countriesToShow.length > 20 ? (
             null
           ) : (
-              <div className="d-flex flex-column">
+              <div className="d-fl  	            ex flex-column">
                 {countriesToShow.map((country) => (
                   <Card key={country.name.official} 
-                    style={{ borderRadius: '0', display: visible ? 'block' : 'none' }} 
+                    style={{ borderRadius: '0'}} 
                     className="search-result">
-                      
+
                     <Card.Body className="d-flex justify-content-between align-items-center">
                       <span>{country.name.common}</span>
                       <Button variant="success" 

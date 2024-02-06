@@ -150,12 +150,15 @@ const App = () => {
               <Row className="justify-content-center">
                 <Col xs={12} md={5}>
                   <div className="floating-card">
+                  {query ? (
                     <Countries
-                      countriesToShow={countriesToShow}
-                      setCountriesToShow={setCountriesToShow}
-                      setSelectedCountry={setSelectedCountry}
-                      setQuery={setQuery}
-                    />
+                    countriesToShow={countriesToShow}
+                    setCountriesToShow={setCountriesToShow}
+                    setSelectedCountry={setSelectedCountry}
+                    setQuery={setQuery}
+                  />
+                  ) : null}
+                    
                   </div>
                 </Col>
               </Row>
@@ -167,15 +170,15 @@ const App = () => {
           
           
           <div>
-            {selectedCountry.length === 1 ? (
-              <CountryForm country={selectedCountry[0]} />
+            {countriesToShow.length === 1 ? (
+              <CountryForm country={countriesToShow[0]} />
             ) : null}
           </div>
           <div>
             {/* <Leaflet/> */}
-            {selectedCountry.length === 1 ? (
+            {countriesToShow.length === 1 ? (
               <>
-                <CountryCoodrinates country={selectedCountry[0]}/>
+                <CountryCoodrinates country={countriesToShow[0]}/>
               </>
             ) : (
               <>
