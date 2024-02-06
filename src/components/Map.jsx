@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { LayersControl, MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { LayersControl, MapContainer, TileLayer, Marker, Popup, ZoomControl, useMapEvents } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { Icon } from "leaflet";
@@ -23,11 +23,12 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
     if (!map) return;
 
     L.easyButton("fa-map-marker fa-2x", () => {
+      
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
       });
-    }).addTo(map);
+    }).setPosition('bottomleft').addTo(map);
   }, [map]);
 
   const PlacePin = () => {
@@ -70,7 +71,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
 
   const MapContainerContents = () => (
     <>
-      <LayersControl>
+      <LayersControl position="bottomleft">
         <BaseLayer checked name="OpenStreetMap">
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -128,9 +129,11 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
               center={[countryCoordinates?.lat, countryCoordinates?.lng]}
               zoom={4.5}
               style={{ height: '100vh', width: '100%' }}
+              zoomControl={false}
               ref={setMap}
               // style={{ height: "100vh" }}
               >
+              <ZoomControl position="bottomleft" />
               <MapContainerContents/>
               <PlacePin/>
             </MapContainer>
@@ -144,9 +147,11 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
             center={[59.225, 18.105]}
             zoom={4.5}
             style={{ height: '100vh', width: '100%' }}
+            zoomControl={false}
             ref={setMap}
             // style={{ height: "100vh" }}
             >
+            <ZoomControl position="bottomleft" />
             <MapContainerContents/>
             <PlacePin></PlacePin>
           </MapContainer>
