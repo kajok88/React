@@ -28,6 +28,7 @@ import { Row, Col } from 'react-bootstrap';
 
 
 import ApiSubmitPage from "./components/SubmitApiKeys";
+import Favorites from "./components/Favorites";
 
 const App = () => {
   const [query, setQuery] = useState("");
@@ -122,7 +123,11 @@ const App = () => {
         </Nav>
       </Container>
       
-      <Container></Container>
+      <Container>
+        <Nav className="ms-auto">
+          <Favorites></Favorites>
+        </Nav>
+      </Container>
     </Navbar>
       
     <div>
