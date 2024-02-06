@@ -8,6 +8,10 @@ import Leaflet from "./components/Leaflet";
 import Map from "./components/Map";
 import CountryCoodrinates from "./components/CountryCoordinates";
 import Example from "./components/example";
+import Search from "./components/Search";
+
+import "./Search.css";
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
@@ -16,6 +20,10 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
+import Card from "react-bootstrap/Card";
+import { Row, Col } from 'react-bootstrap';
+
+
 
 
 
@@ -27,10 +35,8 @@ const App = () => {
   const [countriesToShow, setCountriesToShow] = useState([]);
   const [showApiSubmitPage, setShowApiSubmitPage] = useState(false);
 
-  const [searchCountry, setSearchCountry] = useState("");
-  const [searchCity, setSearchCity] = useState("");
-
-
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
 
 
   useEffect(() => {
@@ -48,6 +54,13 @@ const App = () => {
         country.name.common.toLowerCase().includes(search.toLowerCase())
       )
     );
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+
+    // Show the card when there's some input
+    setShowCard(!!e.target.value);
   };
 
   const checkCookie = () => {
@@ -101,13 +114,17 @@ const App = () => {
               placeholder="Search"
               className="mr-2"
               aria-label="Search"
+              value={query}
+              onChange={handleQueryChange}
             />
+            
           </Form>
         </Nav>
       </Container>
       
       <Container></Container>
     </Navbar>
+      
     <div>
       {/* {showApiSubmitPage ? (
         <>
@@ -117,26 +134,55 @@ const App = () => {
         </>
       ) : ( */}
         <div>
+        
           {/* <button onClick={handleShowSubmitPage}>Modify API keys</button><br></br>
           {/* {showApiSubmitPage ? (
             <SubmitApiKeys setShowApiSubmitPage={setShowApiSubmitPage} onSubmit={handleHideSubmitPage}/>
           ) : null} */}
           {/* <ApiSubmitPage showPage={ApiSubmitPage}></ApiSubmitPage> */}
-          <h1>Search for Country</h1>
           
-          <div>
+          {/* <div>
             Find countries <input value={query} onChange={handleQueryChange} />
-          </div>
+          </div> */}
           <div>
-            {countriesToShow.length > 100 ? (
-              <div>Too many matches, be more specific.</div>
-            ) : (
+            
+
+            {/* <Container>
+              <Row className="justify-content-center">
+                <Col xs="auto">
+                  <Countries
+                    countriesToShow={countriesToShow}
+                    setCountriesToShow={setCountriesToShow}
+                  />
+                </Col>
+              </Row>
+            </Container> */}
+            
+            {/* <Container className="d-flex justify-content-center">
               <Countries
-                countriesToShow={countriesToShow}
-                setCountriesToShow={setCountriesToShow}
-              />
-            )}
+                    countriesToShow={countriesToShow}
+                    setCountriesToShow={setCountriesToShow}
+                  />
+            </Container> */}
+            <Container className="">
+        <Row className="justify-content-center">
+          <Col xs={12} md={5}>
+
+              <div className="floating-card">
+                <Countries
+                  countriesToShow={countriesToShow}
+                  setCountriesToShow={setCountriesToShow}
+                />
+              </div>
+          </Col>
+        </Row>
+      </Container>
+              
+
+
           </div>
+          
+          
           <div>
             {countriesToShow.length === 1 ? (
               <CountryForm country={countriesToShow[0]} />
@@ -156,6 +202,7 @@ const App = () => {
             <Map /> */}
             {/* <GetcountryCoodrinates ></GetcountryCoodrinates> */}
           </div>
+          
         </div>
       {/* )} */}
     </div>

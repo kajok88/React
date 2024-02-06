@@ -1,4 +1,5 @@
-import CountryForm from "./CountryForm";
+
+import "./Countries.css"
 
 const Countries = ({ countriesToShow, setCountriesToShow }) => {
 
@@ -6,23 +7,24 @@ const Countries = ({ countriesToShow, setCountriesToShow }) => {
     //   return null;
     // }
 
-    return countriesToShow.map((country) => (
-      <div key={country.name.official}>
-        {country.name.common}{" "}
-        <button onClick={() => 
-          setCountriesToShow([country])
-          // <CountryForm country={country}/>
-        }>
-          
-            Show
-        </button>
-        {/* <div>
-            {countriesToShow.length === 1 ? (
-              <CountryForm country={countriesToShow[0]} />
-            ) : null}
-          </div> */}
-      </div>
-    ));
+    return (
+      <>
+        <div>
+          {countriesToShow.length > 100 ? (
+            null
+          ) : (
+            countriesToShow.map((country) => (
+              <div key={country.name.official} className="search-result">
+                {country.name.common}{" "}
+                <button onClick={() => setCountriesToShow([country])}>
+                  Show
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      </>
+    );
   };
   
   export default Countries;
