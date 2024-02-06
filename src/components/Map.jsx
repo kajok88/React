@@ -7,6 +7,7 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 
+
 import GetGeoData from "./GetGeoData";
 
 const { BaseLayer } = LayersControl;
@@ -126,7 +127,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
             <MapContainer 
               center={[countryCoordinates?.lat, countryCoordinates?.lng]}
               zoom={4.5}
-              style={{ height: '600px', width: '600px' }} 
+              style={{ height: '100vh', width: '100%' }}
               ref={setMap}
               // style={{ height: "100vh" }}
               >
@@ -142,7 +143,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
             <MapContainer 
             center={[59.225, 18.105]}
             zoom={4.5}
-            style={{ height: '600px', width: '600px' }} 
+            style={{ height: '100vh', width: '100%' }}
             ref={setMap}
             // style={{ height: "100vh" }}
             >
