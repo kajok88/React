@@ -17,7 +17,7 @@ const Countries = ({ countriesToShow, setCountriesToShow, setSelectedCountry, se
           {countriesToShow.length > 20 ? (
             null
           ) : (
-              <div className="d-fl  	            ex flex-column">
+              <div className="d-flex flex-column">
                 {countriesToShow.map((country) => (
                   <Card key={country.name.official} 
                     style={{ borderRadius: '0'}} 
