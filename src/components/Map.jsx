@@ -105,7 +105,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         <Container className="">
           <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
             <Col xs={12} md={2}>
-              <div className="floating-popup-1-card">
+              <div className="floating-popup-card popup-coord-info">
               {position ? (
                 <p>Your coordinates: {position.lat}, {position.lng}</p>
               ) : (
@@ -121,7 +121,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       <Container className="">
           <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
             <Col xs={12} md={2}>
-              <div className="floating-popup-2-card">
+              <div className="floating-popup-card popup-pin-info">
               {pinPosition ? (
                 <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>
               ) : (
