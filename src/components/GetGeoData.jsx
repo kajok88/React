@@ -92,20 +92,20 @@ const GetGeoData = ({ coordinates, pin }) => {
   return (
     <>
       <div>
-            <Container className="">
-              <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
-                <Col xs={12} md={2}>
-                  <div className="floating-popup-card popup-error">
-                  {error ? (
-                    <p>Error: {error}. Please reload the page.</p>
-                  ) : (
-                    null
-                  )}
-                  </div>
-                </Col>
-              </Row>
-            </Container>
-            
+        {error ? (
+          <Container className="">
+          <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+            <Col xs={12} md={2}>
+              <div className="floating-popup-card popup-error">
+                <p>Error: {error}. Please reload the page.</p>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+        ) : (
+          null
+        )}
+        
         {pin === "red" ? (
           <div>
           {geoData ? (
