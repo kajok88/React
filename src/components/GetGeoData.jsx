@@ -8,12 +8,29 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useCountryData } from "./CountryDataContext";
 
 const GetGeoData = ({ coordinates, pin }) => {
+  const countries = useCountryData();
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [countryData, setCountryData] = useState([]);
   const [geoData, setGeoData] = useState(null);
+  const [error, setError] = useState(null);
 
-  const countries = useCountryData();
+  
+
+  const findMatchingCountry = (name) => {
+    return countries.find(country => country.name.common === name);
+  };
+
+  const convertCountryName = (name) => {
+    switch (name) {
+      case "Russian Federation (the)":
+        return "Russia";
+      case "United States of America (the)":
+        return "United States";
+      default:
+        return name;
+    }
+  };
 
   useEffect(() => {
     
@@ -39,32 +56,33 @@ const GetGeoData = ({ coordinates, pin }) => {
       const apiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${roundedCoordinates.lat}&longitude=${roundedCoordinates.lng}&localityLanguage=en`;
 
       fetch(apiUrl)
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Bad request");
+          }
+          return response.json();
+        })
         .then(data => {
           console.log(data);
-          let countryName = data.countryName;
-          if (data.countryName === "Russian Federation (the)") {
-            countryName = "Russia";
-          } else if (data.countryName === "United States of America (the)") {
-            countryName = "United States";
-          }
+
+          const countryName = convertCountryName(data.countryName);
           setCity(data.city);
           setCountry(countryName);
           setGeoData(data);
 
-          const matchedCountry = countries.find(
-            country => country.name.common === countryName
-          );
+          const matchedCountry = findMatchingCountry(countryName);
           if (matchedCountry) {
             console.log(matchedCountry);
             setCountryData(matchedCountry);
-          }
-          else {
+          } else {
             console.log("No matching country found");
           }
 
         })
-        .catch(error => console.error('Error fetching data from api.bigdatacloud.net:', error));
+        .catch(error => {
+          console.error('Error fetching data from api.bigdatacloud.net:', error)
+          setError(error.message);
+        });
     }
     else {
       console.log("Unexpected error.")
@@ -74,6 +92,20 @@ const GetGeoData = ({ coordinates, pin }) => {
   return (
     <>
       <div>
+            <Container className="">
+              <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+                <Col xs={12} md={2}>
+                  <div className="floating-popup-card popup-error">
+                  {error ? (
+                    <p>Error: {error}. Please reload the page.</p>
+                  ) : (
+                    null
+                  )}
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+            
         {pin === "red" ? (
           <div>
           {geoData ? (
