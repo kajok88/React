@@ -119,13 +119,17 @@ const GetGeoData = ({ coordinates, pin }) => {
                       <div>State/Region: {geoData.principalSubdivision}</div>
                       <div>City: {geoData.city}</div>
                       <div>Municipality: {geoData.locality}</div>
-                      {/* <h3>Languages:</h3>
+                      <h3>Languages:</h3>
                       <ul>
-                        {Object.values(country.languages).map((language) => (
-                          <li key={language}>{language}</li>
-                        ))}
-                      </ul> */}
-                      {/* <img src={country.flags.png} alt={`${country.name.common} flag`} /> */}
+                        {countryData.languages ? (
+                          Object.values(countryData.languages).map((language, index) => (
+                            <li key={index}>{language}</li>
+                          ))
+                        ) : (
+                          <p>No known languages</p>
+                        )}
+                      </ul>
+                      <img src={countryData.flags.png} alt={`${countryData.name.common} flag`} />
                       {/* <WeatherInfo city={country.capital} lat="61" lng="24" /> */}
                     </div>
                   </Col>
