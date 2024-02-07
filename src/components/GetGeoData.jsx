@@ -10,6 +10,7 @@ import { useCountryData } from "./CountryDataContext";
 const GetGeoData = ({ coordinates, pin }) => {
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
+  const [countryData, setCountryData] = useState([]);
   const [geoData, setGeoData] = useState(null);
 
   const countries = useCountryData();
@@ -50,6 +51,18 @@ const GetGeoData = ({ coordinates, pin }) => {
           setCity(data.city);
           setCountry(countryName);
           setGeoData(data);
+
+          const matchedCountry = countries.find(
+            country => country.name.common === countryName
+          );
+          if (matchedCountry) {
+            console.log(matchedCountry);
+            setCountryData(matchedCountry);
+          }
+          else {
+            console.log("No matching country found");
+          }
+
         })
         .catch(error => console.error('Error fetching data from api.bigdatacloud.net:', error));
     }
