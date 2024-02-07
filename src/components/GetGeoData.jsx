@@ -69,6 +69,7 @@ const GetGeoData = ({ coordinates, pin }) => {
           setCity(data.city);
           setCountry(countryName);
           setGeoData(data);
+          setError(null);
 
           const matchedCountry = findMatchingCountry(countryName);
           if (matchedCountry) {
@@ -94,7 +95,7 @@ const GetGeoData = ({ coordinates, pin }) => {
       <div>
         {error ? (
           <Container className="">
-          <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+          <Row className="justify-content-center align-items-center">
             <Col xs={12} md={2}>
               <div className="floating-popup-card popup-error">
                 <p>Error: {error}. Please reload the page.</p>
@@ -105,13 +106,13 @@ const GetGeoData = ({ coordinates, pin }) => {
         ) : (
           null
         )}
-        
+
         {pin === "red" ? (
           <div>
           {geoData ? (
             <>
             <Container className="">
-                <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+                <Row className="justify-content-center align-items-center"> 
                   <Col xs={12} md={2}>
                     <div className="floating-info-card with-red-border">
                       <h1>{country}</h1>
