@@ -17,22 +17,27 @@
     position: fixed;
     width: 100%;
     background-color: white;
-
     box-shadow: 0px 0px 8px #ddd;
     border-radius: 5px;
-
-    max-height: 500px;
-    max-width: 320px;
     z-index: 1000;
     overflow-y: auto;
-    align-items: center;
-
-    margin: auto;
-    left: 10px; /* Adjust this value as needed */
-    top: 10%;
-    overflow-y: auto;
-
 }
+    .with-blue-border {
+        border: 2px solid blue;
+        left: 10px; /* Adjust this value as needed */
+        top: 10%;
+        max-height: 500px;
+        max-width: 324px;
+    }
+
+    .with-red-border {
+        border: 2px solid red;
+        right: 10px; /* Adjust this value as needed */
+        top: 35%;
+        max-height: 500px;
+        max-width: 324px;
+    }
+
 
 .floating-popup-1-card {
     position: fixed;
