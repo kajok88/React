@@ -1,7 +1,9 @@
 import WeatherInfo from "./WeatherInfo";
 
+import CountryForm from "./CountryForm";
+
 import React, { useEffect, useState } from 'react';
-import _ from 'lodash';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const GetGeoData = ({ coordinates, pin }) => {
   const [city, setCity] = useState(null);
@@ -43,7 +45,7 @@ const GetGeoData = ({ coordinates, pin }) => {
         .catch(error => console.error('Error fetching data from api.bigdatacloud.net:', error));
     }
     else {
-      console.log("Didn't work out.")
+      console.log("Unexpected error.")
     }
   }, [coordinates]);
 
@@ -54,8 +56,27 @@ const GetGeoData = ({ coordinates, pin }) => {
           <div>
           {geoData ? (
             <>
-            <p>City: {city}</p>
-            <p>Country: {country}</p>
+            <Container className="">
+                <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+                  <Col xs={12} md={2}>
+                    <div className="floating-info-card with-red-border">
+                      <h1>{geoData.countryName}</h1>
+                      <div>City: {geoData.city}</div>
+                      <div>Region: {geoData.locality}</div>
+                      {/* <h3>Languages:</h3>
+                      <ul>
+                        {Object.values(country.languages).map((language) => (
+                          <li key={language}>{language}</li>
+                        ))}
+                      </ul> */}
+                      {/* <img src={country.flags.png} alt={`${country.name.common} flag`} /> */}
+                      {/* <WeatherInfo city={country.capital} lat="61" lng="24" /> */}
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            {/* <p>City: {city}</p>
+            <p>Country: {country}</p> */}
             </>
           ) : (
             <p>Loading geo data...</p>
@@ -70,8 +91,8 @@ const GetGeoData = ({ coordinates, pin }) => {
           <div>
           {geoData ? (
             <>
-            <p>City: {city}</p>
-            <p>Country: {country}</p>
+            {/* <p>City: {city}</p>
+            <p>Country: {country}</p> */}
             </>
           ) : (
             <p>Loading geo data...</p>
