@@ -16,7 +16,7 @@ import GetGeoData from "./GetGeoData";
 
 const { BaseLayer } = LayersControl;
 
-const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
+const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   const [pinPosition, setPinPosition] = useState(null);
@@ -36,17 +36,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
   }, [map]);
 
   const PlacePin = () => {
-    // if (capitalCoordinates){
-    //   const lat = capitalCoordinates?.capLat;
-    //   const lng = capitalCoordinates?.capLng;
-    //   // console.log(capitalCoordinates)
-    //   if (pinPosition !== ({lat, lng})){
-    //     setPinPosition({ lat, lng });
-    //   }
-      
-    // } else {
-    //   console.log("Ei saatu pääkaupungin koordinaatteja");
-    // }
     const map = useMapEvents({
       click(e) {
         const lat = e.latlng.lat;
@@ -164,7 +153,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, defaultMode }) => {
           )}
         </div>
         <div>
-          {defaultMode ? (
+          {noCoordinates ? (
             <MapContainer 
             center={[59.225, 18.105]}
             zoom={4.5}

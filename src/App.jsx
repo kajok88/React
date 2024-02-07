@@ -6,7 +6,7 @@ import CountryForm from "./components/CountryForm";
 import SubmitApiKeys from "./components/SubmitApiKeys";
 import Leaflet from "./components/Leaflet";
 import Map from "./components/Map";
-import CountryCoodrinates from "./components/CountryCoordinates";
+import GetCountryCoodrinates from "./components/GetCountryCoordinates";
 
 import Search from "./components/Search";
 
@@ -32,10 +32,14 @@ import ApiSubmitPage from "./components/SubmitApiKeys";
 import Favorites from "./components/Favorites";
 
 const App = () => {
+  // For Searching and showing those countries
   const [query, setQuery] = useState("");
   const [countries, setCountries] = useState([]);
   const [countriesToShow, setCountriesToShow] = useState([]);
-  const [showApiSubmitPage, setShowApiSubmitPage] = useState(false);
+  // const [showApiSubmitPage, setShowApiSubmitPage] = useState(false);
+
+  const [countryCoordinates, setCountryCoordinates] = useState(null);
+  const [capitalCoordinates, setCapitalCoordinates] = useState(null);
 
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -60,28 +64,11 @@ const App = () => {
 
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
-
     // Show the card when there's some input
     setShowCard(!!e.target.value);
   };
 
-  const checkCookie = () => {
-    const weatherApiKeyCookie = Cookies.get('weatherApiKey');
-    if (!weatherApiKeyCookie && !showApiSubmitPage) {
-      setShowApiSubmitPage(true);
-    }
-  }
-
-  const handleShowSubmitPage = () => {
-    setShowApiSubmitPage(true);
-  };
-  const handleHideSubmitPage = () => {
-    setShowApiSubmitPage(false);
-  };
-  // const handleSubmit = (weatherApiKey) => {
-  //   Cookies.set("weatherApiKey", weatherApiKey);
-  // };
-  const GetCountryCoodrinates = () => {
+  const GetCountryCoodrinates2 = () => {
     if (countriesToShow.length === 1 )
     return (
       <p>{countriesToShow[0].region}</p>
@@ -112,6 +99,7 @@ const App = () => {
         <Nav className="mx-auto">
           <Form >
             <Form.Control
+              id="search"
               type="search"
               placeholder="Search"
               className="mr-2"
@@ -176,7 +164,7 @@ const App = () => {
               <Container className="">
                 <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
                   <Col xs={12} md={2}>
-                    <div className="floating-info-card">
+                    <div className="floating-info-card with-blue-border">
                       <CountryForm country={countriesToShow[0]} />
                     </div>
                   </Col>
@@ -188,11 +176,11 @@ const App = () => {
             {/* <Leaflet/> */}
             {countriesToShow.length === 1 ? (
               <>
-                <CountryCoodrinates country={countriesToShow[0]}/>
+                <GetCountryCoodrinates country={countriesToShow[0]}/>
               </>
             ) : (
               <>
-                <CountryCoodrinates />
+                <GetCountryCoodrinates />
               </>)}
             {/* <GetCountryCoodrinates></GetCountryCoodrinates>
             <Map /> */}
