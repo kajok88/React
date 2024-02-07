@@ -5,10 +5,14 @@ import CountryForm from "./CountryForm";
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
+import { useCountryData } from "./CountryDataContext";
+
 const GetGeoData = ({ coordinates, pin }) => {
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [geoData, setGeoData] = useState(null);
+
+  const countries = useCountryData();
 
   useEffect(() => {
     
@@ -36,10 +40,15 @@ const GetGeoData = ({ coordinates, pin }) => {
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          // Extract city and countryName from the response
-          const { city, countryName } = data;
+          console.log(data);
+          let countryName = data.countryName;
+          if (data.countryName === "Russian Federation (the)") {
+            countryName = "Russia";
+          } else if (data.countryName === "United States of America (the)") {
+            countryName = "United States";
+          }
           setCity(data.city);
-          setCountry(data.countryName);
+          setCountry(countryName);
           setGeoData(data);
         })
         .catch(error => console.error('Error fetching data from api.bigdatacloud.net:', error));
@@ -60,9 +69,10 @@ const GetGeoData = ({ coordinates, pin }) => {
                 <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
                   <Col xs={12} md={2}>
                     <div className="floating-info-card with-red-border">
-                      <h1>{geoData.countryName}</h1>
+                      <h1>{country}</h1>
+                      <div>State/Region: {geoData.principalSubdivision}</div>
                       <div>City: {geoData.city}</div>
-                      <div>Region: {geoData.locality}</div>
+                      <div>Municipality: {geoData.locality}</div>
                       {/* <h3>Languages:</h3>
                       <ul>
                         {Object.values(country.languages).map((language) => (
