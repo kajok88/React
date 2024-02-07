@@ -77,6 +77,7 @@ const GetGeoData = ({ coordinates, pin }) => {
             setCountryData(matchedCountry);
           } else {
             console.log("No matching country found");
+            setCountryData(null);
           }
 
         })
@@ -119,17 +120,27 @@ const GetGeoData = ({ coordinates, pin }) => {
                       <div>State/Region: {geoData.principalSubdivision}</div>
                       <div>City: {geoData.city}</div>
                       <div>Municipality: {geoData.locality}</div>
-                      <h3>Languages:</h3>
-                      <ul>
-                        {countryData.languages ? (
-                          Object.values(countryData.languages).map((language, index) => (
-                            <li key={index}>{language}</li>
-                          ))
-                        ) : (
-                          <p>No known languages</p>
-                        )}
-                      </ul>
-                      <img src={countryData.flags.png} alt={`${countryData.name.common} flag`} />
+                      
+                      {countryData ? (
+                        <div>
+                          <h3>Languages:</h3>
+                          <ul>
+                            {countryData.languages ? (
+                              Object.values(countryData.languages).map((language, index) => (
+                                <li key={index}>{language}</li>
+                              ))
+                            ) : (
+                              <p>No known languages</p>
+                            )}
+                          </ul>
+                        </div>
+                      ) : (
+                        null
+                      )}
+                      
+                      {countryData && countryData.flags && (
+                        <img src={countryData.flags.png} alt={`${countryData.name.common} flag`} />
+                      )}
                       {/* <WeatherInfo city={country.capital} lat="61" lng="24" /> */}
                     </div>
                   </Col>
