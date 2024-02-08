@@ -6,9 +6,15 @@ export const useContainerState = () => useContext(ContainerStateContext);
 
 export const ContainerStateProvider = ({ children }) => {
   const [containerState, setContainerState] = useState({
+    errorContainer: true,
+    
     yourLocationContainer: true,
     redPinLocationContainer: true,
+
+    redWeatherContainer: true,
     redInfoContainer: true,
+
+    blueWeatherContainer: true,
     blueInfoContainer: true,
   });
 

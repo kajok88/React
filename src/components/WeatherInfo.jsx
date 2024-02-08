@@ -14,6 +14,7 @@ const WeatherInfo = ({ city, lat, lng }) => {
       )
       .then((response) => {
         setWeather(response.data);
+        console.log("Weather Api response: ", response.data);
       })
       .catch((error) => {
         setError(error.response ? error.response.data.error.message : "An error occurred");
@@ -37,7 +38,11 @@ const WeatherInfo = ({ city, lat, lng }) => {
     <>
       {weather.location ? (
         <div>
-          <h2>Weather in {city}</h2>
+          {city? (
+            <h2>Weather in {city}</h2>
+            ) : ( 
+            <h2>Weather in pinned location</h2>
+            )}
           <div>Temperature {weather.current.temp_c}°C</div>
           <div>Feels like {weather.current.feelslike_c}°C</div>
           <img
