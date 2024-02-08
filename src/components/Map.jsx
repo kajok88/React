@@ -42,11 +42,12 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       });
       
     }).setPosition('bottomleft').addTo(map);
-  }, [map, containerState]);
+  }, [map]);
 
   const PlacePin = () => {
     const map = useMapEvents({
       click(e) {
+        handleContainerState('redPinLocationContainer', true);
         const lat = e.latlng.lat;
         const lng = e.latlng.lng;
         setPinPosition({ lat, lng });
@@ -142,15 +143,20 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             </Col>
           </Row>
         </Container>
-        ) : (
-          null
+      ) : (
+        null
       )}
       </div>
       <div>
-      <Container className="">
+      {containerState.redPinLocationContainer ? (
+        <Container className="">
           <Row className="justify-content-center align-items-center"> 
             <Col xs={12} md={2}>
               <div className="floating-popup-card popup-pin-info">
+              <CloseButton 
+                onClick={() => handleClose('redPinLocationContainer')}
+                style={{ position: 'absolute', top: 0, right: 0 }}
+                />
               {pinPosition ? (
                 <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>
               ) : (
@@ -160,6 +166,9 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             </Col>
           </Row>
         </Container>
+      ) : (
+        null
+      )}
         
       </div>
       <div>

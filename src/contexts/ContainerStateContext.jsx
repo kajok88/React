@@ -5,15 +5,15 @@ const ContainerStateContext = createContext();
 export const useContainerState = () => useContext(ContainerStateContext);
 
 export const ContainerStateProvider = ({ children }) => {
-  const [containerState, setContainerStates] = useState({
+  const [containerState, setContainerState] = useState({
     yourLocationContainer: true,
-    pinLocationContainer: true,
+    redPinLocationContainer: true,
     redInfoContainer: true,
     blueInfoContainer: true,
   });
 
   const handleContainerState = (containerId, isVisible) => {
-    setContainerStates(prevState => ({
+    setContainerState(prevState => ({
       ...prevState,
       [containerId]: isVisible,
     }));
