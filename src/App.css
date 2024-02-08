@@ -67,6 +67,7 @@
 
 .floating-popup-card {
     position: fixed;
+    padding-right: 5px;
     width: 100%;
     background-color: white;
     padding-left: 10px;

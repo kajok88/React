@@ -137,9 +137,10 @@ const GetGeoData = ({ coordinates, pin }) => {
 
         {pin === "red" ? (
           <div>
-          {geoData && containerState.redInfoContainer? (
+          {geoData ? (
             <>
-            <Container className="">
+            {containerState.redInfoContainer && (
+              <Container className="">
                 <Row className="justify-content-center align-items-center"> 
                   <Col xs={12} md={2}>
                     <div className="floating-info-card with-red-border">
@@ -189,7 +190,7 @@ const GetGeoData = ({ coordinates, pin }) => {
                   </Col>
                 </Row>
               </Container>
-
+              )}
               {/* {countryData && country && containerState.redWeatherContainer &&( */}
               {containerState.redWeatherContainer &&(
               <Container>
