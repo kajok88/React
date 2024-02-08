@@ -1,37 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
+import GetAllCapitals from './GetAllCapitals';
 
 const MoreMenu = ({ showPage }) => {
-  // const [weatherApiKey, setWeatherApiKey] = useState('');
-  const [inputValue, setInputValue] = useState('');
-  // const [saved, setSaved] = useState(false);
-
   const [show, setShow] = useState(false);
+  const [selectedColor, setSelectedColor] = useState('Green');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-
-    if (showPage === true) {
-      handleShow();
-    }
-
-  }, []); 
-
-//   const handleApiKeyChange = (event) => {
-//     const value = event.target.value;
-//     setInputValue(value);
-//     setWeatherApiKey(value);
-//   };
-
-  const handleSubmit = () => {
-    // setWeatherApiKey('');
-    setInputValue('');
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
   };
 
-  
+
   return (
     <>
       <Nav.Link href="" onClick={handleShow}>More</Nav.Link>
@@ -40,17 +25,22 @@ const MoreMenu = ({ showPage }) => {
           <Offcanvas.Title>More:</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div>
-            <h2>Locate Capitals:</h2>
-            {show ? (
-              <>
-              </>
-            ) : ( 
-              <>
-              </>
-            )}
-            <br></br>
-          </div> 
+        <h2>Locate Capitals:</h2>
+          <Dropdown>
+            <Dropdown.Toggle variant="primary" id="dropdown-basic">
+              Select Pin Color
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => handleColorChange('Blue')}>Blue</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleColorChange('Green')}>Green</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleColorChange('Pink')}>Pink</Dropdown.Item>
+              <Dropdown.Item onClick={() => handleColorChange('Red')}>Red</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <GetAllCapitals
+            selectedColor={selectedColor}
+          />
         </Offcanvas.Body>
       </Offcanvas>
     </>
