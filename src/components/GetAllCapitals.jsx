@@ -12,7 +12,8 @@ const GetAllCapitals = ({ selectedColor }) => {
 
   return (
     <div>
-      <Button onClick={handleSearchCapitals}>Search Capitals</Button>
+        <br></br>
+      <Button variant='success' onClick={handleSearchCapitals}>Locate</Button>
     </div>
   );
 };

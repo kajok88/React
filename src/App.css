@@ -109,3 +109,20 @@
     top: 0;
     right: 0; 
 }
+
+
+.toggle-Blue {
+    background-color: blue;
+}
+  
+.toggle-Green {
+    background-color: green;
+}
+
+.toggle-Pink {
+    background-color: rgb(255, 103, 128);
+}
+
+.toggle-Red {
+    background-color: red;
+}
