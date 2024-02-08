@@ -47,6 +47,7 @@ const ApiSubmitPage = ({ showPage }) => {
     // Clears the input field after submitting
     setWeatherApiKey('');
     setInputValue('');
+    window.location.reload();
   };
 
   
