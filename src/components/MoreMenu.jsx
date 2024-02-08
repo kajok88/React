@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Nav from 'react-bootstrap/Nav';
 
-const Favorites = ({ showPage }) => {
+const MoreMenu = ({ showPage }) => {
   // const [weatherApiKey, setWeatherApiKey] = useState('');
   const [inputValue, setInputValue] = useState('');
   // const [saved, setSaved] = useState(false);
@@ -34,14 +34,14 @@ const Favorites = ({ showPage }) => {
   
   return (
     <>
-      <Nav.Link href="" onClick={handleShow}>Favorites</Nav.Link>
+      <Nav.Link href="" onClick={handleShow}>More</Nav.Link>
       <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark" placement='end'>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Save and Fetch Favorites</Offcanvas.Title>
+          <Offcanvas.Title>More:</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div>
-            <h2>Select pin:</h2>
+            <h2>Locate Capitals:</h2>
             {show ? (
               <>
               </>
@@ -57,4 +57,4 @@ const Favorites = ({ showPage }) => {
   );
 };
 
-export default Favorites;
+export default MoreMenu;

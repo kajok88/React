@@ -28,10 +28,12 @@ import { Row, Col } from 'react-bootstrap';
 
 
 import ApiSubmitPage from "./components/SubmitApiKeys";
-import Favorites from "./components/Favorites";
+import FavoritesMenu from "./components/FavoritesMenu";
+import MoreMenu from "./components/MoreMenu";
 
-import { CountryDataProvider } from "./components/CountryDataContext";
-import { useCountryData } from "./components/CountryDataContext";
+import { CountryDataProvider } from "./contexts/CountryDataContext";
+import { useCountryData } from "./contexts/CountryDataContext";
+
 
 const App = () => {
   // For Searching and showing those countries
@@ -115,10 +117,14 @@ const App = () => {
             </Form>
           </Nav>
         </Container>
+
         
         <Container>
           <Nav className="ms-auto">
-            <Favorites></Favorites>
+            <MoreMenu></MoreMenu>
+          </Nav>
+          <Nav className="mx-auto">
+            <FavoritesMenu></FavoritesMenu>
           </Nav>
         </Container>
       </Navbar>
