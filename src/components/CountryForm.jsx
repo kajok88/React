@@ -1,9 +1,15 @@
-import WeatherInfo from "./WeatherInfo";
+import CloseButton from 'react-bootstrap/CloseButton';
+import "../App.css"
 
-const CountryForm = ({ country }) => {
+const CountryForm = ({ country, handleClose }) => {
+
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center" }}>
+        <CloseButton
+          onClick={handleClose}
+          className='hide-container-button'
+        />
         <h1>{country.name.common}</h1>
         <img
           src={country.coatOfArms.png}

@@ -67,7 +67,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
 
   const handleClose = (containerId) => {
     handleContainerState(containerId, false);
-    console.log("State of" + {containerId});
   };
 
   const pointIcon = new Icon({
@@ -132,7 +131,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
               <div className="floating-popup-card popup-coord-info">
                 <CloseButton 
                 onClick={() => handleClose('yourLocationContainer')}
-                style={{ position: 'absolute', top: 0, right: 0 }}
+                className='hide-container-button'
                 />
               {containerState.yourLocationContainer && position ? (
                 <p>Your coordinates: {position.lat}, {position.lng}</p>
@@ -155,7 +154,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
               <div className="floating-popup-card popup-pin-info">
               <CloseButton 
                 onClick={() => handleClose('redPinLocationContainer')}
-                style={{ position: 'absolute', top: 0, right: 0 }}
+                className='hide-container-button'
                 />
               {pinPosition ? (
                 <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>

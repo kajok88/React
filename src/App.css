@@ -101,3 +101,10 @@
         max-width: 180px;
         border: 8px solid red;
     }
+
+
+.hide-container-button {
+    position: absolute;
+    top: 0;
+    right: 0; 
+}

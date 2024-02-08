@@ -1,14 +1,19 @@
+import "../App.css"
 import WeatherInfo from "./WeatherInfo";
 
 import CountryForm from "./CountryForm";
 
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 import { useCountryData } from "../contexts/CountryDataContext";
+import { useContainerState } from '../contexts/ContainerStateContext';
+
 
 const GetGeoData = ({ coordinates, pin }) => {
   const countries = useCountryData();
+  const { containerState, handleContainerState } = useContainerState();
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [countryData, setCountryData] = useState([]);
@@ -45,6 +50,10 @@ const GetGeoData = ({ coordinates, pin }) => {
     }
   };
 
+  const handleClose = (containerId) => {
+    handleContainerState(containerId, false);
+  };
+
   useEffect(() => {
     
     if (coordinates) {
@@ -56,6 +65,7 @@ const GetGeoData = ({ coordinates, pin }) => {
           lng: coordinates.capLng.toFixed(5)
         };
         setBluePinCoordinates(roundedCoordinates);
+        handleContainerState('blueWeatherContainer', true);
         console.log("BLUE PIN COORDINATES: ", {roundedCoordinates});
       }
 
@@ -65,10 +75,10 @@ const GetGeoData = ({ coordinates, pin }) => {
           lng: coordinates.lng.toFixed(5)
         };
         setRedPinCoordinates(roundedCoordinates);
+        handleContainerState('redInfoContainer', true);
+        handleContainerState('redWeatherContainer', true);
         console.log("RED PIN COORDINATES: ", {roundedCoordinates});
       }
-
-      
 
       const apiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${roundedCoordinates.lat}&longitude=${roundedCoordinates.lng}&localityLanguage=en`;
 
@@ -80,7 +90,7 @@ const GetGeoData = ({ coordinates, pin }) => {
           return response.json();
         })
         .then(data => {
-          console.log(data);
+          console.log("Reverse geocoding by pin coordinates response: ", data);
 
           const countryName = convertCountryName(data.countryName);
           setCity(data.city);
@@ -90,10 +100,10 @@ const GetGeoData = ({ coordinates, pin }) => {
 
           const matchedCountry = findMatchingCountry(countryName);
           if (matchedCountry) {
-            console.log(matchedCountry);
+            console.log("Response from Restcountries by matching Country name: ", matchedCountry);
             setCountryData(matchedCountry);
           } else {
-            console.log("No matching country found");
+            console.log("No matching country found. Consider adding a new instace to function convertCountryName().");
             setCountryData(null);
           }
 
@@ -127,25 +137,29 @@ const GetGeoData = ({ coordinates, pin }) => {
 
         {pin === "red" ? (
           <div>
-          {geoData ? (
+          {geoData && containerState.redInfoContainer? (
             <>
             <Container className="">
                 <Row className="justify-content-center align-items-center"> 
                   <Col xs={12} md={2}>
                     <div className="floating-info-card with-red-border">
                     <div style={{ display: "flex", alignItems: "center" }}>
-                        {country && geoData.city ? (
-                          <h1>{geoData.city}, {country}</h1>
-                        ) : (
-                          <h1>{country}</h1>
-                        )}
-                        {countryData && countryData.coatOfArms && (
-                        <img
-                          src={countryData.coatOfArms.png}
-                          alt={`${countryData.name.common} flag`}
-                          style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
-                        />
-                        )}
+                      <CloseButton 
+                      onClick={() => handleClose('redInfoContainer')}
+                      className="hide-container-button"
+                      />
+                      {country && geoData.city ? (
+                        <h1>{geoData.city}, {country}</h1>
+                      ) : (
+                        <h1>{country}</h1>
+                      )}
+                      {countryData && countryData.coatOfArms && (
+                      <img
+                        src={countryData.coatOfArms.png}
+                        alt={`${countryData.name.common} flag`}
+                        style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
+                      />
+                      )}
                       </div>
                       <div>State/Region: {geoData.principalSubdivision}</div>
                       <div>City: {geoData.city}</div>
@@ -176,21 +190,28 @@ const GetGeoData = ({ coordinates, pin }) => {
                 </Row>
               </Container>
 
-              {countryData && country &&(
+              {/* {countryData && country && containerState.redWeatherContainer &&( */}
+              {containerState.redWeatherContainer &&(
               <Container>
                 <Row className="justify-content-center align-items-center">
                   <Col xs={12} md={2}>
                     <div className="floating-info-card weather-red-pin">
+                    <CloseButton 
+                      onClick={() => handleClose('redWeatherContainer')}
+                      className="hide-container-button"
+                      />
+                      
                       <WeatherInfo 
                         city={geoData.city} 
                         lat={redPinCoordinates.lat} 
                         lng={redPinCoordinates.lng}>
                       </WeatherInfo>
+
                     </div>
                   </Col>
                 </Row>
               </Container>
-              )}
+              )} 
             </>
           ) : (
             <p>Loading geo data...</p>
@@ -203,19 +224,21 @@ const GetGeoData = ({ coordinates, pin }) => {
       <div>
         {pin === "blue" ? (
           <div>
-          {geoData ? (
+          {geoData &&  containerState.blueWeatherContainer? (
             <>
             <Container>
                 <Row className="justify-content-center align-items-center">
                   <Col xs={12} md={2}>
                     <div className="floating-info-card weather-blue-pin">
-                    {countryData && countryData.capital && (
+                    <CloseButton 
+                      onClick={() => handleClose('blueWeatherContainer')}
+                      className="hide-container-button"
+                      />
                       <WeatherInfo 
-                        city={countryData.capital} 
+                        city={geoData.city} 
                         lat={bluePinCoordinates.lat} 
                         lng={bluePinCoordinates.lng}>
                       </WeatherInfo>
-                    )}
                       </div>
                   </Col>
                 </Row>
