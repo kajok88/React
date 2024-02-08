@@ -12,6 +12,9 @@ const GetGeoData = ({ coordinates, pin }) => {
   const [city, setCity] = useState(null);
   const [country, setCountry] = useState(null);
   const [countryData, setCountryData] = useState([]);
+  const [redPinCoordinates, setRedPinCoordinates] = useState(null);
+  const [bluePinCoordinates, setBluePinCoordinates] = useState(null);
+  
   const [geoData, setGeoData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -27,6 +30,16 @@ const GetGeoData = ({ coordinates, pin }) => {
         return "Russia";
       case "United States of America (the)":
         return "United States";
+      case "United Kingdom of Great Britain and Northern Ireland (the)":
+        return "United Kingdom";
+      case "Niger (the)":
+        return "Niger";
+      case "Congo (the)":
+        return "DR Congo";
+      case "Congo (the Democratic Republic of the)":
+        return "Republic of the Congo";
+      case "Cote d'Ivoire":
+        return "Ivory Coast";
       default:
         return name;
     }
@@ -42,6 +55,8 @@ const GetGeoData = ({ coordinates, pin }) => {
           lat: coordinates.capLat.toFixed(5),
           lng: coordinates.capLng.toFixed(5)
         };
+        setBluePinCoordinates(roundedCoordinates);
+        console.log("BLUE PIN COORDINATES: ", {roundedCoordinates});
       }
 
       if (pin === "red") {
@@ -49,9 +64,11 @@ const GetGeoData = ({ coordinates, pin }) => {
           lat: coordinates.lat.toFixed(5),
           lng: coordinates.lng.toFixed(5)
         };
+        setRedPinCoordinates(roundedCoordinates);
+        console.log("RED PIN COORDINATES: ", {roundedCoordinates});
       }
 
-      console.log(roundedCoordinates);
+      
 
       const apiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${roundedCoordinates.lat}&longitude=${roundedCoordinates.lng}&localityLanguage=en`;
 
@@ -141,13 +158,26 @@ const GetGeoData = ({ coordinates, pin }) => {
                       {countryData && countryData.flags && (
                         <img src={countryData.flags.png} alt={`${countryData.name.common} flag`} />
                       )}
-                      {/* <WeatherInfo city={country.capital} lat="61" lng="24" /> */}
                     </div>
                   </Col>
                 </Row>
               </Container>
-            {/* <p>City: {city}</p>
-            <p>Country: {country}</p> */}
+
+              {countryData && country &&(
+              <Container>
+                <Row className="justify-content-center align-items-center">
+                  <Col xs={12} md={2}>
+                    <div className="floating-info-card weather-red-pin">
+                      <WeatherInfo 
+                        city={geoData.city} 
+                        lat={redPinCoordinates.lat} 
+                        lng={redPinCoordinates.lng}>
+                      </WeatherInfo>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+              )}
             </>
           ) : (
             <p>Loading geo data...</p>
@@ -162,8 +192,21 @@ const GetGeoData = ({ coordinates, pin }) => {
           <div>
           {geoData ? (
             <>
-            {/* <p>City: {city}</p>
-            <p>Country: {country}</p> */}
+            <Container>
+                <Row className="justify-content-center align-items-center">
+                  <Col xs={12} md={2}>
+                    <div className="floating-info-card weather-blue-pin">
+                    {countryData && countryData.capital && (
+                      <WeatherInfo 
+                        city={countryData.capital} 
+                        lat={bluePinCoordinates.lat} 
+                        lng={bluePinCoordinates.lng}>
+                      </WeatherInfo>
+                    )}
+                      </div>
+                  </Col>
+                </Row>
+              </Container>
             </>
           ) : (
             <p>Loading geo data...</p>

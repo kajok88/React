@@ -16,7 +16,7 @@
 .floating-info-card {
     position: fixed;
     width: 100%;
-    background-color: white;
+    background-color: rgb(240, 240, 240);
     box-shadow: 0px 0px 8px #ddd;
     border-radius: 5px;
     z-index: 1000;
@@ -26,17 +26,35 @@
         border: 2px solid blue;
         left: 10px;
         top: 10%;
-        max-height: 500px;
-        max-width: 324px;
+        max-height: 440px;
+        max-width: 341px;
     }
 
     .with-red-border {
         border: 2px solid red;
         right: 10px;
-        top: 35%;
-        max-height: 500px;
-        max-width: 324px;
+        top: 30%;
+        max-height: 440px;
+        max-width: 341px;
     }
+
+    .weather-blue-pin {
+        border: 2px solid blue;
+        left: 10px;
+        bottom: 25%;
+        max-height: 225px;
+        max-width: 341px;
+    }
+
+    .weather-red-pin {
+        border: 2px solid red;
+        right: 10px;
+        top: 75%;
+        max-height: 225px;
+        max-width: 341px;
+    }
+
+
 
 
 .floating-popup-card {
