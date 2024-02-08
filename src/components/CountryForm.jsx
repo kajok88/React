@@ -7,7 +7,7 @@ const CountryForm = ({ country }) => {
         <h1>{country.name.common}</h1>
         <img
           src={country.coatOfArms.png}
-          alt={`${country.name.common} flag`}
+          alt={`${country.name.common} coat of arms`}
           style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
         />
       </div>
