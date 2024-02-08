@@ -157,8 +157,8 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         <div>
           {noCoordinates ? (
             <MapContainer 
-            center={[59.225, 18.105]}
-            zoom={4.5}
+            center={[44, 22]}
+            zoom={3}
 
             style={{ height: '94vh', width: '100%' }}
             zoomControl={false}
