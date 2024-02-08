@@ -5,7 +5,7 @@ import CountryForm from "./CountryForm";
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import { useCountryData } from "./CountryDataContext";
+import { useCountryData } from "../contexts/CountryDataContext";
 
 const GetGeoData = ({ coordinates, pin }) => {
   const countries = useCountryData();

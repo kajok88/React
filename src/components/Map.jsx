@@ -9,10 +9,12 @@ import "font-awesome/css/font-awesome.min.css";
 
 import Container from 'react-bootstrap/Container';
 import { Row, Col } from 'react-bootstrap';
+import CloseButton from 'react-bootstrap/CloseButton';
 
 import '../App.css'
 
 import GetGeoData from "./GetGeoData";
+import { useContainerState } from '../contexts/ContainerStateContext';
 
 const { BaseLayer } = LayersControl;
 
@@ -21,19 +23,26 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [position, setPosition] = useState(null);
   const [pinPosition, setPinPosition] = useState(null);
   // const [countryCoordinates, setCountryCoordinates] = useState(null);
+
+  const { containerState, handleContainerState } = useContainerState();
+  // const [containerState, setContainerState] = useState({
+  //   yourLocationContainer: true,
+  //   pinLocationContainer: true,
+  // });
   
 
   useEffect(() => {
     if (!map) return;
 
     L.easyButton("fa-map-marker fa-2x", () => {
-      
+      handleContainerState('yourLocationContainer', true);
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
         map.flyTo(e.latlng, 10);
       });
+      
     }).setPosition('bottomleft').addTo(map);
-  }, [map]);
+  }, [map, containerState]);
 
   const PlacePin = () => {
     const map = useMapEvents({
@@ -46,6 +55,18 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
     });
 
     return null;
+  };
+
+  // const handleContainerState = (containerId, isVisible) => {
+  //   setContainerState(prevState => ({
+  //     ...prevState,
+  //     [containerId]: isVisible,
+  //   }));
+  // };
+
+  const handleClose = (containerId) => {
+    handleContainerState(containerId, false);
+    console.log("State of" + {containerId});
   };
 
   const pointIcon = new Icon({
@@ -103,24 +124,31 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   return (
     <>
       <div>
+      {containerState.yourLocationContainer ? (
         <Container className="">
-          <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+          <Row className="justify-content-center align-items-center">
             <Col xs={12} md={2}>
               <div className="floating-popup-card popup-coord-info">
-              {position ? (
+                <CloseButton 
+                onClick={() => handleClose('yourLocationContainer')}
+                style={{ position: 'absolute', top: 0, right: 0 }}
+                />
+              {containerState.yourLocationContainer && position ? (
                 <p>Your coordinates: {position.lat}, {position.lng}</p>
               ) : (
-                <p>Loading coordinates...</p>
+                <p>Locate yourself to view local weather</p>
               )}
               </div>
             </Col>
           </Row>
         </Container>
-        
+        ) : (
+          null
+      )}
       </div>
       <div>
       <Container className="">
-          <Row className="justify-content-center align-items-center"> {/* Added align-items-center */}
+          <Row className="justify-content-center align-items-center"> 
             <Col xs={12} md={2}>
               <div className="floating-popup-card popup-pin-info">
               {pinPosition ? (
