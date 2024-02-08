@@ -3,8 +3,15 @@ import WeatherInfo from "./WeatherInfo";
 const CountryForm = ({ country }) => {
   return (
     <div>
-      <h1>{country.name.common}</h1>
-      <div>Capital: {country.capital}</div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <h1>{country.name.common}</h1>
+        <img
+          src={country.coatOfArms.png}
+          alt={`${country.name.common} flag`}
+          style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
+        />
+      </div>
+      <h3>Capital: {country.capital}</h3>
       <div>Area: {country.area} km²</div>
       <h3>Languages:</h3>
       <ul>

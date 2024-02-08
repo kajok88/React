@@ -133,7 +133,20 @@ const GetGeoData = ({ coordinates, pin }) => {
                 <Row className="justify-content-center align-items-center"> 
                   <Col xs={12} md={2}>
                     <div className="floating-info-card with-red-border">
-                      <h1>{country}</h1>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        {country && geoData.city ? (
+                          <h1>{geoData.city}, {country}</h1>
+                        ) : (
+                          <h1>{country}</h1>
+                        )}
+                        {countryData && countryData.coatOfArms && (
+                        <img
+                          src={countryData.coatOfArms.png}
+                          alt={`${countryData.name.common} flag`}
+                          style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
+                        />
+                        )}
+                      </div>
                       <div>State/Region: {geoData.principalSubdivision}</div>
                       <div>City: {geoData.city}</div>
                       <div>Municipality: {geoData.locality}</div>
