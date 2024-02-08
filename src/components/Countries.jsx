@@ -2,19 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Button, Card } from "react-bootstrap";
 import "../App.css"
 
-const Countries = ({ countriesToShow, setCountriesToShow, setSelectedCountry, setQuery }) => {
+const Countries = ({ countriesToShow, setCountriesToShow, setQuery }) => {
 
 
   const handleOnClick = (country) => {
     setCountriesToShow([country]);
-    setSelectedCountry([country]);
     setQuery('');
   };
 
     return (
       <>
         <div>
-          {countriesToShow.length > 20 ? (
+          {countriesToShow.length === 1 ? (
             null
           ) : (
               <div className="d-flex flex-column">
