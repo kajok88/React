@@ -30,7 +30,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
+        map.flyTo(e.latlng, 10);
       });
     }).setPosition('bottomleft').addTo(map);
   }, [map]);
