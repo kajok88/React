@@ -10,7 +10,6 @@ import GetCountryCoodrinates from "./components/GetCountryCoordinates";
 
 import Search from "./components/Search";
 
-import "./Search.css";
 import "./App.css"
 
 

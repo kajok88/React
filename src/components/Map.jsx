@@ -67,6 +67,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       <LayersControl position="bottomleft">
         <BaseLayer checked name="OpenStreetMap">
           <TileLayer
+            minZoom={3}
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
           />
@@ -139,6 +140,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             <MapContainer 
               center={[countryCoordinates?.lat, countryCoordinates?.lng]}
               zoom={4.5}
+
               style={{ height: '94vh', width: '100%' }}
               zoomControl={false}
               ref={setMap}
@@ -157,6 +159,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             <MapContainer 
             center={[59.225, 18.105]}
             zoom={4.5}
+
             style={{ height: '94vh', width: '100%' }}
             zoomControl={false}
             ref={setMap}

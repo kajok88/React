@@ -12,6 +12,14 @@
     overflow-y: auto;
 
 }
+    .search-result {
+        padding: 1px 10px;
+    }
+    
+    .search-result:hover {
+        background-color: #efefef;
+    }
+
 
 .floating-info-card {
     position: fixed;
@@ -75,6 +83,7 @@
         top: 9%;
         max-height: 500px;
         max-width: 180px;
+        border: 2px solid rgb(0, 0, 0);
     }
 
     .popup-pin-info {
@@ -82,6 +91,7 @@
         top: 19%;
         max-height: 500px;
         max-width: 180px;
+        border: 2px solid red;
     }
 
     .popup-error {
