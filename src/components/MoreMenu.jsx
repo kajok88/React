@@ -20,6 +20,14 @@ const MoreMenu = ({ showPage }) => {
   };
 
 
+  const pins = [
+
+    { id: 'greenPin', label: 'Green', value: 'green' },
+    { id: 'redPin', label: 'Red', value: 'red' },
+    { id: 'bluePin', label: 'Blue', value: 'blue' },
+    { id: 'pinkPin', label: 'Pink', value: 'pink' }
+  ];
+
   return (
     <>
       <Nav.Link href="" onClick={handleShow}>More</Nav.Link>
@@ -31,14 +39,14 @@ const MoreMenu = ({ showPage }) => {
         <h2>Locate Capitals:</h2><br></br>
         <h5>Select Pin Color:</h5>
         <Form>
-            {['Blue', 'Green', 'Pink', 'Red'].map(color => (
+            {pins.map(pin => (
             <Form.Check
-                key={color}
+                key={pin.id}
                 type="radio"
-                id={`radio-${color}`}
-                label={color}
-                checked={selectedColor === color}
-                onChange={() => handleColorChange(color)}
+                id={pin.id}
+                label={pin.label}
+                checked={selectedColor === pin.value}
+                onChange={() => handleColorChange(pin.value)}
             />
             ))}
         </Form>
