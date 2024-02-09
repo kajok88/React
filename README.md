@@ -57,3 +57,13 @@
 >>> menee countryforms komponentille ja näyttää maatiedon molemmista pinneistä.
 >>>
 >>
+
+**Muuta/Huomioita:**
+
+- Apien yhteensovittaminen tuottaa myös haasteita; Se mitä reverse geokoodaus antaa esim. maan nimeksi, ei välttämättä ole samaa muotoa kuin restCountries apissa, josta k.o. maan lisätiedot pitäisi hakea.
+  > Esim:
+  > reverse Geokoodaus antaa Venäjän nimeksi: "Russian Federation (the)", 
+  > kun taas RestCountries api tuo Venäjästä tiedot nimen "Russia" alta. 
+  > Tämänlaisia yhteensopivuusongelmia voi tietysti koittaa korjata (muutama maa on 
+  > korjattu GetGeoData.jsx komponentissa), mutta kaikkien 250 maan läpi käyminen vie 
+  > kyllä oman aikansa, jos siihen ryhtyy.
