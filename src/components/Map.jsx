@@ -15,6 +15,7 @@ import '../App.css'
 
 import GetGeoData from "./GetGeoData";
 import { useContainerState } from '../contexts/ContainerStateContext';
+import { usePinContext } from '../contexts/PinContext';
 
 const { BaseLayer } = LayersControl;
 
@@ -25,6 +26,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   // const [countryCoordinates, setCountryCoordinates] = useState(null);
 
   const { containerState, handleContainerState } = useContainerState();
+  const { redPin, bluePin, setPin } = usePinContext();
   // const [containerState, setContainerState] = useState({
   //   yourLocationContainer: true,
   //   pinLocationContainer: true,
@@ -32,6 +34,9 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   
 
   useEffect(() => {
+    if (capitalCoordinates) {
+      handleAddBluePin(capitalCoordinates);
+    }
     if (!map) return;
 
     L.easyButton("fa-map-marker fa-2x", () => {
@@ -51,11 +56,22 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         const lat = e.latlng.lat;
         const lng = e.latlng.lng;
         setPinPosition({ lat, lng });
+        handleAddRedPin({ lat, lng });
         map.setView([lat, lng]);
       },
     });
 
     return null;
+  };
+
+  const handleAddRedPin = (coordinates) => {
+    setPin('red', coordinates);
+    console.log("RED PIN CONTEXT: ", coordinates)
+  };
+
+  const handleAddBluePin = (coordinates) => {
+    setPin('blue', coordinates);
+    console.log("BLUE PIN CONTEXT: ", coordinates)
   };
 
   // const handleContainerState = (containerId, isVisible) => {
