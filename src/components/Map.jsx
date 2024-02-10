@@ -26,10 +26,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
 
   const { containerState, handleContainerState } = useContainerState();
   const { redPin, bluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
-  // const [containerState, setContainerState] = useState({
-  //   yourLocationContainer: true,
-  //   pinLocationContainer: true,
-  // });
   
 
   useEffect(() => {
@@ -73,18 +69,12 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
     console.log("BLUE PIN CONTEXT: ", coordinates)
   };
 
-  // const handleContainerState = (containerId, isVisible) => {
-  //   setContainerState(prevState => ({
-  //     ...prevState,
-  //     [containerId]: isVisible,
-  //   }));
-  // };
-
   const handleClose = (containerId) => {
     handleContainerState(containerId, false);
   };
 
-  const handleCapitalIcon2 = (color) => {
+
+  const handleIcon = (color) => {
     switch (color) {
       case 'red':
         return new Icon({
@@ -108,48 +98,11 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         });
       default:
         return new Icon({
-          iconUrl: "pin_green.png",
-          iconSize: [35, 70]
+          iconUrl: "map_point.png",
+          iconSize: [35,35]
         });
     }
   };
-
-  const handleCapitalIcon = (color) => {
-    switch (color) {
-      case "red":
-        return pinRedIcon;
-      case "blue":
-        return pinBlueIcon;
-      case "green":
-        return pinGreenIcon;
-      case "pink":
-        return pinPinkIcon;
-      default:
-        return color;
-    }
-  };
-
-  const pointIcon = new Icon({
-    iconUrl: "map_point.png",
-    iconSize: [35,35]
-  });
-
-  const pinRedIcon = new Icon({
-    iconUrl: "pin_red.png",
-    iconSize: [35,70]
-  });
-  const pinBlueIcon = new Icon({
-    iconUrl: "pin_blue.png",
-    iconSize: [35,70]
-  });
-  const pinGreenIcon = new Icon({
-    iconUrl: "pin_green.png",
-    iconSize: [35,70]
-  });
-  const pinPinkIcon = new Icon({
-    iconUrl: "pin_pink.png",
-    iconSize: [35,70]
-  });
 
   const MapContainerContents = () => (
     <>
@@ -164,14 +117,14 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       </LayersControl>
       <div>
         {position === null ? null : (
-          <Marker position={position} icon={pointIcon}>
+          <Marker position={position} icon={handleIcon("point")}>
             <Popup>You are here</Popup>
           </Marker>
         )}
       </div>
       <div>
         {pinPosition === null ? null : (
-          <Marker position={pinPosition} icon={pinRedIcon}>
+          <Marker position={pinPosition} icon={handleIcon("red")}>
             <Popup>Pinned!</Popup>
           </Marker>
         )}
@@ -179,7 +132,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       <div>
         {capitalCoordinates ? (
           <Marker position={[capitalCoordinates.capLat, capitalCoordinates.capLng]} 
-            icon={pinBlueIcon}>
+            icon={handleIcon("blue")}>
             <Popup>Pinned!</Popup>
           </Marker>
         ) : (
@@ -189,7 +142,10 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       <div>
         {capitalPins ? (
           capitalPins.map((pin, index) => (
-            <Marker key={index} position={[pin.coordinates.lat, pin.coordinates.lng]} icon={handleCapitalIcon2(capitalPinColor)}>
+            <Marker 
+              key={index} 
+              position={[pin.coordinates.lat, pin.coordinates.lng]} 
+              icon={handleIcon(capitalPinColor.selectedColor)}>
               <Popup>{pin.capitalName}</Popup>
             </Marker>
           ))
@@ -209,14 +165,14 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             <Col xs={12} md={2}>
               <div className="floating-popup-card popup-coord-info">
                 <CloseButton 
-                onClick={() => handleClose('yourLocationContainer')}
-                className='hide-container-button'
+                  onClick={() => handleClose('yourLocationContainer')}
+                  className='hide-container-button'
                 />
-              {containerState.yourLocationContainer && position ? (
-                <p>Your coordinates: {position.lat}, {position.lng}</p>
-              ) : (
-                <p>Locate yourself to view local weather</p>
-              )}
+                {containerState.yourLocationContainer && position ? (
+                  <p>Your coordinates: {position.lat}, {position.lng}</p>
+                ) : (
+                  <p>Locate yourself to view local weather</p>
+                )}
               </div>
             </Col>
           </Row>
@@ -259,7 +215,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
               style={{ height: '94vh', width: '100%' }}
               zoomControl={false}
               ref={setMap}
-              // style={{ height: "100vh" }}
               >
               <ZoomControl position="bottomleft" />
               <MapContainerContents/>
@@ -278,7 +233,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             style={{ height: '94vh', width: '100%' }}
             zoomControl={false}
             ref={setMap}
-            // style={{ height: "100vh" }}
             >
             <ZoomControl position="bottomleft" />
             <MapContainerContents/>
