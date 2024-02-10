@@ -5,7 +5,7 @@ import { usePinContext } from '../contexts/PinContext';
 
 const GetAllCapitals = ({ selectedColor }) => {
   const countries = useCountryData();
-  const { setCapitalPin, setPinColor  } = usePinContext();
+  const { setCapitalPin, setPinColor, showCapitalPins, toggleShowCapitalPins  } = usePinContext();
 
   const handleSearchCapitals = () => {
     countries.forEach(country => {
@@ -21,11 +21,22 @@ const GetAllCapitals = ({ selectedColor }) => {
     setPinColor({ selectedColor });
   };
 
+  const handleToggleShowCapitalPins = () => {
+    toggleShowCapitalPins();
+  };
+
+  const handleOnClick = () => {
+    handleSearchCapitals();
+    handleToggleShowCapitalPins();
+  };
 
   return (
     <div>
-        <br></br>
-      <Button variant='success' onClick={handleSearchCapitals}>Locate</Button>
+      <br></br>
+      <Button variant='outline-success' 
+        onClick={handleOnClick}>
+          {showCapitalPins ? 'Locate' : 'Disable'}
+        </Button>
     </div>
   );
 };
