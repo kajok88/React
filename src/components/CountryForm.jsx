@@ -13,13 +13,13 @@ const CountryForm = ({ country, handleClose }) => {
         <h1>{country.name.common}</h1>
         {Object.keys(country.coatOfArms).length !== 0 ? (
           <img
-          src={country.coatOfArms.png}
-          alt={`${country.name.common} coat of arms`}
-          style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
+            src={country.coatOfArms.png}
+            alt={`${country.name.common} coat of arms`}
+            style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
           />
-          ) : (
-            null
-          )}
+        ) : (
+          null
+        )}
         
       </div>
       <h3>Capital: {country.capital}</h3>

@@ -8,16 +8,18 @@ const GetAllCapitals = ({ selectedColor }) => {
   const { setCapitalPin, setPinColor  } = usePinContext();
 
   const handleSearchCapitals = () => {
-  countries.forEach(country => {
+    countries.forEach(country => {
     // Check if capitalInfo is not an empty object
-    if (Object.keys(country.capitalInfo).length !== 0) { 
-      setCapitalPin({
-        coordinates: { lat: country.capitalInfo.latlng[0], lng: country.capitalInfo.latlng[1] }
-      });
-    }
-  });
-  setPinColor({ selectedColor });
-};
+        if (Object.keys(country.capitalInfo).length !== 0 && country.capital) { 
+        setCapitalPin({
+            capitalName: `${country.capital}, ${country.name.common}`,
+            // capitalName: country.capital,
+            coordinates: { lat: country.capitalInfo.latlng[0], lng: country.capitalInfo.latlng[1] }
+        });
+        }
+    });
+    setPinColor({ selectedColor });
+  };
 
 
   return (
