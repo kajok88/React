@@ -11,11 +11,16 @@ const CountryForm = ({ country, handleClose }) => {
           className='hide-container-button'
         />
         <h1>{country.name.common}</h1>
-        <img
+        {Object.keys(country.coatOfArms).length !== 0 ? (
+          <img
           src={country.coatOfArms.png}
           alt={`${country.name.common} coat of arms`}
           style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
-        />
+          />
+          ) : (
+            null
+          )}
+        
       </div>
       <h3>Capital: {country.capital}</h3>
       <div>Area: {country.area} km²</div>
