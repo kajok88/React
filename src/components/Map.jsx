@@ -116,16 +116,23 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         </BaseLayer>
       </LayersControl>
       <div>
-        {position === null ? null : (
-          <Marker position={position} icon={handleIcon("point")}>
-            <Popup>You are here</Popup>
-          </Marker>
+        {capitalPins ? (
+          capitalPins.map((pin, index) => (
+            <Marker 
+              key={index} 
+              position={[pin.coordinates.lat, pin.coordinates.lng]} 
+              icon={handleIcon(capitalPinColor.selectedColor)}>
+              <Popup>{pin.capitalName}</Popup>
+            </Marker>
+          ))
+        ) : (
+          null
         )}
       </div>
       <div>
-        {pinPosition === null ? null : (
-          <Marker position={pinPosition} icon={handleIcon("red")}>
-            <Popup>Pinned!</Popup>
+        {position === null ? null : (
+          <Marker position={position} icon={handleIcon("point")}>
+            <Popup>You are here</Popup>
           </Marker>
         )}
       </div>
@@ -140,19 +147,13 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         )}
       </div>
       <div>
-        {capitalPins ? (
-          capitalPins.map((pin, index) => (
-            <Marker 
-              key={index} 
-              position={[pin.coordinates.lat, pin.coordinates.lng]} 
-              icon={handleIcon(capitalPinColor.selectedColor)}>
-              <Popup>{pin.capitalName}</Popup>
-            </Marker>
-          ))
-        ) : (
-          null
+        {pinPosition === null ? null : (
+          <Marker position={pinPosition} icon={handleIcon("red")}>
+            <Popup>Pinned!</Popup>
+          </Marker>
         )}
       </div>
+      
     </>
   );
 
