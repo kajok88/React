@@ -23,10 +23,9 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   const [pinPosition, setPinPosition] = useState(null);
-  // const [countryCoordinates, setCountryCoordinates] = useState(null);
 
   const { containerState, handleContainerState } = useContainerState();
-  const { redPin, bluePin, setPin } = usePinContext();
+  const { redPin, bluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
   // const [containerState, setContainerState] = useState({
   //   yourLocationContainer: true,
   //   pinLocationContainer: true,
@@ -85,17 +84,70 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
     handleContainerState(containerId, false);
   };
 
+  const handleCapitalIcon2 = (color) => {
+    switch (color) {
+      case 'red':
+        return new Icon({
+          iconUrl: "pin_red.png",
+          iconSize: [35, 70]
+        });
+      case "blue":
+        return new Icon({
+          iconUrl: "pin_blue.png",
+          iconSize: [35, 70]
+        });
+      case "green":
+        return new Icon({
+          iconUrl: "pin_green.png",
+          iconSize: [35, 70]
+        });
+      case "pink":
+        return new Icon({
+          iconUrl: "pin_pink.png",
+          iconSize: [35, 70]
+        });
+      default:
+        return new Icon({
+          iconUrl: "pin_green.png",
+          iconSize: [35, 70]
+        });
+    }
+  };
+
+  const handleCapitalIcon = (color) => {
+    switch (color) {
+      case "red":
+        return pinRedIcon;
+      case "blue":
+        return pinBlueIcon;
+      case "green":
+        return pinGreenIcon;
+      case "pink":
+        return pinPinkIcon;
+      default:
+        return color;
+    }
+  };
+
   const pointIcon = new Icon({
     iconUrl: "map_point.png",
     iconSize: [35,35]
   });
 
-  const pinIcon = new Icon({
+  const pinRedIcon = new Icon({
     iconUrl: "pin_red.png",
     iconSize: [35,70]
   });
   const pinBlueIcon = new Icon({
     iconUrl: "pin_blue.png",
+    iconSize: [35,70]
+  });
+  const pinGreenIcon = new Icon({
+    iconUrl: "pin_green.png",
+    iconSize: [35,70]
+  });
+  const pinPinkIcon = new Icon({
+    iconUrl: "pin_pink.png",
     iconSize: [35,70]
   });
 
@@ -119,7 +171,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       </div>
       <div>
         {pinPosition === null ? null : (
-          <Marker position={pinPosition} icon={pinIcon}>
+          <Marker position={pinPosition} icon={pinRedIcon}>
             <Popup>Pinned!</Popup>
           </Marker>
         )}
@@ -130,6 +182,17 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             icon={pinBlueIcon}>
             <Popup>Pinned!</Popup>
           </Marker>
+        ) : (
+          null
+        )}
+      </div>
+      <div>
+        {capitalPins ? (
+          capitalPins.map((pin, index) => (
+            <Marker key={index} position={[pin.coordinates.lat, pin.coordinates.lng]} icon={handleCapitalIcon2(capitalPinColor)}>
+              <Popup>{pin.capitalName}</Popup>
+            </Marker>
+          ))
         ) : (
           null
         )}
