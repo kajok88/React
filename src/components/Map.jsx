@@ -23,7 +23,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   const [pinPosition, setPinPosition] = useState(null);
-
   const { containerState, handleContainerState } = useContainerState();
   const { redPin, bluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
   
@@ -33,7 +32,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       handleAddBluePin(capitalCoordinates);
     }
     if (!map) return;
-
+    
     L.easyButton("fa-map-marker fa-2x", () => {
       handleContainerState('yourLocationContainer', true);
       map.locate().on("locationfound", function (e) {
@@ -43,6 +42,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       
     }).setPosition('bottomleft').addTo(map);
   }, [map]);
+
 
   const PlacePin = () => {
     const map = useMapEvents({
@@ -55,7 +55,6 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         map.setView([lat, lng]);
       },
     });
-
     return null;
   };
 
@@ -131,7 +130,8 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       </div>
       <div>
         {position === null ? null : (
-          <Marker position={position} icon={handleIcon("point")}>
+          <Marker position={position} 
+            icon={handleIcon("point")}>
             <Popup>You are here</Popup>
           </Marker>
         )}
@@ -140,7 +140,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         {capitalCoordinates ? (
           <Marker position={[capitalCoordinates.capLat, capitalCoordinates.capLng]} 
             icon={handleIcon("blue")}>
-            <Popup>Pinned!</Popup>
+            <Popup>Capital!</Popup>
           </Marker>
         ) : (
           null
@@ -148,12 +148,12 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       </div>
       <div>
         {pinPosition === null ? null : (
-          <Marker position={pinPosition} icon={handleIcon("red")}>
+          <Marker position={pinPosition} 
+            icon={handleIcon("red")}>
             <Popup>Pinned!</Popup>
           </Marker>
         )}
       </div>
-      
     </>
   );
 
@@ -245,18 +245,14 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         </div>
         <div>
           {capitalCoordinates ? (
-            <>
             <GetGeoData coordinates={capitalCoordinates} pin={"blue"}/>
-            </>
           ) : (
             null
           )}
         </div>
         <div>
           {pinPosition ? (
-            <>
             <GetGeoData coordinates={pinPosition} pin={"red"}/>
-            </>
           ) : (
             null
           )}
