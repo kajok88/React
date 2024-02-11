@@ -110,19 +110,10 @@
     right: 0; 
 }
 
-
-.toggle-Blue {
-    background-color: blue;
+.pin-table {
+    border: 0px solid white;
+    border-radius: 0px;
 }
-  
-.toggle-Green {
-    background-color: green;
-}
-
-.toggle-Pink {
-    background-color: rgb(255, 103, 128);
-}
-
-.toggle-Red {
-    background-color: red;
+.fetched-pin:hover {
+    background-color: #696969;
 }
