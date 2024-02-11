@@ -68,6 +68,7 @@ const FavoritesMenu = () => {
     axios.post('http://localhost:3004/pins', pinData)
       .then((response) => {
         console.log('Pin saved successfully:', response.data);
+        setFetchedPins(prevPins => [...prevPins, response.data]);
       })
       .catch((error) => {
         console.error('Error saving pin:', error);
@@ -144,7 +145,7 @@ const FavoritesMenu = () => {
               ))}
             </ListGroup>
           </div>
-          
+
         </Offcanvas.Body>
       </Offcanvas>
     </>
