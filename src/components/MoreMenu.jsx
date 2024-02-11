@@ -7,7 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import GetAllCapitals from './GetAllCapitals';
 import "../App.css"
 
-const MoreMenu = ({ showPage }) => {
+const MoreMenu = () => {
   const [show, setShow] = useState(false);
   const [selectedColor, setSelectedColor] = useState('green');
 

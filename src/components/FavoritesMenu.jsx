@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { usePinContext } from '../contexts//PinContext';
 
-const FavoritesMenu = ({ showPage }) => {
+const FavoritesMenu = () => {
   const { redPin, bluePin } = usePinContext();
   const [selectedPin, setSelectedPin] = useState(null);
 
@@ -13,13 +13,6 @@ const FavoritesMenu = ({ showPage }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  useEffect(() => {
-    if (showPage === true) {
-      handleShow();
-    }
-  }, []); 
-
   
   const handleSelectPin = (pin) => {
     setSelectedPin(pin);

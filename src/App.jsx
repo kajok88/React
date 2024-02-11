@@ -12,7 +12,6 @@ import Search from "./components/Search";
 
 import "./App.css"
 
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -22,10 +21,6 @@ import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import Card from "react-bootstrap/Card";
 import { Row, Col } from 'react-bootstrap';
-
-
-
-
 
 import ApiSubmitPage from "./components/SubmitApiKeys";
 import FavoritesMenu from "./components/FavoritesMenu";
@@ -71,7 +66,7 @@ const App = () => {
             Location Weather and Data
           </Navbar.Brand>
           <Nav className="me-auto">
-            <ApiSubmitPage showPage={ApiSubmitPage}></ApiSubmitPage>
+            <ApiSubmitPage></ApiSubmitPage>
           </Nav>
         </Container>
 
@@ -92,7 +87,6 @@ const App = () => {
           </Nav>
         </Container>
 
-        
         <Container>
           <Nav className="ms-auto">
             <MoreMenu></MoreMenu>

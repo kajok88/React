@@ -1,4 +1,6 @@
 import { React, useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { LayersControl, MapContainer, TileLayer, Marker, Popup, ZoomControl, useMapEvents } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -25,7 +27,9 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [pinPosition, setPinPosition] = useState(null);
   const { containerState, handleContainerState } = useContainerState();
   const { redPin, bluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
-  
+  const [localTime, setLocalTime] = useState(null);
+
+  const API_KEY = Cookies.get('timezoneApiKey');
 
   useEffect(() => {
     if (capitalCoordinates) {
@@ -42,6 +46,21 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       
     }).setPosition('bottomleft').addTo(map);
   }, [map]);
+  
+  
+  useEffect(() => {
+    if (pinPosition) {
+      const { lat, lng } = pinPosition;
+      axios.get(`http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}&format=json&by=position&lat=${lat}&lng=${lng}`)
+      .then((response) => {
+        setLocalTime(response.data);
+        console.log("Time Api response:", response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching timezone data:', error);
+      });
+    }
+  }, [pinPosition]);
 
 
   const PlacePin = () => {
@@ -150,7 +169,12 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         {pinPosition === null ? null : (
           <Marker position={pinPosition} 
             icon={handleIcon("red")}>
-            <Popup>Pinned!</Popup>
+            {localTime ? (
+              // "formatted" comes with date and time, so we split it and take just the time part.
+              <Popup>{`Local Time: ${localTime.formatted.split(" ")[1]}`}</Popup>
+            ) : (
+              <Popup>Pinned!</Popup>
+            )}
           </Marker>
         )}
       </div>
