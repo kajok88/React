@@ -8,7 +8,7 @@ import Nav from 'react-bootstrap/Nav';
 
 const ApiSubmitPage = () => {
   const [weatherApiKey, setWeatherApiKey] = useState('');
-  const [TimezoneApiKey, setTimezoneApiKey] = useState('');
+  const [timezoneApiKey, setTimezoneApiKey] = useState('');
   const [inputValueWeather, setInputValueWeather] = useState('');
   const [inputValueTimezone, setInputValueTimezone] = useState('');
   const [show, setShow] = useState(false);
@@ -39,7 +39,7 @@ const ApiSubmitPage = () => {
 
   const handleSubmitTimezone = () => {
     // Cookie expires in 14 days.
-    Cookies.set("timezoneApiKey", TimezoneApiKey, { expires: 14 });
+    Cookies.set("timezoneApiKey", timezoneApiKey, { expires: 14 });
     // Clears the input field after submitting
     setTimezoneApiKey('');
     setInputValueTimezone('');
@@ -49,14 +49,14 @@ const ApiSubmitPage = () => {
   
   return (
     <>
-      <Nav.Link href="" onClick={handleShow}>Modify API Keys</Nav.Link>
+      <Nav.Link href="" onClick={handleShow}>Modify/Submit API Keys</Nav.Link>
       <Offcanvas show={show} onHide={handleClose} data-bs-theme="dark">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Modify API keys</Offcanvas.Title>
+          <Offcanvas.Title>Modify/Submit API keys</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div>
-            <h2>Weather API:</h2>
+            <h2>Weather API Key:</h2>
             {Cookies.get('weatherApiKey') ? (
               <>
                 <div>
@@ -88,11 +88,11 @@ const ApiSubmitPage = () => {
           </div> 
 
           <div>
-            <h2>TimezoneDB API:</h2>
-            {Cookies.get('ipgeolocationApiKey') ? (
+            <h2>TimezoneDB API Key:</h2>
+            {Cookies.get('timezoneApiKey') ? (
               <>
                 <div>
-                  <FloatingLabel controlId="floatingInput" label={Cookies.get('ipgeolocationApiKey')}>
+                  <FloatingLabel controlId="floatingInput" label={Cookies.get('timezoneApiKey')}>
                     <Form.Control type="text" placeholder="ApiKey" onChange={handleTimezoneApiKeyChange} value={inputValueTimezone} />
                   </FloatingLabel>
                 </div>
