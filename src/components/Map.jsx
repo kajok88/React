@@ -24,19 +24,38 @@ const { BaseLayer } = LayersControl;
 const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
-  const [pinPosition, setPinPosition] = useState(null);
+  const [redPinPosition, setRedPinPosition] = useState(null);
+  const [bluePinPosition, setBluePinPosition] = useState(null);
   const { containerState, handleContainerState } = useContainerState();
-  const { redPin, bluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
+  const { fetchedRedPin, fetchedBluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
   const [localTime, setLocalTime] = useState(null);
 
   const API_KEY = Cookies.get('timezoneApiKey');
 
   useEffect(() => {
+    if (fetchedRedPin) {
+      console.log("GOT IT, RED");
+      console.log([fetchedRedPin.coordinates.lat, fetchedRedPin.coordinates.lng]);
+      console.log(fetchedRedPin.coordinates);
+      setRedPinPosition(fetchedRedPin.coordinates);
+    }
+  }, [fetchedRedPin]);
+
+  useEffect(() => {
+    if (fetchedBluePin) {
+      console.log("GOT IT, BLUE");
+      console.log(fetchedBluePin.coordinates);
+      setBluePinPosition(fetchedBluePin.coordinates);
+    }
+  }, [fetchedBluePin]);
+
+  useEffect(() => {
     if (capitalCoordinates) {
       handleAddBluePin(capitalCoordinates);
+      setBluePinPosition(capitalCoordinates);
     }
+    // Adds a "Locate me" icon to the map
     if (!map) return;
-    
     L.easyButton("fa-map-marker fa-2x", () => {
       handleContainerState('yourLocationContainer', true);
       map.locate().on("locationfound", function (e) {
@@ -47,10 +66,10 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
     }).setPosition('bottomleft').addTo(map);
   }, [map]);
   
-  
+  // Gives red pin a local time, which is shown when the placed pin is clicked.
   useEffect(() => {
-    if (pinPosition) {
-      const { lat, lng } = pinPosition;
+    if (redPinPosition) {
+      const { lat, lng } = redPinPosition;
       axios.get(`http://api.timezonedb.com/v2.1/get-time-zone?key=${API_KEY}&format=json&by=position&lat=${lat}&lng=${lng}`)
       .then((response) => {
         setLocalTime(response.data);
@@ -60,16 +79,16 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         console.error('Error fetching timezone data:', error);
       });
     }
-  }, [pinPosition]);
+  }, [redPinPosition]);
 
-
+  // Place a pin on the map with a click.
   const PlacePin = () => {
     const map = useMapEvents({
       click(e) {
         handleContainerState('redPinLocationContainer', true);
         const lat = e.latlng.lat;
         const lng = e.latlng.lng;
-        setPinPosition({ lat, lng });
+        setRedPinPosition({ lat, lng });
         handleAddRedPin({ lat, lng });
         map.setView([lat, lng]);
       },
@@ -77,21 +96,25 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
     return null;
   };
 
+  // Sends red pin's coordinate data to -> PinContext.jsx -> FavoritesMenu.jsx
   const handleAddRedPin = (coordinates) => {
     setPin('red', coordinates);
-    console.log("RED PIN CONTEXT: ", coordinates)
+    // console.log("RED PIN CONTEXT: ", coordinates)
   };
 
+  // Sends blue pin's coordinate data to -> PinContext.jsx -> FavoritesMenu.jsx
   const handleAddBluePin = (coordinates) => {
     setPin('blue', coordinates);
-    console.log("BLUE PIN CONTEXT: ", coordinates)
+    // console.log("BLUE PIN CONTEXT: ", coordinates)
   };
 
+  // Handles each components showstate from the ContainerStateContext.jsx.
+  // Triggered by clicking the cross in the upperright corner of a component.
   const handleClose = (containerId) => {
     handleContainerState(containerId, false);
   };
 
-
+  // Handles the icon/pincolor selection for each marker.
   const handleIcon = (color) => {
     switch (color) {
       case 'red':
@@ -122,6 +145,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
     }
   };
 
+  // Common map container components, just for making the code a bit more compact.
   const MapContainerContents = () => (
     <>
       <LayersControl position="bottomleft">
@@ -156,8 +180,8 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         )}
       </div>
       <div>
-        {capitalCoordinates ? (
-          <Marker position={[capitalCoordinates.capLat, capitalCoordinates.capLng]} 
+        {bluePinPosition ? (
+          <Marker position={[bluePinPosition.capLat, bluePinPosition.capLng]} 
             icon={handleIcon("blue")}>
             <Popup>Capital!</Popup>
           </Marker>
@@ -166,8 +190,8 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         )}
       </div>
       <div>
-        {pinPosition === null ? null : (
-          <Marker position={pinPosition} 
+        {redPinPosition === null ? null : (
+          <Marker position={redPinPosition} 
             icon={handleIcon("red")}>
             {localTime ? (
               // "formatted" comes with date and time, so we split it and take just the time part.
@@ -216,8 +240,8 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
                 onClick={() => handleClose('redPinLocationContainer')}
                 className='hide-container-button'
                 />
-              {pinPosition ? (
-                <p>Placed a pin on: {pinPosition.lat}, {pinPosition.lng}</p>
+              {redPinPosition ? (
+                <p>Placed a pin on: {redPinPosition.lat}, {redPinPosition.lng}</p>
               ) : (
                 <p>Place a pin with a click:</p>
               )}
@@ -268,15 +292,15 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
           )}
         </div>
         <div>
-          {capitalCoordinates ? (
-            <GetGeoData coordinates={capitalCoordinates} pin={"blue"}/>
+          {bluePinPosition ? (
+            <GetGeoData coordinates={bluePinPosition} pin={"blue"}/>
           ) : (
             null
           )}
         </div>
         <div>
-          {pinPosition ? (
-            <GetGeoData coordinates={pinPosition} pin={"red"}/>
+          {redPinPosition ? (
+            <GetGeoData coordinates={redPinPosition} pin={"red"}/>
           ) : (
             null
           )}
