@@ -7,6 +7,8 @@ export const usePinContext = () => useContext(PinContext);
 export const PinProvider = ({ children }) => {
   const [redPin, setRedPin] = useState(null);
   const [bluePin, setBluePin] = useState(null);
+  const [fetchedRedPin, setFetchedRedPin] = useState(null);
+  const [fetchedBluePin, setFetchedBluePin] = useState(null);
   const [capitalPins, setCapitalPins] = useState([]);
   const [capitalPinColor, setCapitalPinColor] = useState("");
   const [showCapitalPins, setShowCapitalPins] = useState(true);
@@ -17,6 +19,14 @@ export const PinProvider = ({ children }) => {
       setRedPin(position);
     } else if (color === 'blue') {
       setBluePin(position);
+    }
+  };
+
+  const setFetchedPin = (pin) => {
+    if (pin.pinType === 'red') {
+      setFetchedRedPin(pin);
+    } else if (pin.pinType === 'blue') {
+      setFetchedBluePin(pin);
     }
   };
 
@@ -43,7 +53,21 @@ export const PinProvider = ({ children }) => {
 
 
   return (
-    <PinContext.Provider value={{ redPin, bluePin, setPin, capitalPins, setCapitalPin, capitalPinColor, setPinColor, showCapitalPins, toggleShowCapitalPins }}>
+    <PinContext.Provider 
+      value={{ 
+        redPin, 
+        bluePin, 
+        setPin, 
+        fetchedRedPin, 
+        fetchedBluePin, 
+        setFetchedPin,
+        capitalPins, 
+        setCapitalPin, 
+        capitalPinColor, 
+        setPinColor, 
+        showCapitalPins, 
+        toggleShowCapitalPins 
+      }}>
       {children}
     </PinContext.Provider>
   );
