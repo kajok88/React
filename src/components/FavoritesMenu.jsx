@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import { usePinContext } from '../contexts/PinContext';
 import axios from 'axios';
 import '../App.css'
@@ -118,32 +120,50 @@ const FavoritesMenu = () => {
             </Button>
           </div> 
 
-          <div className='pin-table mt-4'>
-            <h2>Fetch pin:</h2>
-            <ListGroup as="ol" numbered>
-              {fetchedPins.map(pin => (
-                <ListGroup.Item
-                  key={pin.id}
-                  as="li"
-                  onClick={() => handleFetchPin(pin)}
-                  className="d-flex justify-content-between align-items-start fetched-pin">
-                  <div className="ms-2 me-auto ">
-                    <div className="fw-bold ">{pin.title}</div>
-                    {pin.pinType === "red" ? (
-                      `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
-                    ) : (
-                      `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
-                    )}
-                  </div>
-                    {pin.pinType === "red" ? (
-                      <Badge bg="danger" pill>{formatDate(pin.date)}</Badge>
-                    ) : (
-                      <Badge bg="primary" pill>{formatDate(pin.date)}</Badge>
-                    )}
-                  <br></br>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+          {/* <div className='pin-table mt-4'> */}
+          <div className='mt-5'>
+          <Tabs
+            defaultActiveKey="fetch"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+            fill
+            style={{ display: 'flex', flexDirection: 'row'}}
+          >
+            <Tab eventKey="fetch" title="Fetch">
+              <h2>Fetch pin:</h2>
+              <ListGroup as="ol" numbered>
+                {fetchedPins.map(pin => (
+                  <ListGroup.Item
+                    key={pin.id}
+                    as="li"
+                    onClick={() => handleFetchPin(pin)}
+                    className="d-flex justify-content-between align-items-start fetched-pin">
+                    <div className="ms-2 me-auto ">
+                      <div className="fw-bold ">{pin.title}</div>
+                      {pin.pinType === "red" ? (
+                        `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
+                      ) : (
+                        `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
+                      )}
+                    </div>
+                      {pin.pinType === "red" ? (
+                        <Badge bg="danger" pill>{formatDate(pin.date)}</Badge>
+                      ) : (
+                        <Badge bg="primary" pill>{formatDate(pin.date)}</Badge>
+                      )}
+                    <br></br>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            </Tab>
+            <Tab eventKey="edit" title="Edit">
+              Tab content for edit
+            </Tab>
+            <Tab eventKey="delete" title="Delete">
+              Tab content for delete
+            </Tab>
+          </Tabs>
+            
           </div>
 
         </Offcanvas.Body>
