@@ -43,7 +43,7 @@ const FavoritesMenu = () => {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:3004/pins")
+    axios.get("http://localhost:3004/api/pins")
       .then((response) => {
       console.log("Fetched pins:", response.data);
       setFetchedPins(response.data);
@@ -67,7 +67,7 @@ const FavoritesMenu = () => {
     };
     console.log(pinData)
     // POST request to the backend
-    axios.post('http://localhost:3004/pins', pinData)
+    axios.post('http://localhost:3004/api/pins', pinData)
       .then((response) => {
         console.log('Pin saved successfully:', response.data);
         setFetchedPins(prevPins => [...prevPins, response.data]);
@@ -156,9 +156,11 @@ const FavoritesMenu = () => {
                 ))}
               </ListGroup>
             </Tab>
+
             <Tab eventKey="edit" title="Edit">
               Tab content for edit
             </Tab>
+            
             <Tab eventKey="delete" title="Delete">
               Tab content for delete
             </Tab>

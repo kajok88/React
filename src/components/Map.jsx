@@ -76,7 +76,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         console.log("Time Api response:", response.data);
       })
       .catch((error) => {
-        console.error('Error fetching timezone data:', error);
+        console.error('Error fetching timezone data (only 1 request per second allowed):', error);
       });
     }
   }, [redPinPosition]);
