@@ -38,6 +38,7 @@
     - Kartta Api: https://developer.mapquest.com/user/login
     - Reverse Geocoding Api: https://www.bigdatacloud.com/free-api/free-reverse-geocode-to-city-api#endpoint
     - Toinen geocoding Api: https://openweathermap.org/api/geocoding-api#direct_name
+    - Paikallisaika api: https://timezonedb.com/
 
 **Setup:**
 
