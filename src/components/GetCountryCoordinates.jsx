@@ -3,13 +3,18 @@ import Map from "./Map";
 const GetCountryCoordinates = ({ country, }) => {
   try {
     if (country) {
+      console.log('COUNTRY BY NAME:', country);
       const lat = country.latlng[0];
       const lng = country.latlng[1];
       const countryCoordinates = { lat, lng };
   
-      const capLat = country.capitalInfo.latlng[0];
-      const capLng = country.capitalInfo.latlng[1];
-      const capitalCoordinates = { capLat, capLng };
+      // Checking if capitalInfo exists in the country object. Example: Antarctica doesn't have a capital.
+      const capitalCoordinates = country.capitalInfo && country.capitalInfo.latlng
+        ? {
+            capLat: country.capitalInfo.latlng[0],
+            capLng: country.capitalInfo.latlng[1]
+          }
+        : null;
   
       return (
         <>
@@ -17,8 +22,6 @@ const GetCountryCoordinates = ({ country, }) => {
             countryCoordinates={countryCoordinates} 
             capitalCoordinates={capitalCoordinates}
           />
-          {/* <p>Country Coordinates: {countryCoordinates.lat},{countryCoordinates.lng}</p>
-          <p>Capital's Coordinates: {capitalCoordinates.capLat},{capitalCoordinates.capLng}</p> */}
         </>
       );
     } else {
