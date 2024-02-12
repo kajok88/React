@@ -11,6 +11,7 @@ import { usePinContext } from '../contexts/PinContext';
 import axios from 'axios';
 import '../App.css'
 import { differenceInDays } from 'date-fns';
+import pinService from '../services/pins'
 
 const FavoritesMenu = () => {
   const { redPin, bluePin, setFetchedPin } = usePinContext();
@@ -43,10 +44,11 @@ const FavoritesMenu = () => {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:3004/api/pins")
+    pinService
+      .getAll()
       .then((response) => {
-      console.log("Fetched pins:", response.data);
-      setFetchedPins(response.data);
+      console.log("Fetched pins:", response);
+      setFetchedPins(response);
       })
       .catch((error) => {
         console.error('Error fetching pins:', error);
@@ -66,11 +68,12 @@ const FavoritesMenu = () => {
       coordinates: pinCoordinates,
     };
     console.log(pinData)
-    // POST request to the backend
-    axios.post('http://localhost:3004/api/pins', pinData)
+
+    pinService
+      .create(pinData)
       .then((response) => {
-        console.log('Pin saved successfully:', response.data);
-        setFetchedPins(prevPins => [...prevPins, response.data]);
+        console.log('Pin saved successfully:', response);
+        setFetchedPins(prevPins => [...prevPins, response]);
       })
       .catch((error) => {
         console.error('Error saving pin:', error);
@@ -78,7 +81,7 @@ const FavoritesMenu = () => {
   };
 
   
-
+  
   const pins = [
     { id: 'redPin', label: 'Red Pin', value: 'red' },
     { id: 'bluePin', label: 'Blue Pin', value: 'blue' },
