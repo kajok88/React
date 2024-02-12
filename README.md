@@ -2,7 +2,7 @@
 
 **Oletuksena käyttää node.js backendiä, joka löytyy:** 
 
-> https://github.com/kajok88/NodeFSO
+> https://github.com/kajok88/Node/tree/Phonebook
 
 
 **Vaihtoehtoisesti voidaan käyttää myös Json-serveriä, jonka saa käyntiin:**
@@ -16,11 +16,11 @@
 >> -> const baseUrl='http://localhost:3000/persons';
 >>
 
+**Käyttöönotto:**
+
+* npm install 
 
 **Käyntiin terminaalista komennolla:**
 
 - npm run dev
 
-**Asenna tarvittavat kirjastot:**
-
-* npm install {kirjasto}

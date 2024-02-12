@@ -26,7 +26,7 @@ const App = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
         setMessage(
-          `Server could not be accessed.`
+          `Server could not be accessed. Is it on?`
         );
         setTimeout(() => {
           getAll();
