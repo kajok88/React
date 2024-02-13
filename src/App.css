@@ -134,3 +134,7 @@
 .fetched-pin:hover {
     background-color: #696969;
 }
+
+.faded {
+    opacity: 0.4;
+}
