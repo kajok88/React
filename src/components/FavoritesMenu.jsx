@@ -20,6 +20,7 @@ const FavoritesMenu = () => {
   const [fetchedPins, setFetchedPins] = useState([]);
   const [editedPin, setEditedPin] = useState(null);
   const [editedTitle, setEditedTitle] = useState('');
+  const [pinToDelete, setPinToDelete] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -95,6 +96,20 @@ const FavoritesMenu = () => {
   };
 
 
+  // WHEN SELECTING A PIN TO BE DELETED
+  const handleDeletePin = async (pinId) => {
+    const confirmDelete = window.confirm(`Delete pin ${pinId.title}?`);
+    if (confirmDelete) {
+      try {
+        await pinService.remove(pinId);
+        setFetchedPins(prevPins => prevPins.filter(pin => pin.id !== pinId));
+      } catch (error) {
+        console.error('Error deleting pin:', error);
+      }
+    }
+  };
+
+
   // FOR DISPLAYING THE AGE IN DAYS FOR EACH PIN SAVED
   const formatDate = (date) => {
     const difference = differenceInDays(new Date(), new Date(date));
@@ -116,7 +131,8 @@ const FavoritesMenu = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
 
-          <div> {/* THIS IS THE FORM FOR SAVING CONTENT TO DATABASE */}
+          {/* THIS IS THE FORM FOR SAVING CONTENT TO DATABASE */}
+          <div> 
             <h2>Save pin:</h2>
             <Form>
               {pins.map(pin => (
@@ -144,8 +160,8 @@ const FavoritesMenu = () => {
             </Button>
           </div> 
 
-          
-          <div className='mt-5'> {/* THIS IS THE TABS MENU FOR DISPLAYING/EDITING CONTENT IN DATABASE */}
+          {/* THIS IS THE TABS MENU FOR DISPLAYING/EDITING CONTENT IN DATABASE */}
+          <div className='mt-5'> 
             <Tabs
               defaultActiveKey="fetch"
               id="uncontrolled-tab-example"
@@ -153,7 +169,8 @@ const FavoritesMenu = () => {
               fill
               style={{ display: 'flex', flexDirection: 'row'}}
             >
-              <Tab eventKey="fetch" title="Fetch">  {/* FETCH TAB */}
+              {/* FETCH TAB */}
+              <Tab eventKey="fetch" title="Fetch">  
                 <h2>Fetch pin:</h2>
                 <ListGroup as="ol" numbered>
                   {fetchedPins.map(pin => (
@@ -187,57 +204,83 @@ const FavoritesMenu = () => {
                 </ListGroup>
               </Tab>
 
-              <Tab eventKey="edit" title="Edit"> {/* EDIT TAB */}
-              <h2>Edit pin title:</h2>
-              <ListGroup as="ol" numbered>
-                {fetchedPins.map((pin) => (
-                  <ListGroup.Item
-                    key={pin.id}
-                    as="li"
-                    className={`d-flex justify-content-between align-items-start fetched-pin`}
-                    >
-                    <div className="ms-2 me-auto">
-                      {editedPin === pin.id ? (
-                        <Form.Control
-                          type="text"
-                          value={editedTitle}
-                          onChange={(e) => setEditedTitle(e.target.value)}
-                          onBlur={() => handleSubmitTitle(pin.id)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') handleSubmitTitle(pin.id);
-                          }}
-                          autoFocus
-                        />
-                      ) : (
-                        <div className="fw-bold" onClick={() => handleEditTitle(pin)}>
-                          {pin.title}
-                        </div>
-                      )}
-                      <div className='faded'>
-                        {pin.pinType === 'red' ? (
-                          `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
+              {/* EDIT TAB */}
+              <Tab eventKey="edit" title="Edit"> 
+                <h2>Edit pin title:</h2>
+                <ListGroup as="ol" numbered>
+                  {fetchedPins.map((pin) => (
+                    <ListGroup.Item
+                      key={pin.id}
+                      as="li"
+                      className={`d-flex justify-content-between align-items-start fetched-pin`}
+                      >
+                      <div className="ms-2 me-auto">
+                        {editedPin === pin.id ? (
+                          <Form.Control
+                            type="text"
+                            value={editedTitle}
+                            onChange={(e) => setEditedTitle(e.target.value)}
+                            onBlur={() => handleSubmitTitle(pin.id)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') handleSubmitTitle(pin.id);
+                            }}
+                            autoFocus
+                          />
                         ) : (
-                          `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
+                          <div className="fw-bold" onClick={() => handleEditTitle(pin)}>
+                            {pin.title}
+                          </div>
                         )}
+                        <div className='faded'>
+                          {pin.pinType === 'red' ? (
+                            `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
+                          ) : (
+                            `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    {pin.pinType === 'red' ? (
-                      <Badge bg="danger" pill>
-                        {formatDate(pin.date)}
-                      </Badge>
-                    ) : (
-                      <Badge bg="primary" pill>
-                        {formatDate(pin.date)}
-                      </Badge>
-                    )}
-                    <br></br>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+                      {pin.pinType === 'red' ? (
+                        <Badge bg="danger" pill>
+                          {formatDate(pin.date)}
+                        </Badge>
+                      ) : (
+                        <Badge bg="primary" pill>
+                          {formatDate(pin.date)}
+                        </Badge>
+                      )}
+                      <br></br>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
               </Tab>
               
-              <Tab eventKey="delete" title="Delete"> {/* DELETE TAB */}
-                Tab content for delete
+              {/* DELETE TAB */}
+              <Tab eventKey="delete" title="Delete"> 
+                <h2>Delete pin:</h2>
+                <ListGroup as="ol" numbered>
+                  {fetchedPins.map(pin => (
+                    <ListGroup.Item key={pin.id} as="li" className="d-flex justify-content-between align-items-start fetched-pin">
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold">
+                          {pin.title}
+                        </div>
+                        <div>
+                          {pin.pinType === "red" ? (
+                          `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
+                          ) : (
+                          `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <Button variant="danger" onClick={() => handleDeletePin(pin.id, pin.title)}>
+                          Delete
+                        </Button>
+                      </div>
+                      <br></br>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
               </Tab>
             </Tabs>
           </div>
