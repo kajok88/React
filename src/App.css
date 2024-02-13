@@ -22,7 +22,7 @@
 
 
 .floating-info-card {
-    position: fixed;
+    position: absolute;
     width: 100%;
     background-color: rgb(240, 240, 240);
     box-shadow: 0px 0px 8px #ddd;
@@ -49,7 +49,7 @@
     .weather-blue-pin {
         border: 2px solid blue;
         left: 10px;
-        bottom: 25%;
+        top: calc(10% + 440px + 20px);
         max-height: 225px;
         max-width: 341px;
     }
@@ -57,7 +57,7 @@
     .weather-red-pin {
         border: 2px solid red;
         right: 10px;
-        top: 77%;
+        top: calc(30% + 440px + 20px);
         max-height: 225px;
         max-width: 341px;
     }
@@ -66,7 +66,7 @@
 
 
 .floating-popup-card {
-    position: fixed;
+    position: absolute;
     padding-right: 5px;
     width: 100%;
     background-color: white;
