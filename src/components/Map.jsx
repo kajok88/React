@@ -16,6 +16,7 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import '../App.css'
 
 import GetGeoData from "./GetGeoData";
+import WeatherInfo from "./WeatherInfo";
 import { useContainerState } from '../contexts/ContainerStateContext';
 import { usePinContext } from '../contexts/PinContext';
 
@@ -58,6 +59,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
     if (!map) return;
     L.easyButton("fa-map-marker fa-2x", () => {
       handleContainerState('yourLocationContainer', true);
+      handleContainerState('yourLocalWeatherContainer', true);
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
         map.flyTo(e.latlng, 10);
@@ -171,7 +173,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
           null
         )}
       </div>
-      <div>
+      <div> {/* FOR DRAWING LOCATION MARKER */}
         {position === null ? null : (
           <Marker position={position} 
             icon={handleIcon("point")}>
@@ -179,7 +181,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
           </Marker>
         )}
       </div>
-      <div>
+      <div> {/* FOR DRAWING THE BLUE PIN */}
         {bluePinPosition ? (
           <Marker position={[bluePinPosition.capLat, bluePinPosition.capLng]} 
             icon={handleIcon("blue")}>
@@ -189,7 +191,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
           null
         )}
       </div>
-      <div>
+      <div> {/* FOR DRAWING THE RED PIN */}
         {redPinPosition === null ? null : (
           <Marker position={redPinPosition} 
             icon={handleIcon("red")}>
@@ -207,7 +209,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
 
   return (
     <>
-      <div>
+      <div> {/* THIS IS THE UPPER RIGHT BLACK INFO BOX */}
       {containerState.yourLocationContainer ? (
         <Container className="">
           <Row className="justify-content-center align-items-center">
@@ -229,8 +231,9 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       ) : (
         null
       )}
-      </div>
-      <div>
+      </div> 
+
+      <div> {/* THIS IS THE UPPER RIGHT RED INFO BOX */}
       {containerState.redPinLocationContainer ? (
         <Container className="">
           <Row className="justify-content-center align-items-center"> 
@@ -252,9 +255,30 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       ) : (
         null
       )}
-        
-      </div>
-      <div>
+      </div> 
+      
+          
+      <div> {/* THIS IS THE UPPER RIGHT RED INFO BOX */}
+      {containerState.yourLocalWeatherContainer && position ? (
+        <Container className="">
+          <Row className="justify-content-center align-items-center"> 
+            <Col xs={12} md={2}>
+              <div className="floating-local-weather">
+              <CloseButton 
+                onClick={() => handleClose('yourLocalWeatherContainer')}
+                className='hide-container-button'
+                />
+                <WeatherInfo lat={position.lat} lng={position.lng} city={"your location"}/>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      ) : (
+        null
+      )}
+      </div> 
+
+      <div> {/* THIS IS FOR DRAWING THE WHOLE MAP */}
         <div>
           {countryCoordinates ? (
             <MapContainer 
@@ -291,7 +315,8 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
             null
           )}
         </div>
-        <div>
+
+         <div> {/* FOR DRWAING THE INFO AND WEATHER CONTAINERS  */}
           {bluePinPosition ? (
             <GetGeoData coordinates={bluePinPosition} pin={"blue"}/>
           ) : (

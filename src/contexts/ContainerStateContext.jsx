@@ -9,6 +9,7 @@ export const ContainerStateProvider = ({ children }) => {
     errorContainer: true,
     
     yourLocationContainer: true,
+    yourLocalWeatherContainer: true,
     redPinLocationContainer: true,
 
     redWeatherContainer: true,
