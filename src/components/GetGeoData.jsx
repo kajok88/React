@@ -157,7 +157,7 @@ const GetGeoData = ({ coordinates, pin }) => {
                       {countryData && countryData.coatOfArms && (
                       <img
                         src={countryData.coatOfArms.png}
-                        alt={`${countryData.name.common} flag`}
+                        alt={`${countryData.name.common} coat of arms`}
                         style={{ maxWidth: "100px", maxHeight: "100px", marginLeft: "10px" }}
                       />
                       )}

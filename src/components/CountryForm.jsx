@@ -10,7 +10,7 @@ const CountryForm = ({ country, handleClose }) => {
           onClick={handleClose}
           className='hide-container-button'
         />
-        <h1>{country.name.common}</h1>
+        <h1 style={{ marginRight: "auto" }}>{country.name.common}</h1>
         {Object.keys(country.coatOfArms).length !== 0 ? (
           <img
             src={country.coatOfArms.png}
