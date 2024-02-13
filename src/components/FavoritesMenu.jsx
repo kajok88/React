@@ -20,7 +20,6 @@ const FavoritesMenu = () => {
   const [fetchedPins, setFetchedPins] = useState([]);
   const [editedPin, setEditedPin] = useState(null);
   const [editedTitle, setEditedTitle] = useState('');
-  const [pinToDelete, setPinToDelete] = useState(null);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
