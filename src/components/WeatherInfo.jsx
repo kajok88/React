@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { useApiKey } from '../contexts/ApiKeyContext';
+
 
 const WeatherInfo = ({ city, lat, lng }) => {
-  const API_KEY = Cookies.get('weatherApiKey');
+  const { weatherApiKey } = useApiKey();
   const [weather, setWeather] = useState([]);
   const [error, setError] = useState(null);
+
+  const API_KEY = weatherApiKey;
 
   useEffect(() => {
     axios

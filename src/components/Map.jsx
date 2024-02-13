@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { LayersControl, MapContainer, TileLayer, Marker, Popup, ZoomControl, useMapEvents } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -19,6 +18,7 @@ import GetGeoData from "./GetGeoData";
 import WeatherInfo from "./WeatherInfo";
 import { useContainerState } from '../contexts/ContainerStateContext';
 import { usePinContext } from '../contexts/PinContext';
+import { useApiKey } from '../contexts/ApiKeyContext';
 
 const { BaseLayer } = LayersControl;
 
@@ -30,8 +30,9 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const { containerState, handleContainerState } = useContainerState();
   const { fetchedRedPin, fetchedBluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
   const [localTime, setLocalTime] = useState(null);
+  const { timezoneApiKey } = useApiKey();
 
-  const API_KEY = Cookies.get('timezoneApiKey');
+  const API_KEY = timezoneApiKey;
 
   useEffect(() => {
     if (fetchedRedPin) {

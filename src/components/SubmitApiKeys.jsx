@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Cookies from "js-cookie";
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
+import { useApiKey } from '../contexts/ApiKeyContext';
 
 const ApiSubmitPage = () => {
-  const [weatherApiKey, setWeatherApiKey] = useState('');
-  const [timezoneApiKey, setTimezoneApiKey] = useState('');
+  const { weatherApiKey, setWeatherApiKey, timezoneApiKey, setTimezoneApiKey } = useApiKey();
   const [inputValueWeather, setInputValueWeather] = useState('');
   const [inputValueTimezone, setInputValueTimezone] = useState('');
   const [show, setShow] = useState(false);
@@ -19,31 +18,27 @@ const ApiSubmitPage = () => {
   const handleWeatherApiKeyChange = (event) => {
     const value = event.target.value;
     setInputValueWeather(value);
-    setWeatherApiKey(value);
+    //setWeatherApiKey(value);
   };
 
   const handleTimezoneApiKeyChange = (event) => {
     const value = event.target.value;
     setInputValueTimezone(value);
-    setTimezoneApiKey(value);
+    //setTimezoneApiKey(value);
   };
 
   const handleSubmitWeather = () => {
-    // Cookie expires in 14 days.
-    Cookies.set("weatherApiKey", weatherApiKey, { expires: 14 });
     // Clears the input field after submitting
-    setWeatherApiKey('');
+    setWeatherApiKey(inputValueWeather);
     setInputValueWeather('');
-    window.location.reload();
+    //window.location.reload();
   };
 
   const handleSubmitTimezone = () => {
-    // Cookie expires in 14 days.
-    Cookies.set("timezoneApiKey", timezoneApiKey, { expires: 14 });
     // Clears the input field after submitting
-    setTimezoneApiKey('');
+    setTimezoneApiKey(inputValueTimezone);
     setInputValueTimezone('');
-    window.location.reload();
+    //window.location.reload();
   };
 
   
@@ -57,10 +52,10 @@ const ApiSubmitPage = () => {
         <Offcanvas.Body>
           <div>
             <h2>Weather API Key:</h2>
-            {Cookies.get('weatherApiKey') ? (
+            {weatherApiKey ? (
               <>
                 <div>
-                  <FloatingLabel controlId="floatingInput" label={Cookies.get('weatherApiKey')}>
+                  <FloatingLabel controlId="floatingInput" label={weatherApiKey}>
                     <Form.Control type="text" placeholder="ApiKey" onChange={handleWeatherApiKeyChange} value={inputValueWeather} />
                   </FloatingLabel>
                 </div>
@@ -89,10 +84,10 @@ const ApiSubmitPage = () => {
 
           <div>
             <h2>TimezoneDB API Key:</h2>
-            {Cookies.get('timezoneApiKey') ? (
+            {timezoneApiKey ? (
               <>
                 <div>
-                  <FloatingLabel controlId="floatingInput" label={Cookies.get('timezoneApiKey')}>
+                  <FloatingLabel controlId="floatingInput" label={timezoneApiKey}>
                     <Form.Control type="text" placeholder="ApiKey" onChange={handleTimezoneApiKeyChange} value={inputValueTimezone} />
                   </FloatingLabel>
                 </div>

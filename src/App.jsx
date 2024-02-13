@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
 import axios from "axios";
 import Countries from "./components/Countries";
 import CountryForm from "./components/CountryForm";
