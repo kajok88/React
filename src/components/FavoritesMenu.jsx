@@ -25,17 +25,19 @@ const FavoritesMenu = () => {
   const handleShow = () => setShow(true);
   const handleSelectPin = (pin) => {setSelectedPin(pin);};
 
-  useEffect(() => {
+useEffect(() => {
+  if (show) { // Fetch th pin data only when the menu is opened
     pinService
       .getAll()
       .then((response) => {
-      console.log("Fetched pins:", response);
-      setFetchedPins(response);
+        console.log("Fetched pins from DB:", response);
+        setFetchedPins(response);
       })
       .catch((error) => {
         console.error('Error fetching pins:', error);
       });
-  }, []);
+  }
+}, [show]);
 
   // WHEN CLICKING 'SAVE'
   const handleSave = () => {
@@ -43,7 +45,29 @@ const FavoritesMenu = () => {
       alert('Please enter a title for your save.');
       return;
     };
-    const pinCoordinates = selectedPin === 'red' ? redPin : bluePin;
+    let pinCoordinates;
+    if (selectedPin === 'red') {
+      if (redPin === null ||redPin.lat === null || redPin.lng === null) {
+        alert('No red pin placed');
+        return;
+      }
+      pinCoordinates = {
+        lat: redPin.lat,
+        lng: redPin.lng
+      };
+    } else if (selectedPin === 'blue') {
+      if (bluePin === null || bluePin.capLat === null || bluePin.capLng === null) {
+        alert('No blue pin placed');
+        return;
+      }
+      pinCoordinates = {
+        lat: bluePin.capLat,
+        lng: bluePin.capLng
+      };
+    } else {
+      alert('Invalid pin type');
+      return;
+    }
     const pinData = {
       pinType: selectedPin,
       title: saveTitle,
@@ -183,11 +207,7 @@ const FavoritesMenu = () => {
                           {pin.title}
                         </div>
                         <div>
-                          {pin.pinType === "red" ? (
-                            `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
-                          ) : (
-                            `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
-                          )}
+                          `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
                         </div>
                       </div>
                       <div>
@@ -231,11 +251,9 @@ const FavoritesMenu = () => {
                           </div>
                         )}
                         <div className='faded'>
-                          {pin.pinType === 'red' ? (
-                            `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
-                          ) : (
-                            `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
-                          )}
+
+                          `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
+
                         </div>
                       </div>
                       {pin.pinType === 'red' ? (
@@ -264,11 +282,7 @@ const FavoritesMenu = () => {
                           {pin.title}
                         </div>
                         <div>
-                          {pin.pinType === "red" ? (
                           `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
-                          ) : (
-                          `Coordinates: ${pin.coordinates.capLat.toFixed(2)}, ${pin.coordinates.capLng.toFixed(2)}`
-                          )}
                         </div>
                       </div>
                       <div>
