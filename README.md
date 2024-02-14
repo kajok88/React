@@ -1,3 +1,5 @@
+
+
 # Harjoitustyö
 
 **Tämä harjoitustyö on tehty selainohjelmoinnin kurssia varten, johon on myös liitetty paikannusteknologiat -kurssin harjoitustyö -osuus.**
@@ -49,9 +51,11 @@
 
 - Apien yhteensovittaminen tuottaa myös haasteita; Se mitä reverse geokoodaus antaa esim. maan nimeksi, ei välttämättä ole samaa muotoa kuin restCountries apissa, josta k.o. maan lisätiedot pitäisi hakea.
   > Esim:
-  > reverse Geokoodaus antaa Venäjän nimeksi: "Russian Federation (the)",
-  > kun taas RestCountries api tuo Venäjästä tiedot nimen "Russia" alta.
-  > Tämänlaisia yhteensopivuusongelmia voi tietysti koittaa korjata (muutama maa on
-  > korjattu GetGeoData.jsx komponentissa), mutta kaikkien 250 maan läpi käyminen vie
+  > reverse Geokoodaus antaa Venäjän nimeksi: "Russian Federation (the)", 
+  > kun taas RestCountries api tuo Venäjästä tiedot nimen "Russia" alta. 
+  > Tämänlaisia yhteensopivuusongelmia voi tietysti koittaa korjata (muutama maa on 
+  > korjattu GetGeoData.jsx komponentissa), mutta kaikkien 250 maan läpi käyminen vie 
   > kyllä oman aikansa, jos siihen ryhtyy.
-  >
+  
+# Arkkitehtuuri
+![reactht_architecture](https://github.com/kajok88/React/assets/102037428/842adae8-87ab-421f-9526-1b70268e55b9)
