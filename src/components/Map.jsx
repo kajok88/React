@@ -2,25 +2,20 @@ import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { LayersControl, MapContainer, TileLayer, Marker, Popup, ZoomControl, useMapEvents } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
+import '../App.css'
 import L from "leaflet";
 import { Icon } from "leaflet";
 import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
-
 import Container from 'react-bootstrap/Container';
 import { Row, Col } from 'react-bootstrap';
 import CloseButton from 'react-bootstrap/CloseButton';
-
-import '../App.css'
-
 import GetGeoData from "./GetGeoData";
 import WeatherInfo from "./WeatherInfo";
 import { useContainerState } from '../contexts/ContainerStateContext';
 import { usePinContext } from '../contexts/PinContext';
 import { useApiKey } from '../contexts/ApiKeyContext';
-
-const { BaseLayer } = LayersControl;
 
 const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [map, setMap] = useState(null);
@@ -31,6 +26,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const { fetchedRedPin, fetchedBluePin, setPin, capitalPins, capitalPinColor } = usePinContext();
   const [localTime, setLocalTime] = useState(null);
   const { timezoneApiKey } = useApiKey();
+  const { BaseLayer } = LayersControl;
 
   const API_KEY = timezoneApiKey;
 

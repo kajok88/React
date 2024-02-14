@@ -10,7 +10,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import { usePinContext } from '../contexts/PinContext';
 import '../App.css'
 import { differenceInDays } from 'date-fns';
-import pinService from '../services/pins'
+import pinService from '../services/pinService'
 
 const FavoritesMenu = () => {
   const { redPin, bluePin, setFetchedPin } = usePinContext();
@@ -183,7 +183,7 @@ useEffect(() => {
             </Button>
           </div> 
 
-          {/* THIS IS THE TABS MENU FOR DISPLAYING/EDITING CONTENT IN DATABASE */}
+          {/* THIS IS THE TABS MENU FOR DISPLAYING/EDITING CONTENT IN THE DATABASE */}
           <div className='mt-5'> 
             <Tabs
               defaultActiveKey="fetch"
@@ -207,7 +207,7 @@ useEffect(() => {
                           {pin.title}
                         </div>
                         <div>
-                          `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
+                          Coordinates: {pin.coordinates.lat.toFixed(2)}, {pin.coordinates.lng.toFixed(2)}
                         </div>
                       </div>
                       <div>
@@ -251,9 +251,7 @@ useEffect(() => {
                           </div>
                         )}
                         <div className='faded'>
-
-                          `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
-
+                          Coordinates: {pin.coordinates.lat.toFixed(2)}, {pin.coordinates.lng.toFixed(2)}
                         </div>
                       </div>
                       {pin.pinType === 'red' ? (
@@ -282,7 +280,7 @@ useEffect(() => {
                           {pin.title}
                         </div>
                         <div>
-                          `Coordinates: ${pin.coordinates.lat.toFixed(2)}, ${pin.coordinates.lng.toFixed(2)}`
+                          Coordinates: {pin.coordinates.lat.toFixed(2)}, {pin.coordinates.lng.toFixed(2)}
                         </div>
                       </div>
                       <div>

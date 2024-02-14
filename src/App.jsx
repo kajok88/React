@@ -1,31 +1,17 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Countries from "./components/Countries";
-import CountryForm from "./components/CountryForm";
-import SubmitApiKeys from "./components/SubmitApiKeys";
-import Leaflet from "./components/Leaflet";
-import Map from "./components/Map";
-import GetCountryCoodrinates from "./components/GetCountryCoordinates";
-
-import Search from "./components/Search";
-
 import "./App.css"
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
+import { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-import Card from "react-bootstrap/Card";
 import { Row, Col } from 'react-bootstrap';
-
 import ApiSubmitPage from "./components/SubmitApiKeys";
 import FavoritesMenu from "./components/FavoritesMenu";
+import Countries from "./components/Countries";
+import CountryForm from "./components/CountryForm";
+import GetCountryCoodrinates from "./components/GetCountryCoordinates";
 import MoreMenu from "./components/MoreMenu";
-
-import { CountryDataProvider } from "./contexts/CountryDataContext";
 import { useCountryData } from "./contexts/CountryDataContext";
 
 
