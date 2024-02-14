@@ -15,6 +15,11 @@ import MoreMenu from "./components/MoreMenu";
 import { useCountryData } from "./contexts/CountryDataContext";
 
 
+// THE BASE COMPONENT, THAT ALSO IS RESPONSIBLE FOR THE NAVIGARTION BAR.
+// ALSO CALLS FOR THE DRAWING OF THE MAP, AS WELL AS THE COUNTRY FORM FOR 
+// DISPLAYING DATA OF A SEARCHED COUNTRY.
+
+
 const App = () => {
   const [query, setQuery] = useState("");
   const countries = useCountryData();
@@ -42,7 +47,10 @@ const App = () => {
   
   return (
     <>
+      {/* THE NAVIGATION BAR */}
       <Navbar bg="dark" data-bs-theme="dark" sticky="top">
+
+        {/* LINK TO SUBMIT/MODIFY APIKEYS */}
         <Container>
           <Navbar.Brand href="#home">
             <img
@@ -59,6 +67,7 @@ const App = () => {
           </Nav>
         </Container>
 
+        {/* THE SEARCH FORM/FIELD */}
         <Container>
           <Nav className="mx-auto">
             <Form onSubmit={handleSubmit}>
@@ -71,11 +80,11 @@ const App = () => {
                 value={query}
                 onChange={handleQueryChange}
               />
-              
             </Form>
           </Nav>
         </Container>
 
+        {/* LINK TO MORE MENU AND FAVORITES*/}
         <Container>
           <Nav className="ms-auto">
             <MoreMenu></MoreMenu>
@@ -86,6 +95,7 @@ const App = () => {
         </Container>
       </Navbar>
         
+      {/* THE SEARCH TABLE THAT APPEARS WHEN TYPING QUERY */}
       <div>
         <div>
           <Container className="">
@@ -106,6 +116,7 @@ const App = () => {
           </Container>           
         </div>
         
+        {/* DISPLAYING OF THE COUNTRY FORM */}
         <div>
           {countriesToShow.length === 1 ? (
             <Container className="">
@@ -119,6 +130,8 @@ const App = () => {
             </Container>
           ) : null}
         </div>
+
+        {/* CALL FOR DRAWING OF THE MAP */}
         <div>
           {countriesToShow.length === 1 ? (
             <>
