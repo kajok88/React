@@ -23,6 +23,7 @@ const WeatherInfo = ({ city, lat, lng }) => {
         setError(error.response ? error.response.data.error.message : "An error occurred");
       });
       console.log("NEW WEATHER API CALL MADE")
+      setError(null); // Prevents from error remaining in state.
   }, [lat, lng]);
 
 
