@@ -1,6 +1,6 @@
 import "../App.css"
 import WeatherInfo from "./WeatherInfo";
-
+import axios from "axios";
 import CountryForm from "./CountryForm";
 
 import React, { useEffect, useState } from 'react';
@@ -80,38 +80,31 @@ const GetGeoData = ({ coordinates, pin }) => {
         console.log("RED PIN COORDINATES: ", {roundedCoordinates});
       }
 
-      const apiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${roundedCoordinates.lat}&longitude=${roundedCoordinates.lng}&localityLanguage=en`;
+      axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${roundedCoordinates.lat}&longitude=${roundedCoordinates.lng}&localityLanguage=en`)
+      .then(response => {
+        console.log("Reverse geocoding by pin coordinates response: ", response.data);
 
-      fetch(apiUrl)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Bad request");
-          }
-          return response.json();
-        })
-        .then(data => {
-          console.log("Reverse geocoding by pin coordinates response: ", data);
+        const data = response.data;
+        const countryName = convertCountryName(data.countryName);
+        setCity(data.city);
+        setCountry(countryName);
+        setGeoData(data);
+        setError(null);
 
-          const countryName = convertCountryName(data.countryName);
-          setCity(data.city);
-          setCountry(countryName);
-          setGeoData(data);
-          setError(null);
-
-          const matchedCountry = findMatchingCountry(countryName);
-          if (matchedCountry) {
-            console.log("Response from Restcountries by matching Country name: ", matchedCountry);
-            setCountryData(matchedCountry);
-          } else {
-            console.log("No matching country found. Consider adding a new instace to function convertCountryName().");
-            setCountryData(null);
-          }
-
-        })
-        .catch(error => {
-          console.error('Error fetching data from api.bigdatacloud.net:', error)
-          setError(error.message);
-        });
+        // FIND MATCHING COUNTRY FROM COUNTRYDATACONTEXT FOR COMBINING DATA (IN RETURN SECTION)
+        const matchedCountry = findMatchingCountry(countryName);
+        if (matchedCountry) {
+          console.log("Response from RestCountries by matching country name: ", matchedCountry);
+          setCountryData(matchedCountry);
+        } else {
+          console.log("No matching country found. Consider adding a new instance to function: convertCountryName().");
+          setCountryData(null);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data from api.bigdatacloud.net:', error);
+        setError(error.message);
+      });
     }
     else {
       console.log("Unexpected error.")
