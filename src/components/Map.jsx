@@ -180,7 +180,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
       </div>
       <div> {/* FOR DRAWING THE BLUE PIN */}
         {bluePinPosition ? (
-          <Marker position={[bluePinPosition.capLat, bluePinPosition.capLng]} 
+          <Marker position={[bluePinPosition.lat, bluePinPosition.lng]} 
             icon={handleIcon("blue")}>
             <Popup>Capital!</Popup>
           </Marker>

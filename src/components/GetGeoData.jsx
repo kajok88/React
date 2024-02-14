@@ -61,8 +61,8 @@ const GetGeoData = ({ coordinates, pin }) => {
 
       if (pin === "blue") {
         roundedCoordinates = {
-          lat: coordinates.capLat.toFixed(5),
-          lng: coordinates.capLng.toFixed(5)
+          lat: coordinates.lat.toFixed(5),
+          lng: coordinates.lng.toFixed(5)
         };
         setBluePinCoordinates(roundedCoordinates);
         handleContainerState('blueWeatherContainer', true);
