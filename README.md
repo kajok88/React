@@ -57,4 +57,5 @@
 
 # Arkkitehtuuri
 
-![reactht_architecture](https://github.com/kajok88/React/assets/102037428/842adae8-87ab-421f-9526-1b70268e55b9)
+![reactht_architecture](https://github.com/kajok88/React/assets/102037428/b5b05d53-dbb5-47e0-9bd4-e2f170b67030)
+
