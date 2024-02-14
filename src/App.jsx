@@ -35,6 +35,10 @@ const App = () => {
   const handleClose = () => {
     setCountriesToShow([]); // This essentially resets the component
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Currently prevents reload by pressing Enter, as accident reload refreshes everything.
+  }
   
   return (
     <>
@@ -57,7 +61,7 @@ const App = () => {
 
         <Container>
           <Nav className="mx-auto">
-            <Form >
+            <Form onSubmit={handleSubmit}>
               <Form.Control
                 id="search"
                 type="search"
