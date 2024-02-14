@@ -28,43 +28,30 @@
 
 **Tietokanta:**
 
-- MongoDB
+- MongoDB Atlas
 
 **Apit:**
 
-    - Kaupunkitieto Api: https://documenter.getpostman.com/view/1134062/T1LJjU52#intro
     - Maatieto Api: https://restcountries.com/v3.1/all
-    - Sää Api: https://www.weatherapi.com/
-    - Kartta Api: https://developer.mapquest.com/user/login
+    - Sää Api: https://www.weatherapi.com/ 
     - Reverse Geocoding Api: https://www.bigdatacloud.com/free-api/free-reverse-geocode-to-city-api#endpoint
-    - Toinen geocoding Api: https://openweathermap.org/api/geocoding-api#direct_name
-    - Paikallisaika api: https://timezonedb.com/
+    - Paikallisaika Api: https://timezonedb.com/
+
+> WeatherApi ja TimezoneDB tarvitsevat kirjautumisen, jotta käyttöön saa api avaimen.
 
 **Setup:**
 
-- npm intall
+- npm install
+- npm run dev
 
-**Muistiinpanot**
 
-> molempien pinnien koordinaateista tehdään reverse geokoodaushaku joka palauttaa kaupungin ja maan
->
->> kaupunki:
->>
->>> menee säänhaku komponentille ja näyttää sään molemmille pinnille.
->>>
->>
->> maa:
->>
->>> menee countryforms komponentille ja näyttää maatiedon molemmista pinneistä.
->>>
->>
-
-**Muuta/Huomioita:**
+**Muuta/Omia huomioita:**
 
 - Apien yhteensovittaminen tuottaa myös haasteita; Se mitä reverse geokoodaus antaa esim. maan nimeksi, ei välttämättä ole samaa muotoa kuin restCountries apissa, josta k.o. maan lisätiedot pitäisi hakea.
   > Esim:
-  > reverse Geokoodaus antaa Venäjän nimeksi: "Russian Federation (the)", 
-  > kun taas RestCountries api tuo Venäjästä tiedot nimen "Russia" alta. 
-  > Tämänlaisia yhteensopivuusongelmia voi tietysti koittaa korjata (muutama maa on 
-  > korjattu GetGeoData.jsx komponentissa), mutta kaikkien 250 maan läpi käyminen vie 
+  > reverse Geokoodaus antaa Venäjän nimeksi: "Russian Federation (the)",
+  > kun taas RestCountries api tuo Venäjästä tiedot nimen "Russia" alta.
+  > Tämänlaisia yhteensopivuusongelmia voi tietysti koittaa korjata (muutama maa on
+  > korjattu GetGeoData.jsx komponentissa), mutta kaikkien 250 maan läpi käyminen vie
   > kyllä oman aikansa, jos siihen ryhtyy.
+  >
