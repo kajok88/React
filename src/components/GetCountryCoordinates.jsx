@@ -1,5 +1,8 @@
 import Map from "./Map";
 
+// FINDS THE GENERAL COORDINATES AND CAPITAL'S COORDINATES BASED ON THE NAME OF THE COUNTRY GIVEN.
+// CALLS THE MAP COMPONENT, WHICH SETS THE MAP VIEW ON THE SEARCHED COUNTRY AND PLACES BLUE PIN ON ITS CAPITAL .
+
 const GetCountryCoordinates = ({ country, }) => {
   try {
     if (country) {
@@ -25,8 +28,7 @@ const GetCountryCoordinates = ({ country, }) => {
         </>
       );
     } else {
-      // The view the map gets when starting the first time
-      // <Map countryCoordinates={{lat:59.225, lng:18.105}} />
+      // Triggers the default map view in the map component, that is set to specific coordinates.
       return <Map noCoordinates={true} />;
     }
   } catch (error) {

@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
+// A CONTEXT FOR STORING THE FETCHED 250 COUNTRIES FROM RESTCOUNTRIES API.
+
+
 const CountryDataContext = createContext();
 
 export const useCountryData = () => useContext(CountryDataContext);
-
 export const CountryDataProvider = ({ children }) => {
   const [countries, setCountries] = useState([]);
 

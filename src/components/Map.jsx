@@ -17,6 +17,10 @@ import { useContainerState } from '../contexts/ContainerStateContext';
 import { usePinContext } from '../contexts/PinContext';
 import { useApiKey } from '../contexts/ApiKeyContext';
 
+
+// THE MAIN MAP COMPONENT, THAT USES REACT-LEAFLET, DRAWS PINS/MARKERS AND DIFERENT CONTAINERS IN THE MAPVIEW.
+
+
 const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
@@ -297,7 +301,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
         <div>
           {noCoordinates ? (
             <MapContainer 
-            center={[44, 22]}
+            center={[44, 22]} // THE DEFAULT VIEW e.g. WHEN STARTING THE APPLICATION
             zoom={3}
 
             style={{ height: '94vh', width: '100%' }}

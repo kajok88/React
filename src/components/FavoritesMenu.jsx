@@ -12,6 +12,9 @@ import '../App.css'
 import { differenceInDays } from 'date-fns';
 import pinService from '../services/pinService'
 
+// DISPLAYS A MENU ON THE NAVBAR, WHERE YOU CAN SAVE PINS TO THE DATABASE,
+// AS WELL AS FETCH, EDIT AND DELETE SAVED PINS
+
 const FavoritesMenu = () => {
   const { redPin, bluePin, setFetchedPin } = usePinContext();
   const [selectedPin, setSelectedPin] = useState(null);

@@ -7,6 +7,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import GetAllCapitals from './GetAllCapitals';
 import "../App.css"
 
+// DISPLAYS A MENU ON THE NAVBAR, WHERE YOU CAN LOCATE ALL THE WORLD'S CAPITALS,
+// WITH 4 AVAILABLE PIN COLORS, THROUGH THE GETALLCAPITALS.jsx -COMPONENT.
+
 const MoreMenu = () => {
   const [show, setShow] = useState(false);
   const [selectedColor, setSelectedColor] = useState('green');
@@ -19,7 +22,7 @@ const MoreMenu = () => {
     console.log("Pin color set to:", color);
   };
 
-
+  // SETUP FOR THE DIFFERENT PINS
   const pins = [
 
     { id: 'greenPin', label: 'Green', value: 'green' },

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useApiKey } from '../contexts/ApiKeyContext';
 
+// THIS COMPONENT IS RESPONSIBLE FOR FETCHING WEATHER DATA FROM WEATHERAPI BASED ON GIVEN COORDINATES.
 
 const WeatherInfo = ({ city, lat, lng }) => {
   const { weatherApiKey } = useApiKey();
@@ -22,11 +23,11 @@ const WeatherInfo = ({ city, lat, lng }) => {
       .catch((error) => {
         setError(error.response ? error.response.data.error.message : "An error occurred");
       });
-      console.log("NEW WEATHER API CALL MADE")
+      // console.log("NEW WEATHERAPI CALL MADE")
       setError(null); // Prevents from error remaining in state.
   }, [lat, lng]);
 
-
+  
   if (error) {
     return (
       <>
@@ -36,7 +37,6 @@ const WeatherInfo = ({ city, lat, lng }) => {
       </>
     )
   }
-
 
   return (
     <>

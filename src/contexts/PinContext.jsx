@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+// A CONTEXT FOR STORING THE DATA ( color and coordinates ) OF THE PLACED PIN ON THE MAP, 
+// AS WELL AS STORES THE FETCHED PINS FROM THE DATABASE, THAT CAN BE ACCESSED BY THE MAP COMPONENT.
+// ALSO STORES THE DATA OF THE 245 CAPITAL PINS AND THEIR PIN COLOR, AS WELL AS THEIR VISIBILITY (true/false).
+
 const PinContext = createContext();
 
 export const usePinContext = () => useContext(PinContext);
-
 export const PinProvider = ({ children }) => {
   const [redPin, setRedPin] = useState(null);
   const [bluePin, setBluePin] = useState(null);

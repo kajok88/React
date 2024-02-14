@@ -3,6 +3,7 @@ import "../App.css"
 
 const CountryForm = ({ country, handleClose }) => {
 
+  // RETURNS THE BLUE BORDERED COUNTRY DATA FOR THE SEARCHED COUNTRY
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -11,7 +12,7 @@ const CountryForm = ({ country, handleClose }) => {
           className='hide-container-button'
         />
         <h1 style={{ marginRight: "auto" }}>{country.name.common}</h1>
-        {Object.keys(country.coatOfArms).length !== 0 ? (
+        {Object.keys(country.coatOfArms).length !== 0 ? (  // if the coat of arms is present in the response of the specific country
           <img
             src={country.coatOfArms.png}
             alt={`${country.name.common} coat of arms`}
@@ -23,10 +24,10 @@ const CountryForm = ({ country, handleClose }) => {
         
       </div>
       <h3>Capital: {country.capital}</h3>
-      <div>Area: {country.area} km²</div>
-      <h3>Languages:</h3>
+      <h4>Area: {country.area} km²</h4>
+      <h4>Languages:</h4>
       <ul>
-        {country.languages ? (
+        {country.languages ? (  
           Object.values(country.languages).map((language, index) => (
             <li key={index}>{language}</li>
           ))
@@ -35,7 +36,6 @@ const CountryForm = ({ country, handleClose }) => {
         )}
       </ul>
       <img src={country.flags.png} alt={`${country.name.common} flag`} />
-      {/* <WeatherInfo city={country.capital} lat="61" lng="24" /> */}
     </div>
   );
 };

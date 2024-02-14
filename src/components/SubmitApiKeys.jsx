@@ -5,11 +5,12 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import { useApiKey } from '../contexts/ApiKeyContext';
-import { useContainerState } from '../contexts/ContainerStateContext';
+
+// DISPLAYS A MENU ON THE NAVBAR, WHERE YOU CAN SUBMIT AND MODIFY YOUR APIKEYS.
+// APIKEYS ARE SAVED IN APIKEYCONTEXT, HOWEVER A RELOAD RESETS THEM.
 
 const ApiSubmitPage = () => {
   const { weatherApiKey, setWeatherApiKey, timezoneApiKey, setTimezoneApiKey } = useApiKey();
-  const { handleContainerState } = useContainerState();
   const [inputValueWeather, setInputValueWeather] = useState('');
   const [inputValueTimezone, setInputValueTimezone] = useState('');
   const [show, setShow] = useState(false);
@@ -20,27 +21,21 @@ const ApiSubmitPage = () => {
   const handleWeatherApiKeyChange = (event) => {
     const value = event.target.value;
     setInputValueWeather(value);
-    //setWeatherApiKey(value);
   };
 
   const handleTimezoneApiKeyChange = (event) => {
     const value = event.target.value;
     setInputValueTimezone(value);
-    //setTimezoneApiKey(value);
   };
 
   const handleSubmitWeather = () => {
-    // Clears the input field after submitting
     setWeatherApiKey(inputValueWeather);
     setInputValueWeather('');
-    //window.location.reload();
   };
 
   const handleSubmitTimezone = () => {
-    // Clears the input field after submitting
     setTimezoneApiKey(inputValueTimezone);
     setInputValueTimezone('');
-    //window.location.reload();
   };
 
   

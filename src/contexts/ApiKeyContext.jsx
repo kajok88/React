@@ -1,5 +1,8 @@
 import React, { createContext, useState, useContext } from 'react';
 
+// A CONTEXT FOR STORING API KEYS, HOWEVER THEY WILL RESET ON PAGE RELOAD.
+
+
 const ApiKeyContext = createContext();
 
 export const ApiKeyProvider = ({ children }) => {
