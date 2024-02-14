@@ -33,8 +33,6 @@ const ApiSubmitPage = () => {
     // Clears the input field after submitting
     setWeatherApiKey(inputValueWeather);
     setInputValueWeather('');
-    handleContainerState('blueWeatherContainer', false);
-    handleContainerState('redWeatherContainer', false);
     //window.location.reload();
   };
 
