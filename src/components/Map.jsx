@@ -36,7 +36,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
 
   useEffect(() => {
     if (fetchedRedPin) {
-      console.log("GOT IT, RED");
+      // console.log("GOT IT, RED");
       console.log([fetchedRedPin.coordinates.lat, fetchedRedPin.coordinates.lng]);
       console.log(fetchedRedPin.coordinates);
       setRedPinPosition(fetchedRedPin.coordinates);
@@ -45,7 +45,7 @@ const Map = ({ countryCoordinates, capitalCoordinates, noCoordinates }) => {
 
   useEffect(() => {
     if (fetchedBluePin) {
-      console.log("GOT IT, BLUE");
+      // console.log("GOT IT, BLUE");
       console.log(fetchedBluePin.coordinates);
       setBluePinPosition(fetchedBluePin.coordinates);
     }
