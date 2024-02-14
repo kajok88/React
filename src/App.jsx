@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import { Row, Col } from 'react-bootstrap';
-import ApiSubmitPage from "./components/SubmitApiKeys";
+import SubmitApiKeys from "./components/SubmitApiKeys";
 import FavoritesMenu from "./components/FavoritesMenu";
 import Countries from "./components/Countries";
 import CountryForm from "./components/CountryForm";
@@ -63,7 +63,7 @@ const App = () => {
             Location Weather and Data
           </Navbar.Brand>
           <Nav className="me-auto">
-            <ApiSubmitPage></ApiSubmitPage>
+            <SubmitApiKeys></SubmitApiKeys>
           </Nav>
         </Container>
 
