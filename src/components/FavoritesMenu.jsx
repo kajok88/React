@@ -56,13 +56,13 @@ useEffect(() => {
         lng: redPin.lng
       };
     } else if (selectedPin === 'blue') {
-      if (bluePin === null || bluePin.capLat === null || bluePin.capLng === null) {
+      if (bluePin === null || bluePin.lat === null || bluePin.lng === null) {
         alert('No blue pin placed');
         return;
       }
       pinCoordinates = {
-        lat: bluePin.capLat,
-        lng: bluePin.capLng
+        lat: bluePin.lat,
+        lng: bluePin.lng
       };
     } else {
       alert('Invalid pin type');
