@@ -11,11 +11,14 @@ const GetCountryCoordinates = ({ country, }) => {
       // Checking if capitalInfo exists in the country object. Example: Antarctica doesn't have a capital.
       const capitalCoordinates = country.capitalInfo && country.capitalInfo.latlng
         ? {
-            capLat: country.capitalInfo.latlng[0],
-            capLng: country.capitalInfo.latlng[1]
+            // capLat: country.capitalInfo.latlng[0],
+            // capLng: country.capitalInfo.latlng[1]
+            lat: country.capitalInfo.latlng[0],
+            lng: country.capitalInfo.latlng[1]
+            
           }
         : null;
-  
+      
       return (
         <>
           <Map 

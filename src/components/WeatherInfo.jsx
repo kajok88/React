@@ -22,7 +22,7 @@ const WeatherInfo = ({ city, lat, lng }) => {
       .catch((error) => {
         setError(error.response ? error.response.data.error.message : "An error occurred");
       });
-      console.log("NEW API CALL MADE")
+      console.log("NEW WEATHER API CALL MADE")
   }, [lat, lng]);
 
 

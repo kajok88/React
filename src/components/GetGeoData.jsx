@@ -215,10 +215,12 @@ const GetGeoData = ({ coordinates, pin }) => {
           null
         )}
       </div>
+
+      {/* WEATHER CONTAINER FOR BLUE PIN */}
       <div>
         {pin === "blue" ? (
           <div>
-          {geoData &&  containerState.blueWeatherContainer? (
+          {geoData && containerState.blueWeatherContainer? (
             <>
             <Container>
                 <Row className="justify-content-center align-items-center">

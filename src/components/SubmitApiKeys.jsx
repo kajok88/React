@@ -5,9 +5,11 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import { useApiKey } from '../contexts/ApiKeyContext';
+import { useContainerState } from '../contexts/ContainerStateContext';
 
 const ApiSubmitPage = () => {
   const { weatherApiKey, setWeatherApiKey, timezoneApiKey, setTimezoneApiKey } = useApiKey();
+  const { handleContainerState } = useContainerState();
   const [inputValueWeather, setInputValueWeather] = useState('');
   const [inputValueTimezone, setInputValueTimezone] = useState('');
   const [show, setShow] = useState(false);
@@ -31,6 +33,8 @@ const ApiSubmitPage = () => {
     // Clears the input field after submitting
     setWeatherApiKey(inputValueWeather);
     setInputValueWeather('');
+    handleContainerState('blueWeatherContainer', false);
+    handleContainerState('redWeatherContainer', false);
     //window.location.reload();
   };
 
