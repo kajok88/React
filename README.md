@@ -108,4 +108,12 @@
 
     - Jokin huomautus/alertti jos ei ole backend/tietokantayhteyttä.
 
-    - Lisää virheidenhallintaa
+---
+
+## FullStackOpen -osuus
+
+FullStackOpen tehtäviä on tullut tehtyä Osa 3, tehtävään 3.9 asti. Nämä löytyvät omista brancheista:
+
+> - Part2: Tehtävät 2.17 asti,
+> - Countries: Tehtävät 2.18-2.20,
+> - Phonebook: Tehtävät 3.9 asti.
