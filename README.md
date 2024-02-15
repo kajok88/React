@@ -3,10 +3,6 @@
 **Setup terminaalista:**
 
 - npm install
-- npm install axios
-- npm install json-server
-
-- npm install -g react-devtools
 
 ---
 
