@@ -1,4 +1,4 @@
-# Harjoitustyö
+# Harjoitustyö - React
 
 **Tämä harjoitustyö on tehty selainohjelmoinnin kurssia varten, johon on myös liitetty paikannusteknologiat -kurssin harjoitustyö.**
 
