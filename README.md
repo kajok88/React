@@ -47,6 +47,7 @@
 # Arkkitehtuuri
 
 ![reactht_architecture](https://github.com/kajok88/React/assets/102037428/b5b05d53-dbb5-47e0-9bd4-e2f170b67030)
+> Kyseinen draw.io tiedosto löytyy myös tämän projektin kansiosta diagrams. Näyttäminen vaatii draw.io lisäosan VSCodeen.
 
 **Tietokanta:**
 
